@@ -14,6 +14,6 @@ if(mysqli_stmt_prepare($stmt,"DELETE FROM wishlist WHERE id=?")){
     header("Location: wishlist.html");
 }
 
-exit()
+exit();
 
 ?>
