@@ -88,7 +88,7 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project has no license - see the [LICENSE.md](LICENSE.md) file for details
+This project has no license.
 All rights and content are reserved to the authors.
 
 ## Acknowledgments
