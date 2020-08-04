@@ -13,7 +13,7 @@ if(mysqli_stmt_prepare($stmt,"DELETE FROM wishlist WHERE id=?")){
     mysqli_stmt_execute($stmt);
     header("Location: wishlist.html");
 }
-
+header("Location: error/404.html");
 exit();
 
 ?>
