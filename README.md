@@ -23,10 +23,10 @@ __*Client-side compatibility requirements for web browsers*__
 Desktop
 1. [Chrome 80+](https://www.google.com/chrome/)
 2. [Firefox 70+](https://www.mozilla.org/en-US/firefox/new/)
-3. [Safari 5+](https://support.apple.com/downloads/safari)(Not supported on Windows)
+3. [Safari 5+](https://support.apple.com/downloads/safari) (Not supported on Windows)
 3. [Opera 60-70](https://www.opera.com/tl/download)
-4. [Internet Explorer 11](https://www.microsoft.com/en-us/download/internet-explorer.aspx)(only supported for Windows users)
-5. [Microsoft Edge](https://www.microsoft.com/en-us/edge)(only supported on Windows and Linux)
+4. [Internet Explorer 11](https://www.microsoft.com/en-us/download/internet-explorer.aspx) (only supported for Windows users)
+5. [Microsoft Edge](https://www.microsoft.com/en-us/edge) (only supported on Windows and Linux)
 
 Smartphones, and tablets, notebooks
 
@@ -69,7 +69,7 @@ Internet connection is needed to support Favicons.
 * [Bootstrap 4](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
 * [Composer](https://getcomposer.org/) PHP Dependency Manager
 * [Modernizr.js](https://maven.apache.org/) - Feature Detection libary for HTML/CSS/Javascript
-* [SajuGuju Minimal PSD E-commerce Template] - UX/UI template
+* [SajuGuju Minimal PSD E-commerce Template](https://themeforest.net/item/sajuguju-minimal-psd-ecommerce-template/21381396) - UX/UI template
 
 ## Contributing
 
