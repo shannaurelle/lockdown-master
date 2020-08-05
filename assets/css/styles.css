@@ -45,7 +45,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     line-height: 24px;
-    color: #333;
+    color: #fff;
 }
 .floatleft {
     float: left;
@@ -89,7 +89,7 @@ a {
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     text-decoration: none;
-    color: #999;
+    color: #fff;
 }
 a:hover {
     color: #333;
@@ -139,7 +139,7 @@ div {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 .bg-1 {
-    background: #f5f5f5;
+    background: #0F2634; /* Affects footer */ /* IMPORTANT */
 }
 .bg-img-1 {
     background: url(../images/bg/1.jpg) no-repeat center center / cover;
@@ -281,6 +281,13 @@ a#scrollUp:hover {
 }
 
 /*------header-area start------*/
+
+/* ADDED */
+.header-area {
+    background: #0F2634;
+}
+/* ADDED */
+
 .logo {
     padding: 19px 0;
 }
@@ -295,12 +302,12 @@ a#scrollUp:hover {
 }
 .mainmenu ul li:hover>a,
 .mainmenu ul li.active>a {
-    color: #333;
+    color: #70EC8E;
 }
-.mainmenu ul li>ul.submenu {
+.mainmenu ul li>ul.submenu { /* IMPORTANT */
     position: absolute;
     width: 160px;
-    background: #fff;
+    background: #0F2634; /*Affects list*/
     padding: 20px 0px;
     transition: all .3s;
     -webkit-transition: all .3s;
@@ -348,7 +355,7 @@ a#scrollUp:hover {
     position: absolute;
     z-index: 99;
     padding: 30px;
-    background: #fff;
+    background: #0F2634;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, .1);
     visibility: hidden;
     opacity: 0;
@@ -390,10 +397,10 @@ a#scrollUp:hover {
     padding-left: 0px;
 }
 .search-wrapper ul li a {
-    color: #333;
+    color: #fff; /* For icons at navbar */
 }
 .search-wrapper ul li:hover>a {
-    color: #999;
+    color: #70EC8E;
 }
 .search-wrapper ul li>ul {
     position: absolute;
@@ -406,7 +413,7 @@ a#scrollUp:hover {
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, .1);
-    background: #fff;
+    background: #0F2634;
     right: 0;
 }
 .search-wrapper ul li:hover>ul {
@@ -441,7 +448,7 @@ a#scrollUp:hover {
     background: #d7d7d7;
     border: none;
     top: 0;
-    color: #999;
+    color: #fff;
 }
 .search li button:hover {
     background: #999;
@@ -463,10 +470,10 @@ a#scrollUp:hover {
     margin-right: 15px;
 }
 .cart-content a {
-    color: #333;
+    color: #fff;
 }
 .cart-content a:hover {
-    color: #999;
+    color: #70EC8E;
 }
 .cart-content span {
     display: block;
@@ -494,7 +501,7 @@ a#scrollUp:hover {
     margin-top: 25px;
 }
 .cart-wrap li button:hover {
-    background: #333;
+    background: #70EC8E;
 }
 .account-wrap {
     width: 170px;
@@ -503,6 +510,7 @@ a#scrollUp:hover {
 .account-wrap li {
     line-height: 28px;
 }
+
 /*------header-area end------*/
 
 /*---------responsiv-area start -----------*/
@@ -615,19 +623,19 @@ a#scrollUp:hover {
     position: absolute;
     top: 50%;
     width: 40px;
-    background: #d7d7d7;
+    background: #0F2634;
     height: 40px;
     margin-top: -22px;
     text-align: center;
     z-index: 10;
-    color: #999;
+    color: #fff;
     cursor: pointer;
     line-height: 40px;
 }
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    background: #999;
-    color: #fff;
+    background: #70EC8E;
+    color: #0F2634;
 }
 .swiper-slide {
     overflow: hidden;
@@ -661,11 +669,13 @@ a#scrollUp:hover {
     justify-content: center;
 }
 .slider-content h2 {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     font-size: 36px;
     line-height: 54px;
     margin-bottom: 30px;
 }
 .slider-content p {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     margin-bottom: 50px;
     font-weight: 500;
 }
@@ -673,13 +683,13 @@ a#scrollUp:hover {
     display: inline-block;
     font-weight: 500;
     padding: 12px 40px;
-    color: #333;
+    color: #0F2634;
     font-size: 16px;
     border: 1px solid #acacac;
 }
 .slider-content a:hover {
-    background: #999;
-    border-color: #999;
+    background: #70EC8E;
+    border-color: #0F2634;
 }
 /*------slider-area start------*/
 
@@ -688,6 +698,7 @@ a#scrollUp:hover {
     padding: 100px 0px 70px;
 }
 .section-title h2 {
+    color: #000;
     font-size: 30px;
     padding-bottom: 25px;
     position: relative;
@@ -759,6 +770,7 @@ a#scrollUp:hover {
     text-align: center;
 }
 .category-wrap h3 {
+    color: #000;
     width: 160px;
     height: 50px;
     line-height: 50px;
@@ -1148,11 +1160,12 @@ a#scrollUp:hover {
     border-radius: 50%;
     text-align: center;
     display: block;
-    background: #999;
-    color: #fff;
+    background: #70EC8E;
+    color: #0F2634;
 }
 .socil-icon li a:hover {
-    background: #333;
+    background: #fff;
+    color: #70EC8E;
 }
 .modal-content button {
     position: absolute;
@@ -1365,16 +1378,16 @@ a#scrollUp:hover {
     line-height: 30px;
 }
 .footer-menu ul li a {
-    color: #333;
+    color: #fff;
 }
 .footer-menu ul li a:hover {
-    color: #999;
+    color: #70EC8E;
 }
 .footer-contact ul li {
     margin-bottom: 15px;
     padding-left: 35px;
     position: relative;
-    color: #333;
+    color: #fff;
 }
 .footer-contact ul li:last-child {
     margin-bottom: 0px;
@@ -1396,7 +1409,7 @@ a#scrollUp:hover {
 }
 .footer-contact input {
     background: transparent;
-    border: 1px solid #b7b7b7;
+    border: 1px solid #fff;
     height: 40px;
     width: 100%;
     padding: 0px 40px 0px 20px;
@@ -1412,13 +1425,17 @@ a#scrollUp:hover {
     color: #fff;
 }
 .footer-contact button:hover {
-    background: #999;
+    background: #70EC8E;
 }
 .footer-buttom {
     padding: 20px 0px;
+    background: #70EC8E;
 }
-.footer-buttom p {
-    color: #333;
+.footer-buttom p, .footer-widget p {
+    color: #fff;
+}
+.footer-widget h2 {
+    color: #70EC8E;
 }
 .footer-buttom ul {
     -webkit-box-pack: end;
@@ -1432,14 +1449,18 @@ a#scrollUp:hover {
     margin-left: 0px;
 }
 .footer-buttom ul li a {
-    color: #333;
+    color: #fff;
 }
 .footer-buttom ul li a:hover {
-    color: #999;
+    color: #70EC8E;
 }
 /*------footer-area end------*/
 
 /*mobal-subscribe*/
+
+.modal-subscribe, .modal-close {
+    background: #0F2634;
+}
 .subscribe-dialog {
     max-width: 900px;
     margin: 200px auto;
