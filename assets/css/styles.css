@@ -1457,6 +1457,10 @@ a#scrollUp:hover {
 /*------footer-area end------*/
 
 /*mobal-subscribe*/
+
+.modal-subscribe, .modal-close {
+    background: #0F2634;
+}
 .subscribe-dialog {
     max-width: 900px;
     margin: 200px auto;
