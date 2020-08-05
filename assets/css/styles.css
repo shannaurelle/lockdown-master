@@ -139,7 +139,7 @@ div {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 .bg-1 {
-    background: #f5f5f5;
+    background: #f5fffa;
 }
 .bg-img-1 {
     background: url(../images/bg/1.jpg) no-repeat center center / cover;
