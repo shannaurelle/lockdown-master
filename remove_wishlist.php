@@ -1,12 +1,12 @@
 <?php
 
-$con = mysqli_connect('localhost','root','','lockdown-storage');
+$connection = mysqli_connect('localhost','root','','lockdown-storage');
 if(mysqli_connect_errno()){
-    printf("Connect error: %s \n",mysqli_connect_error);
+    printf("Connect error: %s \n",mysqli_connect_error());
 }
 
 $wishlist_id = filter_var($_POST['wishlist_id'],FILTER_SANITIZE_NUMBER_INT);
-$stmt = mysqli_stmt_init($con);
+$stmt = mysqli_stmt_init($connection);
 
 if(mysqli_stmt_prepare($stmt,"DELETE FROM wishlist WHERE id=?")){
     mysqli_stmt_bind_param($stmt,'i',$wishlist_id);

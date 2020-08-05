@@ -1,13 +1,13 @@
 <?php
 
-$con = mysqli_connect('localhost','root','','lockdown-storage');
+$connection = mysqli_connect('localhost','root','','lockdown-storage');
 if(mysqli_connect_errno()){
-    printf("Connect error: %s \n",mysqli_connect_error);
+    printf("Connect error: %s \n",mysqli_connect_error());
 }
 $account_id = filter_var($_POST['account_id'],FILTER_SANITIZE_NUMBER_INT);
 $product_id = filter_var($_POST['product_id'],FILTER_SANITIZE_NUMBER_INT);
 $cart_owner = filter_var($_POST['cart_owner'],FILTER_VALIDATE_STRING);
-$stmt = mysqli_stmt_init($con);
+$stmt = mysqli_stmt_init($connection);
 
 $sql = "INSERT INTO cart_items (product_id, account_id, cart_owner) VALUES (?,?,?)";
 
