@@ -139,7 +139,7 @@ div {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 .bg-1 {
-    background: #f5fffa;
+    background: #98ff98; /* Affects footer */ /* IMPORTANT */
 }
 .bg-img-1 {
     background: url(../images/bg/1.jpg) no-repeat center center / cover;
@@ -297,10 +297,10 @@ a#scrollUp:hover {
 .mainmenu ul li.active>a {
     color: #333;
 }
-.mainmenu ul li>ul.submenu {
+.mainmenu ul li>ul.submenu { /* IMPORTANT */
     position: absolute;
     width: 160px;
-    background: #fff;
+    background: #fff; /*Affects list*/
     padding: 20px 0px;
     transition: all .3s;
     -webkit-transition: all .3s;
