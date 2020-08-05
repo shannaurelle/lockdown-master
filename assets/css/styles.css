@@ -1160,11 +1160,12 @@ a#scrollUp:hover {
     border-radius: 50%;
     text-align: center;
     display: block;
-    background: #999;
-    color: #fff;
+    background: #70EC8E;
+    color: #0F2634;
 }
 .socil-icon li a:hover {
-    background: #333;
+    background: #fff;
+    color: #70EC8E;
 }
 .modal-content button {
     position: absolute;
@@ -1408,7 +1409,7 @@ a#scrollUp:hover {
 }
 .footer-contact input {
     background: transparent;
-    border: 1px solid #b7b7b7;
+    border: 1px solid #fff;
     height: 40px;
     width: 100%;
     padding: 0px 40px 0px 20px;
