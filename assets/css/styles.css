@@ -142,7 +142,7 @@ div {
     background: #0F2634; /* Affects footer */ /* IMPORTANT */
 }
 .bg-img-1 {
-    background: url(../images/bg/1.jpg) no-repeat center center / cover;
+    background: #70EC8E;
 }
 .bg-img-2 {
     background: url(../images/bg/2.png) no-repeat center center / cover;
@@ -641,13 +641,13 @@ a#scrollUp:hover {
     overflow: hidden;
 }
 .slide-inner1 {
-    background: url(../images/slider/1.jpg);
+    background: url(../images/slider/bg.png);
 }
 .slide-inner2 {
-    background: url(../images/slider/2.jpg);
+    background: url(../images/slider/bg.png);
 }
 .slide-inner3 {
-    background: url(../images/slider/3.jpg);
+    background: url(../images/slider/bg.png);
 }
 .slide-inner {
     position: absolute;
@@ -669,13 +669,13 @@ a#scrollUp:hover {
     justify-content: center;
 }
 .slider-content h2 {
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    color: black;
     font-size: 36px;
     line-height: 54px;
     margin-bottom: 30px;
 }
 .slider-content p {
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    color: black;
     margin-bottom: 50px;
     font-weight: 500;
 }
@@ -2821,4 +2821,10 @@ ol {
     height: 500px;
     width: 100%;
     background: #999;
+}
+.account-form p, label{
+    color: black;
+}
+.breadcumb-wrap h2, li{
+    color: black;
 }
