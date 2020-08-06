@@ -84,10 +84,6 @@ img {
     -moz-transition: all .3s;
 }
 a {
-    -webkit-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
     text-decoration: none;
     color: #fff;
 }
