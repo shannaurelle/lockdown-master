@@ -61,6 +61,7 @@ img {
     overflow: hidden
 }
 p {
+    color: #000;
     margin: 0px;
 }
 h1,
@@ -69,6 +70,7 @@ h3,
 h4,
 h5,
 h6 {
+    color: #000;
     margin-bottom: 10px;
     margin-top: 0px;
 }
@@ -85,10 +87,10 @@ img {
 }
 a {
     text-decoration: none;
-    color: #fff;
+    color: #000;
 }
 a:hover {
-    color: #333;
+    color: #70EC8E;
 }
 
 a:active,
@@ -2228,8 +2230,8 @@ shop single style here
 }
 .single-product-menu ul li a.active,
 .single-product-menu ul li a:hover {
-    background: #999;
-    color: #fff;
+    background: #000;
+    color: #70EC8E;
     border-color: #999;
 }
 .description-wrap p {
