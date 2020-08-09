@@ -45,7 +45,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     line-height: 24px;
-    color: #fff;
+    color: #000;
 }
 .floatleft {
     float: left;
@@ -87,7 +87,7 @@ img {
 }
 a {
     text-decoration: none;
-    color: #000;
+    color: #fff;
 }
 a:hover {
     color: #70EC8E;
@@ -2222,6 +2222,7 @@ shop single style here
     color: #999
 }
 .single-product-menu ul li a {
+    color: #000;
     padding: 10px 30px;
     text-transform: uppercase;
     display: block;
@@ -2831,7 +2832,7 @@ ol {
     color: black;
 }
 .breadcumb-wrap h2, li{
-    color: black;
+    color: #70EC8E;
 }
 /*===================================================
                 additional CSS edits
