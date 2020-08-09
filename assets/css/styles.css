@@ -2831,10 +2831,17 @@ ol {
 .breadcumb-wrap h2, li{
     color: black;
 }
+/*===================================================
+                additional CSS edits
+=====================================================*/
 .login-text{
     padding:0;
     font-size:1em;
 }
 .text-hint{
     opacity: 0.5;
+}
+.text-hint:hover{
+    color: #70EC8E;
+    
 }
