@@ -45,17 +45,17 @@ You can also download apache distributions like WAMPP, XAMPP, MAMP, and LAMP
 
 ## Running the tests
 
-Right now, the project is still the development. Information will be available soon.
+Right now, the project is still in development. Information will be available soon.
 ### Break down into end to end tests
 
 
-Right now, the project is still the development. Information will be available soon.
+Right now, the project is still in development. Information will be available soon.
 
 
 ### And coding style tests
 
 
-Right now, the project is still the development. Information will be available soon.
+Right now, the project is still in development. Information will be available soon.
 
 
 ## Deployment
