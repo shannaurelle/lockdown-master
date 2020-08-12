@@ -433,7 +433,7 @@ $con=mysqli_connect("localhost", "root", "");
                             echo "</ul>";
                             echo "</div>";
                             echo "<div class='product-content fix'>";
-                            echo "<h3><a href='single-product.html'>" . $row['product_name'] . "</a></h3>";
+                            echo "<h3><a href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
                             echo "<span class='pull-left'> $" . $row['product_price'] . "</span>";
                             echo "<ul class='pull-right'>";
                             echo "<li><i class='fa fa-star'></i></li>";
