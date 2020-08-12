@@ -1,10 +1,31 @@
+<?php
+
+    $con=mysqli_connect("localhost", "root", "");
+    if (mysqli_connect_errno()){
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    else{
+        session_start();
+        mysqli_select_db($con, 'lockdown-storage');
+        $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $_GET['id']. "' ");
+        
+        $article_results = mysqli_fetch_array($query);
+    }
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sajuguju - Shop Single</title>
+    <title>
+        <?php
+            // Product Name //
+            echo $article_results['product_name'];
+        ?>
+    </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
@@ -250,9 +271,19 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="product-single-content">
-                        <h3>Flower Vase</h3>
+                        <h3>
+                            <?php
+                                // Product Name //
+                                echo $article_results['product_name'];
+                            ?>
+                        </h3>
                         <div class="rating-wrap fix">
-                            <span class="pull-left">$219.56</span>
+                            <span class="pull-left">$
+                                <?php
+                                    // Product Price //
+                                    echo $article_results['product_price'];
+                                ?>
+                            </span>
                             <ul class="rating pull-right">
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>
@@ -262,10 +293,15 @@
                                 <li>(05 Customar Review)</li>
                             </ul>
                         </div>
-                        <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs</p>
+                        <p>
+                            <?php
+                                // Product Description //
+                                echo $article_results['product_description'];
+                            ?>
+                        </p>
                         <ul class="input-style">
                             <li class="quantity cart-plus-minus">
-                                <input type="text" value="1" />
+                                <input type="number" value="1" min="1" max="<?php echo $article_results['product_volume']?>" />
                             </li>
                             <li><a href="cart.html">Add to Cart</a></li>
                         </ul>
@@ -317,8 +353,12 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="description">
                             <div class="description-wrap">
-                                <p>we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. </p>
-                                <p>These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. </p>
+                                <p>
+                                    <?php
+                                        // Product Description //
+                                        echo $article_results['product_description'];
+                                    ?>
+                                </p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tag">
