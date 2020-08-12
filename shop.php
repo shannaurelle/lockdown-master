@@ -370,7 +370,7 @@ $con=mysqli_connect("localhost", "root", "");
                                 $page_no = 1;
                                 }
 
-                            $total_records_per_page = 4;
+                            $total_records_per_page = 16;
                             $offset = ($page_no-1) * $total_records_per_page;
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
