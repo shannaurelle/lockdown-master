@@ -255,56 +255,57 @@ $con=mysqli_connect("localhost", "root", "");
                     </div>
                 </div>
             </div>
-            <div class="row filter-active">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <div class="row filter-active">
                 <div class="col-12">
                     <div class="filter-wrap">
                         <div class="row">
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
                                 <h3 class="filter-title">Sort by</h3>
-                                <ul class="sort-by">
-                                    <li class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" value="new" checked>
-                                      <label class="form-check-label">
-                                        Newness
-                                      </label>
-                                    </li>
-                                    <li class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" value="popular">
-                                      <label class="form-check-label">
-                                        Popularity
-                                      </label>
-                                    </li>
-                                    <li class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" value="rating">
-                                      <label class="form-check-label">
-                                        Average rating
-                                      </label>
-                                    </li>
-                                    <li class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" value="pricelow">
-                                      <label class="form-check-label">
-                                        Price: Low to High
-                                      </label>
-                                    </li>
-                                    <li class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" value="pricehigh">
-                                      <label class="form-check-label">
-                                        Price: High to Low
-                                      </label>
-                                    </li>
-                                    <li class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" value="volumelow">
-                                      <label class="form-check-label">
-                                        Volume: Low to High
-                                      </label>
-                                    </li>
-                                    <li class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" value="volumehigh">
-                                      <label class="form-check-label">
-                                        Volume: High to Low
-                                      </label>
-                                    </li>
-                                </ul>
+                                    <ul class="sort-by">
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="new" checked>
+                                          <label class="form-check-label">
+                                            Newness
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="popular">
+                                          <label class="form-check-label">
+                                            Popularity
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="rating">
+                                          <label class="form-check-label">
+                                            Average rating
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="pricelow">
+                                          <label class="form-check-label">
+                                            Price: Low to High
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="pricehigh">
+                                          <label class="form-check-label">
+                                            Price: High to Low
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="volumelow">
+                                          <label class="form-check-label">
+                                            Volume: Low to High
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="volumehigh">
+                                          <label class="form-check-label">
+                                            Volume: High to Low
+                                          </label>
+                                        </li>
+                                    </ul>
                             </div>
                             <!-- Product Filter -->
                             <!--
@@ -357,17 +358,34 @@ $con=mysqli_connect("localhost", "root", "");
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
+            </form>
             <div class="tab-content">
                 <div class="tab-pane active" id="all">
                     <ul class="row">
                     <?php
+                        $sql = "SELECT * FROM `products`";
                         if (isset($_GET['search'])){
                             $result = mysqli_query($con,"SELECT * FROM `products` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC");
                         }
-                        else {
-                            $result = mysqli_query($con,"SELECT * FROM `products` ORDER BY product_date DESC");
+                        if (isset($_GET['sortbyfilter'])) {
+                            if ($_GET['sortbyfilter'] == "new") {
+                                $sql .= " ORDER BY product_date DESC";
+                            }
+                            elseif ($_GET['sortbyfilter'] == "pricehigh") {
+                                $sql .= " ORDER BY product_price DESC";
+                            }
+                            elseif ($_GET['sortbyfilter'] == "pricelow") {
+                                $sql .= " ORDER BY product_price ASC";
+                            }
+                            elseif ($_GET['sortbyfilter'] == "volumehigh") {
+                                $sql .= " ORDER BY product_volume DESC";
+                            }
+                            elseif ($_GET['sortbyfilter'] == "volumelow") {
+                                $sql .= " ORDER BY product_volume ASC";
+                            }
                         }
+                        $result = mysqli_query($con,$sql);
                         while($row = mysqli_fetch_array($result)){
                             echo "<li class='col-lg-3 col-sm-6 col-12'>";
                             echo "<div class='product-wrap'>";
