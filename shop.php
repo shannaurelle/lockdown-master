@@ -262,17 +262,52 @@ $con=mysqli_connect("localhost", "root", "");
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
                                 <h3 class="filter-title">Sort by</h3>
                                 <ul class="sort-by">
-                                    <li><a href="#">Default</a></li>
-                                    <li><a href="#">Popularity</a></li>
-                                    <li><a href="#">Average rating</a></li>
-                                    <li><a href="#">Newness</a></li>
-                                    <li><a href="#">Price: Low to High</a></li>
-                                    <li><a href="#">Price: High to Low</a></li>
-                                    <li><a href="#">Volume: Low to High</a></li>
-                                    <li><a href="#">Volume: High to Low</a></li>
+                                    <li class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" value="new" checked>
+                                      <label class="form-check-label">
+                                        Newness
+                                      </label>
+                                    </li>
+                                    <li class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" value="popular">
+                                      <label class="form-check-label">
+                                        Popularity
+                                      </label>
+                                    </li>
+                                    <li class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" value="rating">
+                                      <label class="form-check-label">
+                                        Average rating
+                                      </label>
+                                    </li>
+                                    <li class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" value="pricelow">
+                                      <label class="form-check-label">
+                                        Price: Low to High
+                                      </label>
+                                    </li>
+                                    <li class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" value="pricehigh">
+                                      <label class="form-check-label">
+                                        Price: High to Low
+                                      </label>
+                                    </li>
+                                    <li class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" value="volumelow">
+                                      <label class="form-check-label">
+                                        Volume: Low to High
+                                      </label>
+                                    </li>
+                                    <li class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" value="volumehigh">
+                                      <label class="form-check-label">
+                                        Volume: High to Low
+                                      </label>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- Product Filter -->
+                            <!--
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
                                 <h3 class="filter-title">color filters</h3>
                                 <ul class="color-filter">
@@ -283,6 +318,7 @@ $con=mysqli_connect("localhost", "root", "");
                                     <li><a href="#">Yellow</a></li>
                                 </ul>
                             </div>
+                            -->
                             <!-- Product Filter -->
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
                                 <h3 class="filter-title">product tags</h3>
