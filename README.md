@@ -45,7 +45,15 @@ You can also download apache distributions like WAMPP, XAMPP, MAMP, and LAMP
 
 ## Running the tests
 
-Right now, the project is still in development. Information will be available soon.
+For now, tests involving the system include the checkout page of the site.
+The system uses a sandbox url of the Paymaya API for online entrprises.
+The mock credit/debit cards are given [here](https://mock-processor-sandbox.paymaya.com/cards)
+
+
+To test this using localhost, type the link: localhost/lockdown-master/payment-gateway.php
+
+
+To test this with your custom url, type this instead: www.myurl.com/payment-gateway.php 
 ### Break down into end to end tests
 
 
