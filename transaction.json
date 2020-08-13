@@ -1,0 +1,108 @@
+{
+    "totalAmount": {
+      "value": 100,
+      "currency": "PHP",
+      "details": {
+        "discount": 0,
+        "serviceCharge": 0,
+        "shippingFee": 0,
+        "tax": 0,
+        "subtotal": 100
+      }
+    },
+    "buyer": {
+      "firstName": "Shann Aurelle",
+      "middleName": "Graniten",
+      "lastName": "Ripalda",
+      "birthday": "2001-02-03",
+      "customerSince": "2010-10-25",
+      "sex": "M",
+      "contact": {
+        "phone": "+639181008888",
+        "email": "merchant@merchantsite.com"
+      },
+      "shippingAddress": {
+        "firstName": "Shann Aurelle",
+        "middleName": "Graniten",
+        "lastName": "Ripalda",
+        "phone": "+639181008888",
+        "email": "merchant@merchantsite.com",
+        "line1": "6F Launchpad",
+        "line2": "Reliance Street",
+        "city": "Mandaluyong City",
+        "state": "Metro Manila",
+        "zipCode": "1552",
+        "countryCode": "PH",
+        "shippingType": "ST"
+      },
+      "billingAddress": {
+        "line1": "6F Launchpad",
+        "line2": "Reliance Street",
+        "city": "Mandaluyong City",
+        "state": "Metro Manila",
+        "zipCode": "1552",
+        "countryCode": "PH"
+      }
+    },
+    "items": [
+      {
+        "name": "100kg fresh tomatoes",
+        "quantity": 1,
+        "code": "CVG-096732",
+        "description": "Fruits and Vegetables",
+        "amount": {
+          "value": 100,
+          "details": {
+            "discount": 0,
+            "serviceCharge": 0,
+            "shippingFee": 0,
+            "tax": 0,
+            "subtotal": 100
+          }
+        },
+        "totalAmount": {
+          "value": 200,
+          "details": {
+            "discount": 0,
+            "serviceCharge": 0,
+            "shippingFee": 0,
+            "tax": 0,
+            "subtotal": 200
+          }
+        }
+      },
+      {
+        "name": "100kg fresh potatoes",
+        "quantity": 1,
+        "code": "CVG-096732",
+        "description": "Fruits and Vegetables",
+        "amount": {
+          "value": 100,
+          "details": {
+            "discount": 0,
+            "serviceCharge": 0,
+            "shippingFee": 0,
+            "tax": 0,
+            "subtotal": 100
+          }
+        },
+        "totalAmount": {
+          "value": 100,
+          "details": {
+            "discount": 0,
+            "serviceCharge": 0,
+            "shippingFee": 0,
+            "tax": 0,
+            "subtotal": 100
+          }
+        }
+      }
+    ],
+    "redirectUrl": {
+      "success": "http://localhost/lockdown-master/shop.php?checkout=success",
+      "failure": "http://localhost/lockdown-master/failure/",
+      "cancel": "http://localhost/lockdown-master/cancel/"
+    },
+    "requestReferenceNumber": "1551191039",
+    "metadata": {}
+  }
