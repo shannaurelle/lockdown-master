@@ -303,7 +303,7 @@
                             <li class="quantity cart-plus-minus">
                                 <input type="number" value="1" min="1" max="<?php echo $article_results['product_volume']?>" />
                             </li>
-                            <li><a href="cart.html">Add to Cart</a></li>
+                            <li><a href="add_cart.php?product_id=<?php echo $article_results['product_id'];?>">Add to Cart</a></li>
                         </ul>
                         <ul class="cetagory">
                             <li>Categories:</li>
