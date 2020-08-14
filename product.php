@@ -300,10 +300,12 @@
                             ?>
                         </p>
                         <ul class="input-style">
+                            <form method="post" action="add_cart.php"></form>
                             <li class="quantity cart-plus-minus">
-                                <input type="number" value="1" min="1" max="<?php echo $article_results['product_volume']?>" />
+                                <input name="product_volume" type="number" value="1" min="1" max="<?php echo $article_results['product_volume']?>" />
+                                <input type="hidden" name="product_id" value="<?php echo $article_results['product_id']; ?>">
                             </li>
-                            <li><a href="cart.html">Add to Cart</a></li>
+                            <li><button type="submit" value="Submit">Add to Cart</button></li>
                         </ul>
                         <ul class="cetagory">
                             <li>Categories:</li>

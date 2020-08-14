@@ -421,7 +421,7 @@ $con=mysqli_connect("localhost", "root", "");
                             echo "<div class='product-img'>";
                             echo "<img src='assets/images/product/1.jpg' alt=''>";
                             echo "<ul class='icon'>";
-                            echo "<li><a href='cart.html'><i class='fa fa-shopping-cart'></i></a>";
+                            echo "<li><a href='add_cart.php?product_id=" . $row['product_id'] . '"><i class='fa fa-shopping-cart'></i></a>";
                             echo "<span>Add to cart</span>";
                             echo "</li>";
                             echo "<li><a href='wishlist.html'><i class='fa fa-heart'></i></a>";
