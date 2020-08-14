@@ -32,7 +32,21 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
+    <!--province and cities dropdowns -->
+    <script src="assets/js/city.js"></script>
+    <!-- philippine-provinces and cities onload function-->
+    <script type="text/javascript">	
+      window.onload = function() {	
+      
+        // ---------------
+        // basic usage
+        // ---------------
+        var $ = new City();
+        $.showProvincesOnDatalist("#province","#province_list");
+        $.showCitiesOnText("#city");
+        
+      }
+      </script>	
     <style type="text/css">
         /* Style the form */
         #regForm {
@@ -74,6 +88,7 @@
           background-color: #4CAF50;
         }
     </style>
+    
 </head>
 
 <body>
@@ -143,30 +158,55 @@
         <!-- One "tab" for each step in the form: -->
         <div class="tab container form-group">
           <div class="form-row">
-            <div class="col mr-4"><label for="First Name">First Name</label></div>
-            <div class="col mr-4"><label for="Last Name">Last Name</label></div>
-            <div class="col mr-4"><label for="Email">Email</label></div>
-            <div class="col"><label for="Phone Number">Phone Number</label></div>
+            <div class="col mr-4"><label for="First Name" class="form-label">First Name</label></div>
+            <div class="col mr-4"><label for="Last Name" class="form-label">Middle Name</label></div>
+            <div class="col mr-4"><label for="Last Name" class="form-label">Last Name</label></div>
           </div>
           <div class="form-row">
             <div class="col mr-4"><input class="form-control" type="text" name="first_name" oninput="this.className = 'form-control'"></div>
+            <div class="col mr-4"><input class="form-control" type="text" name="middle_name" oninput="this.className = 'form-control'"></div>
             <div class="col mr-4"><input class="form-control" type="text" name="last_name"oninput="this.className = 'form-control'"></div>
+          </div>
+          <div class="form-row mt-2">
+            <div class="col mr-4"><label for="Phone Number" class="form-label">Phone Number</label></div>
+            <div class="col mr-4"><label for="Email" class="form-label">Email</label></div>    
+          </div>
+          <div class="form-row">
             <div class="col mr-4"><input class="form-control" type="email" name="email" oninput="this.className = 'form-control'"></div>
-            <div class="col"><input class="form-control" type="text" name="phone_number" oninput="this.className = 'form-control'"></div>
+            <div class="col mr-4"><input class="form-control" type="text" name="phone_number" oninput="this.className = 'form-control'"></div>
           </div>
         </div>
 
         <div class="tab">
           <div class="form-row">
             <div class="col mr-4"><label for="Address">Address</label></div>
-            <div class="col mr-4"><label for="Field of Interest">Field of Interest</label></div>
-            <div class="col mr-4"><label for="Paymaya Cellphone Number">Paymaya Cellphone Number</label></div>
-            <div class="col mr-4"><label for="TIN Number">TIN No.</label></div>
           </div>
           <div class="form-row">
             <div class="col mr-4">
               <input type="text" class="form-control" name="address" oninput="this.className = 'form-control'">
             </div>
+          </div>
+          <div class="form-row mt-2">
+            <div class="col mr-4"><label for="Address">Province</label></div>
+            <div class="col mr-4"><label for="Address">City/Municipality</label></div>
+          </div>
+          <div class="form-row">
+            <div class="col mr-4">
+              <input type="text" class="form-control" id="province" name="province" list="province_list" oninput="this.className = 'form-control'">
+              <datalist id="province_list"></datalist>
+            </div>
+            <div class="col mr-4">
+              <input type="text" class="form-control" name="city" list="city" oninput="this.className = 'form-control'">
+              <datalist id="city"></datalist>
+              <input type="text" name="country" value="PH" hidden>
+            </div>
+          </div>
+          <div class="form-row mt-2">
+            <div class="col mr-4"><label for="Field of Interest">Field of Interest</label></div>
+            <div class="col mr-4"><label for="Paymaya Cellphone Number">Paymaya Cellphone Number</label></div>
+            <div class="col mr-4"><label for="TIN Number">TIN No.</label></div>
+          </div>
+          <div class="form-row">
             <div class="col mr-4">
               <input type="text" class="form-control" placeholder="e.g. Hardware, Agriculture" name="field_of_interest" oninput="this.className = 'form-control'" list='foi'>
               <datalist id='foi'>
@@ -194,7 +234,7 @@
             <div class="col mr-4"><input type="file" name="business_permit"></div>
             <div class="col mr-4"><input type="file" name="government_ID_picture"></div>
           </div>
-          <div class="form-row">
+          <div class="form-row mt-2">
             <div class="col mr-4"><label for="Selfie with Government ID">Selfie with Government ID</label></div>
             <div class="col mr-4"><label for="Additional Certifications">Additional Certifications</label></div>
           </div>
@@ -220,13 +260,7 @@
 
     </form>
     <!-- checkout-area end -->
-
-
-
-
-
-
-
+    
     <script type="text/javascript">
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
