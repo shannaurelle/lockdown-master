@@ -45,6 +45,15 @@ $con=mysqli_connect("localhost", "root", "");
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- open modal on add to cart -->
+    <?php
+    if(isset($_GET['product_id']))
+        echo "<script type='text/javascript'>
+        $(document).ready(function(){
+        $('#Modal').modal('show');
+        });
+        </script>";
+    ?>
 </head>
 
 <body>
@@ -412,6 +421,9 @@ $con=mysqli_connect("localhost", "root", "");
                                 elseif ($_GET['sortbyfilter'] == "volumelow") {
                                     $sql .= " ORDER BY product_volume ASC";
                                 }
+                                elseif ($_GET['sortbyfilter'] == "popular") {
+                                    $sql .= " ORDER BY product_popularity DESC";
+                                }
                             }
                             $sql .= " LIMIT $offset, $total_records_per_page";
                             $result_1 = mysqli_query($con,$sql);
@@ -421,7 +433,7 @@ $con=mysqli_connect("localhost", "root", "");
                             echo "<div class='product-img'>";
                             echo "<img src='assets/images/product/1.jpg' alt=''>";
                             echo "<ul class='icon'>";
-                            echo "<li><a href='add_cart.php?product_id=" . $row['product_id'] . "'><i class='fa fa-shopping-cart'></i></a>";
+                            echo "<li><a class='add-cart' href='shop.php?product_id=" . $row['product_id'] . "'><i class='fa fa-shopping-cart'></i></a>";
                             echo "<span>Add to cart</span>";
                             echo "</li>";
                             echo "<li><a href='wishlist.html'><i class='fa fa-heart'></i></a>";
@@ -436,11 +448,9 @@ $con=mysqli_connect("localhost", "root", "");
                             echo "<h3><a href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
                             echo "<span class='pull-left'> $" . $row['product_price'] . "</span>";
                             echo "<ul class='pull-right'>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
+                            for($i=0; $i < $row['product_popularity']/20; $i++){
+                                echo "<li><i class='fa fa-star'></i></li>";
+                            }
                             echo "</ul>";
                             echo "</div>";
                             echo "</div>";
@@ -767,14 +777,6 @@ $con=mysqli_connect("localhost", "root", "");
                             <li><a href="#">Chair,</a></li>
                             <li><a href="#">Sitting</a></li>
                         </ul>
-                        <ul class="socil-icon">
-                            <li>Share :</li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -805,6 +807,7 @@ $con=mysqli_connect("localhost", "root", "");
     <script src="assets/js/jquery-ui.min.js"></script>
     <!-- main js -->
     <script src="assets/js/scripts.js"></script>
+    
 </body>
 
 </html>
