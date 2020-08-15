@@ -286,9 +286,9 @@
                         <li><a href="shop.html">Continue Shopping</a></li>
                     </ul>
                     <h3 class="d-inline">Want a trucker?</h3>
-                    <p>We recommend your trucker based on your address and volume available</p>
+                    <p>Recommended trucker is based on your address and volume available</p>
                     <div class="cupon-wrap">
-                        <input type="checkbox" value='Yes'>
+                        <input id='trucker' type="checkbox" value='Yes'>
                     </div>
                     <div class="w-100"></div>
                     <div class="cupon-wrap">
@@ -304,7 +304,7 @@
                         <li><span class="pull-left">Subtotal </span>$380.00</li>
                         <li><span class="pull-left"> Total </span> $380.00</li>
                     </ul>
-                    <a href="checkout.html">Proceed to Checkout</a>
+                    <a id='checkout_button' href="checkout.html">Proceed to Checkout</a>
         </div>
         </div>
         </div>
@@ -410,6 +410,19 @@
     <script src="assets/js/jquery-ui.min.js"></script>
     <!-- main js -->
     <script src="assets/js/scripts.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#checkout_button').hide();
+        $('#trucker').change(function(){
+        if (this.checked) {
+            $('#checkout_button').fadeIn('slow');
+        }
+        else {
+            $('#checkout_button').fadeOut('slow');
+        }                   
+    });
+    });
+    </script>
 </body>
 
 </html>
