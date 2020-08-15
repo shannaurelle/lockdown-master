@@ -1,12 +1,16 @@
 <?php
 
-$con=mysqli_connect("localhost", "root", "");
+    $con=mysqli_connect("localhost", "root", "");
     if (mysqli_connect_errno()){
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
     else{
         session_start();
         mysqli_select_db($con, 'lockdown-storage');
+        if(isset($_GET['product_id'])){
+            $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $_GET['product_id']. "' ");
+            $data = mysqli_fetch_array($query);
+        }
     }
 
 ?>
@@ -749,19 +753,6 @@ $con=mysqli_connect("localhost", "root", "");
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body d-flex">
-                    <?php
-                        if(isset($_GET['product_id'])){
-                            $product_id = filter_var($_GET['product_id'],FILTER_SANITIZE_NUMBER_INT);
-                            $stmt = mysqli_stmt_init($con);
-                            $sql = "SELECT * FROM products WHERE product_id = ?";
-
-                            if(mysqli_stmt_prepare($stmt,$sql)){
-                                mysqli_stmt_bind_param($stmt,'i',$product_id);
-                                $result = mysqli_stmt_execute($stmt);
-                                $data = mysqli_fetch_assoc($result);
-                            }
-                        }
-                    ?>
                     <div class="product-single-img w-50">
                         <img src="assets/images/product/product-details.jpg" alt="">
                     </div>
