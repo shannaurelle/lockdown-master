@@ -74,8 +74,9 @@ Internet connection is needed to support Favicons.
 
 ## Built With
 
-* [Bootstrap 4](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Bootstrap 4](http://www.dropwizard.io/1.0.2/docs/) - The CSS framework used
 * [Composer](https://getcomposer.org/) PHP Dependency Manager
+* [JQuery 2.2.4](https://code.jquery.com/) - The JavaScript library used
 * [Modernizr.js](https://maven.apache.org/) - Feature Detection libary for HTML/CSS/Javascript
 * [SajuGuju Minimal PSD E-commerce Template](https://themeforest.net/item/sajuguju-minimal-psd-ecommerce-template/21381396) - UX/UI template
 
