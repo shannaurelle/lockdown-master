@@ -62,7 +62,7 @@ $con=mysqli_connect("localhost", "root", "");
                 <div class="col-lg-3 col-6">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="assets/images/logo.png" alt="">
+                            <img src="assets/images/logo_lockdown_2.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -202,13 +202,23 @@ $con=mysqli_connect("localhost", "root", "");
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2>Shop Page</h2>
+                        <h2 class="text-dark">Shop Page</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><span>Shop</span></li>
+                            <li><span class="text-dark">Shop</span></li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="row mt-4">
+                <form class="mx-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <div class="input-group mb-3">
+                      <input name="search" type="text" class="form-control mr-4" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                        <button class="btn btn-light">Search</button>
+                      </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -216,17 +226,7 @@ $con=mysqli_connect("localhost", "root", "");
     <!-- product-area start -->
     <div class="product-area ptb-100">
         <div class="container">
-            <div class="row">
-                <form class="mx-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <div class="input-group mb-3">
-                      <input name="search" type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon2">
-                      <div class="input-group-append">
-                        <button class="loadmore-btn">Search</button>
-                      </div>
-                    </div>
-                </form>
-                
-            </div>
+            
             <div class="row">
                 <div class="col-sm-9 col-lg-10">
                     <div class="product-menu">
@@ -657,11 +657,6 @@ $con=mysqli_connect("localhost", "root", "");
             </div>
         </div>
     </div>
-
-
-
-
-
 
     <!-- product-area end -->
     <footer class="footer-area">
