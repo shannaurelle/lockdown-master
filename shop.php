@@ -50,14 +50,7 @@
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- open modal on add to cart -->
-    <?php
-    if(isset($_GET['product_id']))
-        echo "<script type='text/javascript'>
-        $(document).ready(function(){
-        $('#exampleModalCenter').modal('show');
-        });
-        </script>";
-    ?>
+    
 </head>
 
 <body>
@@ -388,7 +381,6 @@
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
                             $adjacents = "2"; 
-
                             
                             if (isset($_GET['search'])){
                                 $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC");
@@ -437,19 +429,19 @@
                             echo "<div class='product-img'>";
                             echo "<img src='assets/images/product/1.jpg' alt=''>";
                             echo "<ul class='icon'>";
-                            echo "<li><a class='add-cart' href='shop.php?product_id=" . $row['product_id'] . "'><i class='fa fa-shopping-cart'></i></a>";
+                            echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-shopping-cart'></i></a>";
                             echo "<span>Add to cart</span>";
                             echo "</li>";
                             echo "<li><a href='wishlist.html'><i class='fa fa-heart'></i></a>";
                             echo "<span>Add to Wishlist</span>";
                             echo "</li>";
-                            echo "<li><a data-toggle='modal' data-target='#exampleModalCenter' href='javascript:void(0);'><i class='fa fa-eye'></i></a>";
+                            echo "<li><a  href='javascript:void(0);'><i class='fa fa-eye'></i></a>";
                             echo "<span>Quick View</span>";
                             echo "</li>";
                             echo "</ul>";
                             echo "</div>";
                             echo "<div class='product-content fix'>";
-                            echo "<h3><a href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
+                            echo "<h3><a data-target='#myModal' data-toggle='modal' href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
                             echo "<span class='pull-left'> $" . $row['product_price'] . "</span>";
                             echo "<ul class='pull-right'>";
                             for($i=0; $i < $row['product_popularity']/20; $i++){
@@ -746,44 +738,19 @@
         </div>
     </footer>
     <!-- Modal area start -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1">
+    <div class="modal fade" id="itemModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body d-flex">
-                    <div class="product-single-img w-50">
-                        <img src="assets/images/product/product-details.jpg" alt="">
-                    </div>
-                    <div class="product-single-content w-50">
-                        <h3><?php echo $data['product_name']; ?></h3>
-                        <div class="rating-wrap fix">
-                            <span class="pull-left">₱ <?php echo $data['product_price']; ?></span>
-                            <ul class="rating pull-right">
-                                <?php for ($i = 0; $i<$data['product_rating']/20; $i++): ?>
-                                <li><i class="fa fa-star"></i></li>
-                                <?php endfor;?>
-                                <li>(05 Customer Review)</li>
-                            </ul>
-                        </div>
-                        <p><?php echo $data['product_description']; ?></p>
-                        <ul class="input-style">
-                            <li class="quantity cart-plus-minus">
-                                <input type="text" value="1" />
-                            </li>
-                            <li><a href=<?php echo "add_cart.php?product_id='".$product_id."'&ask=true"; ?>>Add to Cart</a></li>'
-                        </ul>
-                        <ul class="cetagory">
-                            <li>Categories:</li>
-                            <li><a href="#">Chair,</a></li>
-                            <li><a href="#">Sitting</a></li>
-                        </ul>
-                    </div>
+                    <div class="modal-wrapper"></div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Modal area end -->
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
@@ -810,6 +777,32 @@
     <!-- main js -->
     <script src="assets/js/scripts.js"></script>
     
+    <script type='text/javascript'>
+
+  $(document).ready(function(){
+
+  $('.iteminfo').click(function(){
+  
+  var item_id = $(this).data('id');
+
+  // AJAX request
+  $.ajax({
+   url: 'shop-item.php',
+   type: 'post',
+   data: {item_id: item_id},
+   success: function(response){ 
+     // Add response in Modal body
+     $('.modal-wrapper').html(response);
+
+     // Display Modal
+     $('#itemModal').modal('show'); 
+   }
+    });
+    });
+    });
+
+    </script>
+
 </body>
 
 </html>
