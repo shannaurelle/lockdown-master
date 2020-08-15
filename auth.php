@@ -12,7 +12,7 @@ else{
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $data = mysqli_fetch_assoc($result);
-        if(password_verify($password,$data['pass'])){
+        if(password_verify($password,$data['password'])){
             header('Location: shop.html');
         }
         else{
