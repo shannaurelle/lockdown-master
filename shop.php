@@ -50,7 +50,7 @@ $con=mysqli_connect("localhost", "root", "");
     if(isset($_GET['product_id']))
         echo "<script type='text/javascript'>
         $(document).ready(function(){
-        $('#Modal').modal('show');
+        $('#exampleModalCenter').modal('show');
         });
         </script>";
     ?>
@@ -749,28 +749,39 @@ $con=mysqli_connect("localhost", "root", "");
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body d-flex">
+                    <?php
+                        if(isset($_GET['product_id'])){
+                            $product_id = filter_var($_GET['product_id'],FILTER_SANITIZE_NUMBER_INT);
+                            $stmt = mysqli_stmt_init($con);
+                            $sql = "SELECT * FROM products WHERE product_id = ?";
+
+                            if(mysqli_stmt_prepare($stmt,$sql)){
+                                mysqli_stmt_bind_param($stmt,'i',$product_id);
+                                $result = mysqli_stmt_execute($stmt);
+                                $data = mysqli_fetch_assoc($result);
+                            }
+                        }
+                    ?>
                     <div class="product-single-img w-50">
                         <img src="assets/images/product/product-details.jpg" alt="">
                     </div>
                     <div class="product-single-content w-50">
-                        <h3>Flower Vase</h3>
+                        <h3><?php echo $data['product_name']; ?></h3>
                         <div class="rating-wrap fix">
-                            <span class="pull-left">$219.56</span>
+                            <span class="pull-left">₱ <?php echo $data['product_price']; ?></span>
                             <ul class="rating pull-right">
+                                <?php for ($i = 0; $i<$data['product_rating']/20; $i++): ?>
                                 <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li>(05 Customar Review)</li>
+                                <?php endfor;?>
+                                <li>(05 Customer Review)</li>
                             </ul>
                         </div>
-                        <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs</p>
+                        <p><?php echo $data['product_description']; ?></p>
                         <ul class="input-style">
                             <li class="quantity cart-plus-minus">
                                 <input type="text" value="1" />
                             </li>
-                            <li><a href="cart.html">Add to Cart</a></li>
+                            <li><a href=<?php echo "add_cart.php?product_id='".$product_id."'&ask=true"; ?>>Add to Cart</a></li>'
                         </ul>
                         <ul class="cetagory">
                             <li>Categories:</li>
@@ -782,7 +793,7 @@ $con=mysqli_connect("localhost", "root", "");
             </div>
         </div>
     </div>
-    <!-- Modal area start -->
+    <!-- Modal area end -->
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap js -->
