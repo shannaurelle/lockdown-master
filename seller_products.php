@@ -469,6 +469,7 @@
                         }
                             mysqli_close($con);
                     ?>
+                    </ul>
                     <ul>
                         <nav aria-label="Page navigation example">
                             <div class='text-center' style='padding: 10px 20px 0px; border-top: dotted 1px #CCC;'>
