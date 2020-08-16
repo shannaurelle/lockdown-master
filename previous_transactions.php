@@ -211,7 +211,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark">Pending Trades</h2>
+                        <h2 class="text-dark">Past Transactions</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="seller_products.php">Seller's List</a></li>
