@@ -24,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sajuguju - Pending Trades</title>
+    <title>Sajuguju - Past Transactions</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
@@ -215,7 +215,7 @@
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="seller_products.php">Seller's List</a></li>
-                            <li><span>Pending Trades</span></li>
+                            <li><span>Past Transactions</span></li>
                         </ul>
                     </div>
                 </div>
@@ -234,9 +234,9 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><span>Pending Trades</span></li>
-                            <li><a href="add_listing.php">Add Listings</a></li>
-                            <li><a href="previous_transactions.php">Past Transactions</a></li>
+                            <li><a href="pending_trades.html">Pending Trades</span></li>
+                            <li><a href="add_listing.html">Add Listings</a></li>
+                            <li><span>Past Transactions</a></li>
                         </ul>
                     </div>
                 </div>
