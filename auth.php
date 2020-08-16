@@ -14,6 +14,10 @@ else{
         $result = mysqli_stmt_get_result($stmt);
         $data = mysqli_fetch_assoc($result);
         if(password_verify($password,$data['password'])){
+            session_start();
+            $_SESSION['active'] = $data['username'];
+            $_SESSION['account_id'] = $data['account_id'];
+            $_SESSION['access'] = $data['access'];
             if ($data['access'] == "Buyer") {
                 header('Location: shop.php');
             }
