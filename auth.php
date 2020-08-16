@@ -16,7 +16,7 @@ else{
         if(password_verify($password,$data['password'])){
             session_start();
             $_SESSION['active'] = $data['username'];
-            $_SESSION['account_id'] = $data['account_id'];
+            $_SESSION['account_id'] = $data['id'];
             $_SESSION['access'] = $data['access'];
             if ($data['access'] == "Buyer") {
                 header('Location: shop.php');
