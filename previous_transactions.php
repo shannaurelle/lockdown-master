@@ -235,7 +235,7 @@
                     <div class="breadcumb-wrap text-center">
                         <ul>
                             <li><a href="pending_trades.html">Pending Trades</span></li>
-                            <li><a href="add_listing.html">Add Listings</a></li>
+                            <li><a href="add_listing.php">Add Listings</a></li>
                             <li><span>Past Transactions</a></li>
                         </ul>
                     </div>
