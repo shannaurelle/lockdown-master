@@ -1,12 +1,16 @@
 <?php
 
-$con=mysqli_connect("localhost", "root", "");
+    $con=mysqli_connect("localhost", "root", "");
     if (mysqli_connect_errno()){
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
     else{
         session_start();
         mysqli_select_db($con, 'lockdown-storage');
+        if(isset($_GET['product_id'])){
+            $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $_GET['product_id']. "' ");
+            $data = mysqli_fetch_array($query);
+        }
     }
 
 ?>
@@ -45,6 +49,8 @@ $con=mysqli_connect("localhost", "root", "");
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- open modal on add to cart -->
+    
 </head>
 
 <body>
@@ -375,7 +381,6 @@ $con=mysqli_connect("localhost", "root", "");
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
                             $adjacents = "2"; 
-
                             
                             if (isset($_GET['search'])){
                                 $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC");
@@ -412,6 +417,9 @@ $con=mysqli_connect("localhost", "root", "");
                                 elseif ($_GET['sortbyfilter'] == "volumelow") {
                                     $sql .= " ORDER BY product_volume ASC";
                                 }
+                                elseif ($_GET['sortbyfilter'] == "popular") {
+                                    $sql .= " ORDER BY product_popularity DESC";
+                                }
                             }
                             $sql .= " LIMIT $offset, $total_records_per_page";
                             $result_1 = mysqli_query($con,$sql);
@@ -421,26 +429,24 @@ $con=mysqli_connect("localhost", "root", "");
                             echo "<div class='product-img'>";
                             echo "<img src='assets/images/product/1.jpg' alt=''>";
                             echo "<ul class='icon'>";
-                            echo "<li><a href='add_cart.php?product_id=" . $row['product_id'] . "'><i class='fa fa-shopping-cart'></i></a>";
+                            echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-shopping-cart'></i></a>";
                             echo "<span>Add to cart</span>";
                             echo "</li>";
                             echo "<li><a href='wishlist.html'><i class='fa fa-heart'></i></a>";
                             echo "<span>Add to Wishlist</span>";
                             echo "</li>";
-                            echo "<li><a data-toggle='modal' data-target='#exampleModalCenter' href='javascript:void(0);'><i class='fa fa-eye'></i></a>";
+                            echo "<li><a  href='javascript:void(0);'><i class='fa fa-eye'></i></a>";
                             echo "<span>Quick View</span>";
                             echo "</li>";
                             echo "</ul>";
                             echo "</div>";
                             echo "<div class='product-content fix'>";
-                            echo "<h3><a href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
+                            echo "<h3><a data-target='#myModal' data-toggle='modal' href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
                             echo "<span class='pull-left'> $" . $row['product_price'] . "</span>";
                             echo "<ul class='pull-right'>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
-                            echo "<li><i class='fa fa-star'></i></li>";
+                            for($i=0; $i < $row['product_popularity']/20; $i++){
+                                echo "<li><i class='fa fa-star'></i></li>";
+                            }
                             echo "</ul>";
                             echo "</div>";
                             echo "</div>";
@@ -732,55 +738,20 @@ $con=mysqli_connect("localhost", "root", "");
         </div>
     </footer>
     <!-- Modal area start -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1">
+    <div class="modal fade" id="itemModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body d-flex">
-                    <div class="product-single-img w-50">
-                        <img src="assets/images/product/product-details.jpg" alt="">
-                    </div>
-                    <div class="product-single-content w-50">
-                        <h3>Flower Vase</h3>
-                        <div class="rating-wrap fix">
-                            <span class="pull-left">$219.56</span>
-                            <ul class="rating pull-right">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li>(05 Customar Review)</li>
-                            </ul>
-                        </div>
-                        <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs</p>
-                        <ul class="input-style">
-                            <li class="quantity cart-plus-minus">
-                                <input type="text" value="1" />
-                            </li>
-                            <li><a href="cart.html">Add to Cart</a></li>
-                        </ul>
-                        <ul class="cetagory">
-                            <li>Categories:</li>
-                            <li><a href="#">Chair,</a></li>
-                            <li><a href="#">Sitting</a></li>
-                        </ul>
-                        <ul class="socil-icon">
-                            <li>Share :</li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        </ul>
-                    </div>
+                    <div class="modal-wrapper"></div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal area start -->
+
+    <!-- Modal area end -->
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap js -->
@@ -805,6 +776,33 @@ $con=mysqli_connect("localhost", "root", "");
     <script src="assets/js/jquery-ui.min.js"></script>
     <!-- main js -->
     <script src="assets/js/scripts.js"></script>
+    
+    <script type='text/javascript'>
+
+  $(document).ready(function(){
+
+  $('.iteminfo').click(function(){
+  
+  var item_id = $(this).data('id');
+
+  // AJAX request
+  $.ajax({
+   url: 'shop-item.php',
+   type: 'post',
+   data: {item_id: item_id},
+   success: function(response){ 
+     // Add response in Modal body
+     $('.modal-wrapper').html(response);
+
+     // Display Modal
+     $('#itemModal').modal('show'); 
+   }
+    });
+    });
+    });
+
+    </script>
+
 </body>
 
 </html>
