@@ -14,8 +14,12 @@ else{
         $result = mysqli_stmt_get_result($stmt);
         $data = mysqli_fetch_assoc($result);
         if(password_verify($password,$data['password'])){
-            echo $data['password'];
-            header('Location: shop.html');
+            if ($data['access'] == "Buyer") {
+                header('Location: shop.php');
+            }
+            if ($data['access'] == "Seller") {
+                header('Location: seller_products.php');
+            }
         }
         else{
             header('Location: error_pages/404.html');

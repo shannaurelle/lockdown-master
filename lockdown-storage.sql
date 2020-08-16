@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2020 at 05:37 AM
+-- Generation Time: Aug 16, 2020 at 05:48 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -41,9 +41,9 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `username`, `password`, `access`, `date_created`) VALUES
-(2222, 'Trucker', '$2b$10$MGDP5nL1ZPWV0VQrZej1deqAaB.DZLtToctPSmQXqAsf78//0Na7m', 'Trucker', '2020-08-01 00:00:00'),
-(44141, 'Fucker', '$2b$10$MGDP5nL1ZPWV0VQrZej1deqAaB.DZLtToctPSmQXqAsf78//0Na7m', 'Buyer', '2020-08-01 00:00:00'),
-(111111, 'Vaccaria', '$2b$10$MGDP5nL1ZPWV0VQrZej1deqAaB.DZLtToctPSmQXqAsf78//0Na7m', 'Seller', '2020-08-01 00:00:00');
+(2222, 'Trucker', '$2b$10$oBJixBKMUbrFmy16PEHzF.9/BAEttwjyD8fcMJSkvvTp.gOCPyzuO', 'Trucker', '2020-08-01 00:00:00'),
+(44141, 'Fucker', '$2b$10$oBJixBKMUbrFmy16PEHzF.9/BAEttwjyD8fcMJSkvvTp.gOCPyzuO', 'Buyer', '2020-08-01 00:00:00'),
+(111111, 'Vaccaria', '$2b$10$oBJixBKMUbrFmy16PEHzF.9/BAEttwjyD8fcMJSkvvTp.gOCPyzuO', 'Seller', '2020-08-01 00:00:00');
 
 -- --------------------------------------------------------
 
