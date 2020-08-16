@@ -10,14 +10,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 // text fields 
 $first_name = filter_var($_POST['first_name'],FILTER_VALIDATE_STRING) ?? '';
+$middle_name = filter_var($_POST['middle_name'],FILTER_VALIDATE_STRING) ?? '';
 $last_name = filter_var($_POST['last_name'],FILTER_VALIDATE_STRING) ?? '';
 $email = filter_var($_POST['email'],FILTER_VALIDATE_EMAIL) ?? '';
 $phone_number = filter_var($_POST['phone_number'],FILTER_VALIDATE_STRING) ?? '';
 $address = filter_var($_POST['address'],FILTER_VALIDATE_STRING) ?? '';
+$province = filter_var($_POST['province'],FILTER_VALIDATE_STRING) ?? '';
+$city = filter_var($_POST['city'],FILTER_VALIDATE_STRING) ?? '';
+$country = "PH";
 $field_of_interest = filter_var($_POST['field_of_interest'],FILTER_VALIDATE_STRING) ?? '';
 $paymaya_account_number = filter_var($_POST['paymaya_account_number'],FILTER_VALIDATE_STRING) ?? '';
 $TIN_number = filter_var($_POST['TIN_number'],FILTER_VALIDATE_STRING) ?? '';
 
+$access = filter_var($_POST['access'],FILTER_VALIDATE_STRING) ?? '';
 $username = filter_var($_POST['username'],FILTER_VALIDATE_STRING) ?? '';
 $password = filter_var($_POST['password'],FILTER_VALIDATE_STRING) ?? '';
 $password = password_hash($password,PASSWORD_DEFAULT) ?? '';
@@ -133,12 +138,28 @@ for( $i=0 ; $i < $total ; $i++ ) {
 }
 
 $query_stmt = mysqli_stmt_init($connection);
-$sql = 'INSERT INTO accounts (first_name, last_name, email, phone_number, address, field_of_interest, paymaya_accnt_no, TIN_no) VALUES (?,?,?,?,?,?,?,?)';
-if(mysqli_stmt_prepare($query_stmt, )){
-    if(!mysqli_stmt_bind_param($query_stmt,'ssssssss',$first_name,$last_name,$email,$phone_number,$address,$field_of_interest,$paymaya_account_number,$TIN_number)){
+
+$query_stmt_2 = mysqli_stmt_init($connection);
+
+$sql = 'INSERT INTO accounts_info (field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+
+$sql2 = 'INSERT INTO accounts (username, password, access) VALUES (?,?,?)';
+
+if(mysqli_stmt_prepare($query_stmt, $sql) && mysqli_stmt_prepare($query_stmt, $sql2)){
+    
+    if(!mysqli_stmt_bind_param($query_stmt,'sssssssssssss',$first_name,$middle_name,$last_name,$email,$phone_number,$address,$province, $city, $country, $field_of_interest,$paymaya_account_number,$TIN_number, $username)){
         echo "Binding parameters failed: ".mysqli_stmt_error($query_stmt); exit;
     }
+
     if(!mysqli_stmt_execute($query_stmt)){
+        echo "Statment execution failed: ".mysqli_stmt_error($query_stmt); exit;
+    }
+
+    if(!mysqli_stmt_bind_param($query_stmt_2,'sss',$username,$password,$access)){
+        echo "Binding parameters failed: ".mysqli_stmt_error($query_stmt); exit;
+    }
+
+    if(!mysqli_stmt_execute($query_stmt_2)){
         echo "Statment execution failed: ".mysqli_stmt_error($query_stmt); exit;
     }
     
@@ -147,19 +168,16 @@ if(mysqli_stmt_prepare($query_stmt, )){
         document.location.href = 'register.php';
         </script>";
     }
+
     else{
         echo "<script type='text/javascript'> 
         alert('Preparation failed!');
         document.location.href = 'register.php';
         </script>";
     }
-    
-    
-    mysqli_stmt_close($query_stmt);
-	
-	
-  
-	
+      
+mysqli_stmt_close($query_stmt);
+		
 }
 else{
     header("HTTP/1.1 403 Origin Denied");
