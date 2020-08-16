@@ -6,6 +6,9 @@
     }
     else{
         session_start();
+        if ($_SESSION['access'] != 'Seller') {
+            header('Location: error_pages/404.html');
+        }
         mysqli_select_db($con, 'lockdown-storage');
         if(isset($_GET['product_id'])){
             $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $_GET['product_id']. "' ");
@@ -21,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sajuguju - Shop</title>
+    <title>Sajuguju - Seller's List</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
@@ -208,10 +211,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark">Shop Page</h2>
+                        <h2 class="text-dark">Seller's List</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><span class="text-dark">Shop</span></li>
+                            <li><span class="text-dark">Seller's List</span></li>
                         </ul>
                     </div>
                 </div>
@@ -225,6 +228,17 @@
                       </div>
                     </div>
                 </form>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcumb-wrap text-center">
+                        <ul>
+                            <li><a href="index.html">Pending Trades</a></li>
+                            <li><a href="index.html">Add Listings</a></li>
+                            <li><a href="index.html">Past Transactions</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -383,7 +397,7 @@
                             $adjacents = "2"; 
                             
                             if (isset($_GET['search'])){
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
                             }
                             else {
                                 $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products`");
@@ -396,9 +410,9 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `products`";
+                            $sql = "SELECT * FROM `products` WHERE product_owner = '". $_SESSION['active']."'";
                             if (isset($_GET['search'])){
-                                $sql .= "WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
+                                $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
 
                             if (isset($_GET['sortbyfilter'])) {
@@ -429,14 +443,14 @@
                             echo "<div class='product-img'>";
                             echo "<img src='assets/images/product/1.jpg' alt=''>";
                             echo "<ul class='icon'>";
-                            echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-shopping-cart'></i></a>";
-                            echo "<span>Add to cart</span>";
+                            echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-eye'></i></a>";
+                            echo "<span>Quick View</span>";
                             echo "</li>";
                             echo "<li><a href='wishlist.html'><i class='fa fa-heart'></i></a>";
                             echo "<span>Add to Wishlist</span>";
                             echo "</li>";
-                            echo "<li><a  href='javascript:void(0);'><i class='fa fa-eye'></i></a>";
-                            echo "<span>Quick View</span>";
+                            echo "<li><a  href='edit_product.php?id=" . $row['product_id'] . "'><i class='fa fa-pencil'></i></a>";
+                            echo "<span>Edit Details</span>";
                             echo "</li>";
                             echo "</ul>";
                             echo "</div>";
