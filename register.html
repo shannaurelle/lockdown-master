@@ -151,7 +151,7 @@
     <!-- .breadcumb-area end -->
 
     <!-- checkout-area start -->
-    <form class="jumbotron mainmenu" id="regForm" method="post" enctype="multipart/form-data" action="register.php">
+    <form class="jumbotron mainmenu" id="regForm" method="post" enctype="multipart/form-data" action="create_account.php">
 
         <h1 class="mb-4">Register</h1>
         
@@ -172,8 +172,8 @@
             <div class="col mr-4"><label for="Email" class="form-label">Email</label></div>    
           </div>
           <div class="form-row">
-            <div class="col mr-4"><input class="form-control" type="email" name="email" oninput="this.className = 'form-control'"></div>
             <div class="col mr-4"><input class="form-control" type="text" name="phone_number" oninput="this.className = 'form-control'"></div>
+            <div class="col mr-4"><input class="form-control" type="email" name="email" oninput="this.className = 'form-control'"></div>
           </div>
         </div>
 
@@ -225,6 +225,38 @@
         </div>
 
         <div class="tab">
+          <div class="form-row">
+            <div class="col mr-4"><label for="Address">Username</label></div>
+            <div class="col mr-4"><label for="Password">Password</label></div>
+          </div>
+          <div class="form-row">
+            <div class="col mr-4">
+              <input type="text" class="form-control" name="username" oninput="this.className = 'form-control'">
+            </div>
+            <div class="col mr-4">
+              <input type="password" class="form-control" name="password" oninput="this.className = 'form-control'">
+            </div>
+          </div>
+          <div class="form-row mt-2">
+            <div class="col mr-4"><label for="type of account">Type of Account</label></div>
+            <div class="col mr-4"><label for="Confirm Password">Confirm Password</label></div>
+          </div>
+          <div class="form-row">
+            <div class="col mr-4">
+              <input type="text" class="form-control" id="account_type" name="access" list="account_types" oninput="this.className = 'form-control'">
+              <datalist id="account_types">
+                <option value="Buyer">Buys wholesale goods</option>
+                <option value="Seller">Sells wholesale goods</option>
+                <option value="Trucker">Provide trucking services for the sellers</option>
+              </datalist>
+            </div>
+            <div class="col mr-4">
+              <input type="password" class="form-control" name="password" oninput="this.className = 'form-control'">
+            </div>
+          </div>
+        </div>
+
+        <div class="tab">
           <h4 class="mb-4">Attach pictures to the following credentials (optional)</h4>
           <div class="form-row">
             <div class="col mr-4"><label for="Business Permit">Business Permit</label></div>
@@ -253,6 +285,7 @@
 
         <!-- Circles which indicates the steps of the form: -->
         <div style="text-align:center;margin-top:40px;">
+          <span class="step"></span>
           <span class="step"></span>
           <span class="step"></span>
           <span class="step"></span>
