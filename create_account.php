@@ -144,13 +144,13 @@ if(mysqli_stmt_prepare($query_stmt, )){
     
     echo "<script type='text/javascript'> 
         alert('A new document is added successfully');
-        document.location.href = 'submissions.php';
+        document.location.href = 'register.php';
         </script>";
     }
     else{
         echo "<script type='text/javascript'> 
         alert('Preparation failed!');
-        document.location.href = 'submissions.php';
+        document.location.href = 'register.php';
         </script>";
     }
     
