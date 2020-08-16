@@ -6,17 +6,19 @@ if(mysqli_connect_errno()){
 }
 else{
     $stmt = mysqli_stmt_init($connection);
-
+    $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
+    $username = filter_var($_POST['username'],FILTER_SANITIZE_STRING);
     if(mysqli_stmt_prepare($stmt,"SELECT * FROM accounts WHERE username=?")){
-        mysqli_stmt_bind_param($stmt,'s',$_POST['username']);
+        mysqli_stmt_bind_param($stmt,'s', $username);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $data = mysqli_fetch_assoc($result);
-        if(password_verify($_POST['password'],$data['password'])){
+        if(password_verify($password,$data['password'])){
+            echo $data['password'];
             header('Location: shop.html');
         }
         else{
-            
+            header('Location: error_pages/404.html');
         }
         
     }
