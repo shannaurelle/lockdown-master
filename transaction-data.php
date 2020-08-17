@@ -27,10 +27,7 @@
     }
 ?>   
 
-<div class="modal-content">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">×</span>
-    </button>
+<div class="modal-content"> 
     <div class="modal-body d-flex">
         <div class="modal-wrapper">
             <div class="product-single-content col-md-auto">

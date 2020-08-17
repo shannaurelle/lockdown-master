@@ -446,7 +446,11 @@
                         while($row = mysqli_fetch_array($result_1)){
                             echo "<tr>";
                             echo "<th scope='row'>" . $row['transaction_id'] . "</th>";
-                            echo "<td>" . $row['buyer_id'] . "</td>";
+                            echo "<td>";
+                            $buyer_query = mysqli_query($con,"SELECT * FROM accounts WHERE id = '". $row['buyer_id'] ."'"); 
+                            $buyer_name = mysqli_fetch_array($buyer_query);
+                            echo $buyer_name['username'];
+                            echo "</td>";
                             echo "<td>" . $row['product_id'] . "</td>";
                             echo "<td>" . $row['product_volume'] . "</td>";
                             echo "<td>" . $row['money'] . "</td>";
