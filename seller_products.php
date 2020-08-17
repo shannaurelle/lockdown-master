@@ -233,9 +233,9 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><a href="index.html">Pending Trades</a></li>
-                            <li><a href="index.html">Add Listings</a></li>
-                            <li><a href="index.html">Past Transactions</a></li>
+                            <li><a href="pending_trades.php">Pending Trades</a></li>
+                            <li><a href="add_listings.php">Add Listings</a></li>
+                            <li><a href="previous_transactions.php">Past Transactions</a></li>
                         </ul>
                     </div>
                 </div>
