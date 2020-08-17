@@ -388,6 +388,7 @@
                             <th scope="col">Product</th>
                             <th scope="col">Product Volume</th>
                             <th scope="col">Money</th>
+                            <th scope="col">Action(s)</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -405,10 +406,10 @@
                             $adjacents = "2"; 
                             
                             if (isset($_GET['search'])){
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND pending = '0' AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
                             }
                             else {
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE seller_id = '". $_SESSION['account_id']."'");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE pending = '0' AND seller_id = '". $_SESSION['account_id']."'");
                             }
                             
 
@@ -418,7 +419,7 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `trades` WHERE seller_id = '". $_SESSION['account_id']."'";
+                            $sql = "SELECT * FROM `trades` WHERE pending = '0' AND seller_id = '". $_SESSION['account_id']."'";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
@@ -444,11 +445,14 @@
                             $result_1 = mysqli_query($con,$sql);
                         while($row = mysqli_fetch_array($result_1)){
                             echo "<tr>";
-                              echo "<th scope='row'>" . $row['transaction_id'] . "</th>";
-                              echo "<td>" . $row['buyer_id'] . "</td>";
-                              echo "<td>" . $row['product_id'] . "</td>";
-                              echo "<td>" . $row['product_volume'] . "</td>";
-                              echo "<td>" . $row['money'] . "</td>";
+                            echo "<th scope='row'>" . $row['transaction_id'] . "</th>";
+                            echo "<td>" . $row['buyer_id'] . "</td>";
+                            echo "<td>" . $row['product_id'] . "</td>";
+                            echo "<td>" . $row['product_volume'] . "</td>";
+                            echo "<td>" . $row['money'] . "</td>";
+                            echo "<td>";
+                            echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>View transaction details</button>";
+                            echo "</td>";
                             echo "</tr>";
                         }
                             mysqli_close($con);
@@ -787,9 +791,9 @@
 
   // AJAX request
   $.ajax({
-   url: 'shop-item.php',
+   url: 'transaction-data.php',
    type: 'post',
-   data: {item_id: item_id},
+   data: {transaction_id: item_id},
    success: function(response){ 
      // Add response in Modal body
      $('.modal-wrapper').html(response);
