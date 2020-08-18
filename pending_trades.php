@@ -11,7 +11,8 @@
         }
         mysqli_select_db($con, 'lockdown-storage');
         if(isset($_GET['product_id'])){
-            $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $_GET['product_id']. "' ");
+            $product_id = filter_var($_GET['product_id'],FILTER_SANITIZE_NUMBER_INT);
+            $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $product_id. "' ");
             $data = mysqli_fetch_array($query);
         }
     }
