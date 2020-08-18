@@ -193,7 +193,7 @@ html, body {
 }
 .box .box__ghost .box__ghost-shadow {
   height: 20px;
-  box-shadow: 0 50px 15px 5px #70EC8E;
+  box-shadow: 0 50px 15px 5px #fff;
   border-radius: 50%;
   margin: 0 auto;
   animation: smallnbig 3s ease-in-out infinite;
@@ -238,6 +238,7 @@ html, body {
   transition: background .5s ease;
   overflow: hidden;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
 }
 .box .box__description .box__button:before {
   content: '';
