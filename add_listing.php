@@ -203,11 +203,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark">Add Listing</h2>
+                        <h2 class="text-dark mb-4 mt-0">Add Listing</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="seller_products.php" class="text-dark">Seller Products</a></li>
-                            <li><span class="text-dark">Add Listing</span></li>
                         </ul>
                     </div>
                 </div>
@@ -227,7 +226,6 @@
                     <div class="breadcumb-wrap text-center">
                         <ul>
                             <li><a href="pending_trades.php">Pending Trades</a></li>
-                            <li><span>Add Listings</span></li>
                             <li><a href="previous_transactions.php">Past Transactions</a></li>
                         </ul>
                     </div>
@@ -251,11 +249,8 @@
                         <input type="text">
                         <p>Product Owner*</p>
                         <input type="text">
-                        <p>Product Price*</p>
+                        <p>Product Price (in Philippine Pesos)*</p>
                         <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">$</span>
-                          </div>
                           <input type="number" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon1">
                         </div>
                         <p>Product Volume*</p>
