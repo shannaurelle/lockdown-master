@@ -28,7 +28,7 @@
     <title>Sajuguju - Past Transactions</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
     <!-- Place favicon.ico in the root directory -->
     <!-- all css here -->
     <!-- bootstrap v3.3.7 css -->
@@ -72,7 +72,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="assets/images/logo_lockdown_2.png" alt="">
+                            <img src="assets/images/TOM_120x60.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -212,11 +212,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark">Past Transactions</h2>
+                        <h2 class="text-dark mb-4 mt-0">Past Transactions</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="seller_products.php">Seller's List</a></li>
-                            <li><span>Past Transactions</span></li>
                         </ul>
                     </div>
                 </div>
@@ -237,7 +236,6 @@
                         <ul>
                             <li><a href="pending_trades.php">Pending Trades</span></li>
                             <li><a href="add_listing.php">Add Listings</a></li>
-                            <li><span>Past Transactions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -448,8 +446,8 @@
                             echo "<tr>";
                             echo "<th scope='row'>" . $row['transaction_id'] . "</th>";
                             echo "<td>";
-                            $buyer_query = mysqli_query($con,"SELECT * FROM accounts WHERE id = '". $row['buyer_id'] ."'"); 
-                            $buyer_name = mysqli_fetch_array($buyer_query);
+                            $buyer_query = mysqli_query($con,"SELECT * FROM accounts WHERE account_id = '". $row['buyer_id'] ."'"); 
+                            $buyer_name = mysqli_fetch_assoc($buyer_query);
                             echo $buyer_name['username'];
                             echo "</td>";
                             echo "<td>" . $row['product_id'] . "</td>";
