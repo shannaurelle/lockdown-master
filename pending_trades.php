@@ -28,7 +28,7 @@
     <title>Sajuguju - Pending Trades</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
     <!-- Place favicon.ico in the root directory -->
     <!-- all css here -->
     <!-- bootstrap v3.3.7 css -->
@@ -72,7 +72,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="assets/images/logo_lockdown_2.png" alt="">
+                            <img src="assets/images/TOM_120x60.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -212,11 +212,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark">Pending Trades</h2>
+                        <h2 class="text-dark mb-4 mt-0">Pending Trades</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="seller_products.php">Seller's List</a></li>
-                            <li><span>Pending Trades</span></li>
                         </ul>
                     </div>
                 </div>
@@ -235,7 +234,6 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><span>Pending Trades</span></li>
                             <li><a href="add_listing.php">Add Listings</a></li>
                             <li><a href="previous_transactions.php">Past Transactions</a></li>
                         </ul>
