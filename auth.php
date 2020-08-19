@@ -24,6 +24,9 @@ else{
             if ($data['access'] == "Seller") {
                 header('Location: seller_products.php');
             }
+            if ($data['access'] == "Trucker") {
+                header('Location: trucker_main.php');
+            }
         }
         else{
             header('Location: error_pages/404.html');
