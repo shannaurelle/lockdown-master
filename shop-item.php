@@ -26,15 +26,15 @@
             
             $data = mysqli_fetch_array($query);
 
-            $response .= '<form class="container-fluid row" method="post" action="add-cart.php">';
+            $response .= '<form class="container-fluid row" method="post" action="add_cart.php">';
 
-            $response .= '<input type="text" value="'.$product_id.'" hidden/>';
+            $response .= '<input type="text" name="product_id" value="'.$product_id.'" hidden/>';
 
-            $response .= '<input type="text" value="'.$buyer_id.'" hidden/>';
+            $response .= '<input type="text" name="account_id" value="'.$buyer_id.'" hidden/>';
 
             $response .= '<div class="product-single-img col-3">';
 
-            $response .= '<img src="assets/images/product/product-details.jpg" alt=""></div>';
+            $response .= '<img src="assets/images/dummy_images/1.png" alt=""></div>';
 
             $response .= '<div class="product-single-content col-9">';
 
@@ -58,17 +58,17 @@
 
             $response .= '<p>'.$data['product_description'].'</p>';
 
-            $response .= '<ul class="input-style form-group">';
+            $response .= '<ul class="input-style">';
 
             $response .= '<li><label class="form-label mr-4" for="volume">Volume</li>';
 
-            $response .= '<li class="quantity cart-plus-minus"><input class="mr-4" type="text" value="1" /></li>';
+            $response .= '<li class="quantity cart-plus-minus"><input class="mr-4" type="text" name="product_volume" value="1" /></li>';
 
             $response .= '<div class="w-100"></div>';
             
             $response .= '<li><label class="form-label" for="are you sure?"> Are you sure to add this to cart? </li>';
 
-            $response .= '<li><a type="submit">Yes</a></li>';
+            $response .= '<li><input type="submit" class="submit-btn" value="Yes"></li>';
 
             $response .= '<li><a type="submit" data-dismiss="modal" aria-label="Close">No</a></li>';
             
