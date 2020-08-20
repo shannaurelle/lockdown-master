@@ -423,11 +423,12 @@
                             }
                             $sql .= " LIMIT $offset, $total_records_per_page";
                             $result_1 = mysqli_query($con,$sql);
+                        $count = 0;
                         while($row = mysqli_fetch_array($result_1)){
                             echo "<li class='col-lg-3 col-sm-6 col-12'>";
                             echo "<div class='product-wrap'>";
                             echo "<div class='product-img'>";
-                            echo "<img src='assets/images/product/1.jpg' alt=''>";
+                            echo "<img src='assets/images/dummy_images/".($count%10+1).".png' alt=''>";
                             echo "<ul class='icon'>";
                             echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-shopping-cart'></i></a>";
                             echo "<span>Add to cart</span>";
@@ -451,7 +452,7 @@
                             echo "</div>";
                             echo "</div>";
                             echo "</li>";
-
+                            $count = $count + 1;
                         }
                             mysqli_close($con);
                     ?>
