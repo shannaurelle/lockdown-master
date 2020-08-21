@@ -60,61 +60,71 @@
     <!-- .breadcumb-area start -->
     <div class="breadcumb-area bg-img-1 black-opacity ptb-100">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark mb-4 mt-0">Add Listing</h2>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="trucker_main.php" class="text-dark">Trucking Services</a></li>
-                            <li><a href="trucker_pending_trades.php">Pending Trades</a></li>
-                            <li><a href="trucker_previous_transactions.php">Past Transactions</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+        <div class="col-12">
+        <div class="breadcumb-wrap text-center">
+            <h2 class="text-dark mb-4 mt-0">Add Listing</h2>
+        </div>
+        </div>
+        </div>
         </div>
     </div>
     <!-- .breadcumb-area end -->
     <!-- checkout-area start -->
     <div class="account-area ptb-100">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-                    <div class="account-form form-style">
-                      <form method="post" enctype="multipart/form-data" action="add_trucker.php">
-                        <span>* - required details</span>
-                        <hr>
-                        <p><strong>Truck Model*</strong></p>
-                        <input type="text" class="form-control" name="truck_model">
-                        <p><strong>Plate Number*</strong></p>
-                        <input type="text" class="form-control" name="plate_number">
-                        <p><strong>Route*</strong></p>
-                        <input type="text" class="form-control" name="truck_route">
-                        <p><strong>Available volume capacity (in kg)*</strong></p>
-                        <input type="number" class="form-control" name="available_volume">
-                        <p><strong>Type of Service Available*</strong></p>
-                        <div class="row ml-4 mt-4">
-                            <label for="Refrigerated">With refrigeration</label>
-                            <input type="radio" name="service_type" value="Refrigerated">
-                            <label for="Normal">No refrigeration</label>
-                            <input type="radio" name="service_type" value="Normal">
-                        </div>
-                        <p><strong>Name of Truck Driver*</strong></p>
-                        <input type="text" class="form-control" name="driver_name">
-                        <p><strong>Price of Service per Delivery (in Philippine Pesos)*</strong></p>
-                        <div class="input-group mb-3">
-                          <input type="number" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon1">
-                        </div>
-                        <p><strong>Picture of Driver's License (optional)</strong></p>
-                        <input type="file" name="driver_license" aria-label="0" aria-describedby="basic-addon1">
-                        <p><strong>Picture of Truck together with the License Plate (optional)</strong></p>
-                        <input type="file" name="truck_photos[]" aria-label="0" aria-describedby="basic-addon1" multiple>
-                        <button type="submit" formaction="add_trucker.php">SIGN IN</button>
-                      </form>
-                    </div>
-                </div>
+        <div class="row">
+        <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+        <div class="account-form form-style">
+            <form method="post" enctype="multipart/form-data" action="add_trucker.php">
+
+            <span>* - required details</span>
+
+            <hr>
+            <input type="text" name="owner_id" value=<?php echo $_SESSION['account_id']?> hidden/>
+            <p><strong>Truck Model*</strong></p>
+            <input type="text" class="form-control" name="truck_model">
+
+            <p><strong>Plate Number*</strong></p>
+            <input type="text" class="form-control" name="truck_plate_number">
+
+            <p><strong>Route*</strong></p>
+            <input type="text" class="form-control" name="truck_origin">
+
+            <p><strong>Available volume capacity (in kg)*</strong></p>
+            <input type="number" class="form-control" name="truck_capacity">
+
+            <p><strong>Type of Service Available*</strong></p>
+            <div class="row ml-4 mt-4">
+
+                <label for="Refrigerated">With refrigeration</label>
+                <input type="radio" name="truck_service_type" value="Refrigerated">
+
+                <label for="Normal">No refrigeration</label>
+                <input type="radio" name="truck_service_type" value="Normal">
+
             </div>
+
+            <p><strong>Name of Truck Driver*</strong></p>
+            <input type="text" class="form-control" name="truck_operator">
+
+            <p><strong>Price of Service per Delivery (in Philippine Pesos)*</strong></p>
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" name="truck_delivery_fee" placeholder="0" aria-label="0" aria-describedby="basic-addon1">
+            </div>
+
+            <p><strong>Picture of Driver's License (optional)</strong></p>
+            <input type="file" name="truck_driver_license" aria-label="0" aria-describedby="basic-addon1">
+
+            <p><strong>Picture of Truck together with the License Plate (optional)</strong></p>
+            <input type="file" name="truck_photos[]" aria-label="0" aria-describedby="basic-addon1" multiple>
+
+            <button type="submit" formaction="add_trucker.php">SIGN IN</button>
+
+            </form>
+        </div>
+        </div>
+        </div>
         </div>
     </div>
     <?php include("footer.php") ?>
