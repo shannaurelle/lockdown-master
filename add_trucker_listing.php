@@ -119,7 +119,7 @@
             <p><strong>Picture of Truck together with the License Plate (optional)</strong></p>
             <input type="file" name="truck_photos[]" aria-label="0" aria-describedby="basic-addon1" multiple>
 
-            <button type="submit" formaction="add_trucker.php">SIGN IN</button>
+            <button type="submit" formaction="add_trucker.php">SUBMIT</button>
 
             </form>
         </div>
