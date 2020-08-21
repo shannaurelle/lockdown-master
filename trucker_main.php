@@ -382,8 +382,17 @@
                 </div>
             </form>
             <div class="tab-content">
-                <div class="tab-pane active" id="all">
-                    <ul class="row">
+            <div class="tab-pane active" id="all">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th scope="col">Trucker ID</th>
+                        <th scope="col">Operator</th>
+                        <th scope="col">Truck Origin</th>
+                        <th scope="col">Date Added</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                     <?php
                         if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                             $page_no = $_GET['page_no'];
@@ -391,17 +400,17 @@
                                 $page_no = 1;
                                 }
 
-                            $total_records_per_page = 16;
+                            $total_records_per_page = 25;
                             $offset = ($page_no-1) * $total_records_per_page;
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
                             $adjacents = "2"; 
                             
                             if (isset($_GET['search'])){
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `truckers` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
                             }
                             else {
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products`");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `truckers`");
                             }
                             
 
@@ -411,7 +420,7 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `products` WHERE product_owner = '". $_SESSION['active']."'";
+                            $sql = "SELECT * FROM `truckers`";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
@@ -439,38 +448,17 @@
                             $sql .= " LIMIT $offset, $total_records_per_page";
                             $result_1 = mysqli_query($con,$sql);
                         while($row = mysqli_fetch_array($result_1)){
-                            echo "<li class='col-lg-3 col-sm-6 col-12'>";
-                            echo "<div class='product-wrap'>";
-                            echo "<div class='product-img'>";
-                            echo "<img src='assets/images/product/1.jpg' alt=''>";
-                            echo "<ul class='icon'>";
-                            echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-eye'></i></a>";
-                            echo "<span>Quick View</span>";
-                            echo "</li>";
-                            echo "<li><a href='wishlist.html'><i class='fa fa-heart'></i></a>";
-                            echo "<span>Add to Wishlist</span>";
-                            echo "</li>";
-                            echo "<li><a  href='edit_product.php?id=" . $row['product_id'] . "'><i class='fa fa-pencil'></i></a>";
-                            echo "<span>Edit Details</span>";
-                            echo "</li>";
-                            echo "</ul>";
-                            echo "</div>";
-                            echo "<div class='product-content fix'>";
-                            echo "<h3><a data-target='#myModal' data-toggle='modal' href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
-                            echo "<span class='pull-left'> $" . $row['product_price'] . "</span>";
-                            echo "<ul class='pull-right'>";
-                            for($i=0; $i < $row['product_popularity']/20; $i++){
-                                echo "<li><i class='fa fa-star'></i></li>";
-                            }
-                            echo "</ul>";
-                            echo "</div>";
-                            echo "</div>";
-                            echo "</li>";
+                            echo "<tr>";
+                            echo "<th scope='row'>" . $row['truck_id'] . "</th>";
+                            echo "<td>" . $row['truck_operator'] . "</td>";
+                            echo "<td>" . $row['truck_origin'] . "</td>";
+                            echo "<td>" . $row['date_created'] . "</td>";
+                            echo "</tr>";
 
                         }
                             mysqli_close($con);
                     ?>
-                    </ul>
+                </table>
                     <ul>
                         <nav aria-label="Page navigation example">
                             <div class='text-center' style='padding: 10px 20px 0px; border-top: dotted 1px #CCC;'>
