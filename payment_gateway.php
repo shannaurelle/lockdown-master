@@ -24,7 +24,7 @@ $jsonData = array(
 	        'shippingFee' => 0,
 	        'tax' => 0,
 	        'subtotal' => 100
-    	),
+    	)
     ),
 
     // Buyer Details
@@ -60,7 +60,7 @@ $jsonData = array(
 	        'state' => 'Metro Manila',
 	        'zipCode' => '1552',
 	        'countryCode' => 'PH'
-		),
+		)
     ),
 
     // Item Details (Real Looping Hours)
@@ -91,7 +91,7 @@ $jsonData = array(
 		            'tax' => 0,
 		            'subtotal' => 200
 	        	)
-	        ),
+	        )
     	),
     	array(
     		'name' => '100kg fresh tomatoes',
@@ -118,9 +118,9 @@ $jsonData = array(
 		            'shippingFee' => 0,
 		            'tax' => 0,
 		            'subtotal' => 200
-	        	)
-	        ),
-    	),
+				)
+			)
+		)
     ),
 
     // Redirect Details
@@ -132,12 +132,12 @@ $jsonData = array(
     ),
 
     'requestReferenceNumber' => '1551191039',
-    'metadata' => array(),
+    'metadata' => array()
 );
 
 //Encode the array into JSON.
-$jsonDataEncoded = json_encode($jsonData);
-
+$jsonDataEncoded = json_encode($jsonData, JSON_FORCE_OBJECT);
+var_dump($jsonDataEncoded)."<br><br><br>";
 // Paymaya Sandbox 5 Keys
 $public_key = "pk-NCLk7JeDbX1m22ZRMDYO9bEPowNWT5J4aNIKIbcTy2a:";
 $secret_key = "sk-8MqXdZYWV9UJB92Mc0i149CtzTWT7BYBQeiarM27iAi";
@@ -172,9 +172,6 @@ var_dump($result);
 // decode the contents
 $jsonDataDecoded = json_decode($result, TRUE);
 $redirectUrl = $jsonDataDecoded['redirectUrl'];
-
-// test print
-echo $jsonDataEncoded;
 
 // redirect user to the checkout page 
 header("Location: $redirectUrl");
