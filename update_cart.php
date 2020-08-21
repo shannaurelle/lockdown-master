@@ -21,17 +21,11 @@ for( $i=0 ; $i < SHOP_LIST_COUNT ; $i++ ) {
     $cart_subtotal = filter_var($_POST['total'][$i],FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION) ?? 0;
     $total_cart_cost = $total_cart_cost + $cart_subtotal;
 
-    $prev_cart_query = mysqli_query($connection,"SELECT * FROM cart_costs WHERE cart_id='$account_id'");
-    $prev_data = mysqli_fetch_assoc($prev_cart_query);
-    $prev_cart_item_count = $prev_data['cart_item_count'] ?? 0;
-
     $sql = "UPDATE cart SET product_volume = ? WHERE product_id = ? AND cart_id = ?";
     
     if(mysqli_stmt_prepare($stmt,$sql)){
         mysqli_stmt_bind_param($stmt,'iii',$product_volume, $product_id, $account_id);
         mysqli_stmt_execute($stmt);
-        
-        echo "<script> alert('Cart updated!'); </script>";
     }
     else{ echo "<script> alert('Preparation failed!'); </script>"; }
 
@@ -41,7 +35,7 @@ for( $i=0 ; $i < SHOP_LIST_COUNT ; $i++ ) {
 
 $stmt2 = mysqli_stmt_init($connection);
 
-if(isset($prev_data['cart_item_count'])){
+if(isset($_SESSION['account_id'])){
     $sql2 = "UPDATE cart_costs SET cart_subtotal = ?, cart_item_count = ? WHERE cart_id = ?";
 }
 else{

@@ -58,15 +58,15 @@
 
             $response .= '</ul></div>';
 
-            $response .= '<p> Description: '.$data['product_description'].'</p>';
+            $response .= '<p> Description: '.$data['product_description'].' <br>';
 
-            $response .= '<p> Quantity left: '.$data['product_volume'].'</p>';
+            $response .= 'Quantity left: '.$data['product_volume'].$data['product_unit_measurement'].'<br>';
 
-            $response .= '<p> Content: '.$data['product_qty_per_package'].$data['product_unit_measurement'].' per '.$data['product_packaging'].'</p>';
+            $response .= 'Content: '.$data['product_qty_per_package'].$data['product_unit_measurement'].' per '.$data['product_packaging'].'</p>';
 
             $response .= '<ul class="input-style">';
 
-            $response .= '<li><label class="form-label mr-4" for="volume">Volume</li>';
+            $response .= '<li><label class="form-label mr-4" for="volume">Order</li>';
 
             $response .= '<li class="quantity cart-plus-minus"><input class="mr-4" type="text" name="product_volume" value="1" /></li>';
 

@@ -259,7 +259,11 @@
             </thead>
             <tbody>
             <input type="text" name="account_id" value=<?php echo '"'.$account_id.'"' ?> hidden/>
-                <?php while($data = mysqli_fetch_assoc($result)):   ?>
+                <?php 
+                    $subtotal = 0; 
+                    $trucking_fee = 100.00;
+                    echo "<span id='trucking_fee'>$trucking_fee</span>";
+                    while($data = mysqli_fetch_assoc($result)):   ?>
                 <tr>
                     
                     <input type="text" name="product_id[]" value=<?php echo '"'.$data['product_id'].'"' ?> hidden/>
@@ -271,7 +275,10 @@
                     </td>
                     <td>
                         <input type="text" name="total[]" value=<?php echo '"Php '.round($data['product_volume']*$data['product_price'],2).'"' ?> hidden/>
-                        <?php echo '₱ '.round($data['product_volume']*$data['product_price'],2) ?>      
+                        <?php echo '₱ '.round($data['product_volume']*$data['product_price'],2) ?>     
+                        <?php 
+                            $subtotal = $subtotal + round($data['product_volume']*$data['product_price'],2);
+                        ?>
                     </td>
                     <td class="remove"><i class="fa fa-times"></i></td>
                 </tr>
@@ -291,14 +298,23 @@
                         </li>
                         <li><a href="shop.php">Continue Shopping</a></li>
                     </ul>
-                    <h3 class="d-inline">Want a trucker?</h3>
-                    <p>Recommended trucker is based on your address and volume available</p>
+                    <h3 class="d-inline">Delivery Option</h3>
+                    <p>Recommended trucker is based on your address and volume available (Cost: Php 100)<br>
+                        Personal pick-up is also available (Cost: Php 0)
+                    </p>
                     <div class="cupon-wrap">
-                        <input id='trucker' type="checkbox" value='Yes'>
+                        <div class="row">
+                            <div class="col"> <label> Trucker </label> </div>
+                            <div class="col">  <input id='trucker' type="radio" name="delivery_option" value='Trucker'> </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"> <label> Pickup </label> </div>
+                            <div class="col"> <input id='pickup' type="radio" name="delivery_option" value='Pickup'> </div>
+                        </div>
                     </div>
                     <div class="w-100"></div>
                     <div class="cupon-wrap">
-                        <label>Can't find the checkbox?</label>
+                        <label>No trucker option available?</label>
                         <button>Find truckers</button>
                     </div>
                 </div>
@@ -312,8 +328,11 @@
                         $cart_cost_query = mysqli_query($con, "SELECT * FROM cart_costs WHERE cart_id = '$account_id'");
                         ?>
                         <?php while($data_total = mysqli_fetch_assoc($cart_cost_query)):   ?>
-                        <li><span class="pull-left mr-4"> Subtotal </span><?php echo "Php ".$data_total['cart_subtotal']; ?></li>
-                        <li><span class="pull-left mr-4"> Total </span><?php echo "Php ".($data_total['cart_subtotal']+$data_total['cart_trucking_fee']); ?></li>
+                        <li><span class="pull-left mr-4"> Subtotal </span>Php <span id="subtotal"> <?php echo $subtotal; ?></span></li>
+                        <li><span class="pull-left mr-4"> Additional fee </span><span id="additional_fee">0</li>
+                        <li><span class="pull-left mr-4"> Total </span>
+                            Php <span id="total"><?php echo ($subtotal); ?></span>
+                        </li>
                         <?php endwhile; ?>
                     </ul>
                     <a id='checkout_button' href="payment_gateway.php">Proceed to Checkout</a>
@@ -427,11 +446,30 @@
         $('#checkout_button').hide();
         $('#trucker').change(function(){
         if (this.checked) {
+            let subtotal = parseFloat(document.getElementById('subtotal').innerHTML);
+            console.log(subtotal);
+            let trucking_fee = parseFloat(document.getElementById('trucking_fee').innerHTML);
+            console.log(trucking_fee);
+            let new_total = subtotal + trucking_fee;
+            console.log(new_total);
+            if(new_total == NaN){ new_total = 0; }
+            document.getElementById('additional_fee').innerHTML = "" + trucking_fee + "";
+            document.getElementById('total').innerHTML = "" + new_total + "";
             $('#checkout_button').fadeIn('slow');
         }
         else {
-            $('#checkout_button').fadeOut('slow');
+           
         }                   
+    });
+    $('#pickup').change(function(){
+        if (this.checked) {
+            let subtotal = parseFloat(document.getElementById('subtotal').innerHTML);
+            let new_total = subtotal;
+            if(new_total == NaN){ new_total = 0; }
+            document.getElementById('additional_fee').innerHTML = "" + 0 + "";
+            document.getElementById('total').innerHTML = "" + new_total + "";
+            $('#checkout_button').fadeIn('slow');
+        }         
     });
     });
     </script>
