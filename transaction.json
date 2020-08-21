@@ -103,6 +103,5 @@
       "failure": "http://localhost/lockdown-master/failure/",
       "cancel": "http://localhost/lockdown-master/cancel/"
     },
-    "requestReferenceNumber": "1551191039",
-    "metadata": {}
+    "requestReferenceNumber": "1551191039"
   }

@@ -3,15 +3,14 @@
 //API Url
 $url = 'https://pg-sandbox.paymaya.com/checkout/v1/checkouts';
 
-// $json_file = 'transaction.json';
+//$json_file = 'transaction.json';
 
 //Initiate cURL.
 $ch = curl_init($url);
 
-// $jsonDataEncoded = file_get_contents($json_file);
+//$jsonDataEncoded = file_get_contents($json_file);
 
-//The JSON data.
-
+//The JSON data.=
 $jsonData = array(
 
 	// Total Amount Details
@@ -124,7 +123,6 @@ $jsonData = array(
     ),
 
     // Redirect Details
-
     'redirectURL' => array(
 		'success' => 'http://localhost/lockdown-master/shop.php?checkout=success',
 		'failure' => 'http://localhost/lockdown-master/failure/',
@@ -132,12 +130,28 @@ $jsonData = array(
     ),
 
     'requestReferenceNumber' => '1551191039',
-    'metadata' => array()
+    'metadata' => array(
+    	'subMerchantRequestReferenceNumber' => 'SUBMER-12345',
+		'pf' => array(
+			'smi' => 'SUB034221',
+			'smn' => 'Maya Merchant',
+			'mci' => 'MANILA',
+			'mpc' => '608',
+			'mco' => 'PHL',
+			'mcc' => '3415',
+			'postalCode' => '1001',
+			'contactNo' => '+6329112345',
+			'state' => 'Metro Manila',
+			'addressLine1' => 'Quezon Boulevard, Quiapo'
+		)
+    )
 );
 
 //Encode the array into JSON.
-$jsonDataEncoded = json_encode($jsonData, JSON_FORCE_OBJECT);
+
+$jsonDataEncoded = json_encode($jsonData);
 var_dump($jsonDataEncoded)."<br><br><br>";
+
 // Paymaya Sandbox 5 Keys
 $public_key = "pk-NCLk7JeDbX1m22ZRMDYO9bEPowNWT5J4aNIKIbcTy2a:";
 $secret_key = "sk-8MqXdZYWV9UJB92Mc0i149CtzTWT7BYBQeiarM27iAi";
@@ -158,11 +172,14 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
 //Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, $header); 
 
+
 //Set the return type of the curl_exec function to a string instead of a boolean
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 //Execute the request
 $result = curl_exec($ch);
+
+
 
 //close the curl session
 curl_close($ch);
