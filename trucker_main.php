@@ -97,19 +97,7 @@
                     <div class="product-menu">
                         <ul class="nav">
                             <li>
-                                <a class="active" data-toggle="tab" href="#all">All product</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#chair">Chair</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#table">Table</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#bed">Bed</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#decorative">Decorative</a>
+                                <a class="active" data-toggle="tab" href="#all">All Trucks</a>
                             </li>
                         </ul>
                     </div>
@@ -230,10 +218,11 @@
                 <table class="table">
                   <thead>
                     <tr>
-                        <th scope="col">Trucker ID</th>
                         <th scope="col">Operator</th>
-                        <th scope="col">Truck Origin</th>
-                        <th scope="col">Date Added</th>
+                        <th scope="col">Truck Model</th>
+                        <th scope="col">Origin</th>
+                        <th scope="col">Type of Service</th>
+                        <th scope="col">Capacity (in kg)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -293,10 +282,11 @@
                             $result_1 = mysqli_query($con,$sql);
                         while($row = mysqli_fetch_array($result_1)){
                             echo "<tr>";
-                            echo "<th scope='row'>" . $row['truck_id'] . "</th>";
-                            echo "<td>" . $row['truck_operator'] . "</td>";
+                            echo "<th scope='row'>" . $row['truck_operator'] . "</th>";
+                            echo "<td>" . $row['truck_model'] . "</td>";
                             echo "<td>" . $row['truck_origin'] . "</td>";
-                            echo "<td>" . $row['date_created'] . "</td>";
+                            echo "<td>" . $row['truck_service_type'] . "</td>";
+                            echo "<td>" . $row['truck_capacity'] . "</td>";
                             echo "</tr>";
 
                         }
