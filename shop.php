@@ -330,17 +330,8 @@
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
                                 <h3 class="filter-title">product tags</h3>
                                 <ul class="product-tags">
-                                    <li><a href="#">New</a></li>
-                                    <li><a href="#">brand</a></li>
-                                    <li><a href="#">black</a></li>
-                                    <li><a href="#">white</a></li>
-                                    <li><a href="#">chire</a></li>
-                                    <li><a href="#">table</a></li>
-                                    <li><a href="#">Lorem</a></li>
-                                    <li><a href="#">ipsum</a></li>
-                                    <li><a href="#">dolor</a></li>
-                                    <li><a href="#">sit</a></li>
-                                    <li><a href="#">amet</a></li>
+                                    <li><a href="#">Agriculture</a></li>
+                                    <li><a href="#">Hardware</a></li>
                                 </ul>
                             </div>
                             <div class="product-filter col-lg-3 col-sm-6 col-12">

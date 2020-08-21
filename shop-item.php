@@ -58,7 +58,11 @@
 
             $response .= '</ul></div>';
 
-            $response .= '<p>'.$data['product_description'].'</p>';
+            $response .= '<p> Description: '.$data['product_description'].'</p>';
+
+            $response .= '<p> Quantity left: '.$data['product_volume'].'</p>';
+
+            $response .= '<p> Content: '.$data['product_qty_per_package'].$data['product_unit_measurement'].' per '.$data['product_packaging'].'</p>';
 
             $response .= '<ul class="input-style">';
 
