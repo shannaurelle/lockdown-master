@@ -171,7 +171,7 @@
                                             <i class="fa fa-times"></i>
                                         </div>
                                     </li>
-                                    <li>Subtotol: <span class="pull-right">$70.00</span></li>
+                                    <li>Subtotal: <span class="pull-right">$70.00</span></li>
                                     <li>
                                         <button>Check Out</button>
                                     </li>
@@ -225,26 +225,27 @@
 
                                 $stmt = mysqli_stmt_init($con);
 
-                                $sql .= "SELECT * FROM products INNER JOIN cart ON products.product_id = cart.product_id";
-                               
-                                $sql .= "WHERE cart.cart_id = ?";
+                                $sql = "SELECT * FROM products AS p INNER JOIN cart AS c ON p.product_id = c.product_id WHERE c.cart_id = ?";
                                 
-                                if(mysqli_stmt_prepare($stmt,$sql)):
+                                if(mysqli_stmt_prepare($stmt,$sql)){
+
+                                    if(!mysqli_stmt_bind_param($stmt,'i',$account_id)){ echo "<script> alert('preparation failed!'); </script>"; }
                                     
-                                    mysqli_stmt_bind_param($stmt,'i',$account_id);
+                                    if(!mysqli_stmt_execute($stmt)){ echo "<script> alert('execution failed!'); </script>"; }
                                     
-                                    $query = mysqli_stmt_execute($stmt);
-                                    
-                                    $result = mysqli_stmt_get_result($query);
-                                
-                                endif;
+                                    $result = mysqli_stmt_get_result($stmt) ?? 0;
+
+                                }
+                                else{
+                                    echo "<script> alert('preparation failed!'); </script>";
+                                }
 
                             endif;
                         ?>
-    <form action="cart">
+    <form method="post" action="">
         <table class="table-responsive cart-wrap">
 
-            <?php if(isset($_SESSION['account_id'])): ?>
+            <?php if(isset($result)): ?>
 
             <thead>
                 <tr>
@@ -257,22 +258,27 @@
                 </tr>
             </thead>
             <tbody>
-
-                <?php while($data = mysqli_fetch_assoc($result)): ?>
-
+            <input type="text" name="account_id" value=<?php echo '"'.$account_id.'"' ?> hidden/>
+                <?php while($data = mysqli_fetch_assoc($result)):   ?>
                 <tr>
-                    <td class="images"><img src=<?php echo '"'.$data['product_img_path'].'"' ?> alt=""></td>
+                    
+                    <input type="text" name="product_id[]" value=<?php echo '"'.$data['product_id'].'"' ?> hidden/>
+                    <td class="images"><img src=<?php echo '"'.$data['product_img_path'].'"' ?> alt=""  width="200" height="200"></td>
                     <td class="product"><a href="single-product.html"><?php echo $data['product_name']; ?></a></td>
-                    <td class="ptice"><?php echo $data['product_price']; ?></td>
+                    <td class="ptice"><?php echo 'Php '.$data['product_price']; ?></td>
                     <td class="quantity cart-plus-minus">
-                        <input type="text" value=<?php echo '"'.$data['product_volume'].'"' ?> />
+                        <input type="text" name="quantity[]" value=<?php echo '"'.$data['product_volume'].'"' ?> />
+                    </td>
+                    <td>
+                        <input type="text" name="total[]" value=<?php echo '"Php '.round($data['product_volume']*$data['product_price'],2).'"' ?> hidden/>
+                        <?php echo '₱ '.round($data['product_volume']*$data['product_price'],2) ?>      
                     </td>
                     <td class="remove"><i class="fa fa-times"></i></td>
                 </tr>
 
-                    <?php endwhile;?>
+                <?php endwhile; ?>
 
-                    <?php endif; ?>
+                <?php endif; ?>
 
             </tbody>
         </table>
@@ -281,9 +287,9 @@
                 <div class="cartcupon-wrap">
                     <ul class="d-flex">
                         <li>
-                            <button>Update Cart</button>
+                            <button type="submit" formaction="update_cart.php">Update Cart</button>
                         </li>
-                        <li><a href="shop.html">Continue Shopping</a></li>
+                        <li><a href="shop.php">Continue Shopping</a></li>
                     </ul>
                     <h3 class="d-inline">Want a trucker?</h3>
                     <p>Recommended trucker is based on your address and volume available</p>
@@ -301,10 +307,16 @@
                 <div class="cart-total text-right">
                     <h3>Cart Totals</h3>
                     <ul>
-                        <li><span class="pull-left">Subtotal </span>$380.00</li>
-                        <li><span class="pull-left"> Total </span> $380.00</li>
+                        <?php 
+                        $account_id = $_SESSION['account_id'];
+                        $cart_cost_query = mysqli_query($con, "SELECT * FROM cart_costs WHERE cart_id = '$account_id'");
+                        ?>
+                        <?php while($data_total = mysqli_fetch_assoc($cart_cost_query)):   ?>
+                        <li><span class="pull-left mr-4"> Subtotal </span><?php echo "Php ".$data_total['cart_subtotal']; ?></li>
+                        <li><span class="pull-left mr-4"> Total </span><?php echo "Php ".($data_total['cart_subtotal']+$data_total['cart_trucking_fee']); ?></li>
+                        <?php endwhile; ?>
                     </ul>
-                    <a id='checkout_button' href="checkout.html">Proceed to Checkout</a>
+                    <a id='checkout_button' href="payment_gateway.php">Proceed to Checkout</a>
         </div>
         </div>
         </div>
