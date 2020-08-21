@@ -11,7 +11,8 @@
         }
         mysqli_select_db($con, 'lockdown-storage');
         if(isset($_GET['product_id'])){
-            $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $_GET['product_id']. "' ");
+            $product_id = filter_var($_GET['product_id'],FILTER_SANITIZE_NUMBER_INT);
+            $query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $product_id. "' ");
             $data = mysqli_fetch_array($query);
         }
     }
@@ -24,7 +25,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sajuguju - List of Pending Trucks</title>
+    <title>Pending Trades</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
@@ -64,17 +65,17 @@
     <div class="preloader-wrap">
         <div class="spinner"></div>
     </div>
-    <?php include("navbar.php"); ?>
+    <?php include("navbar.php") ?>
     <!-- .breadcumb-area start -->
     <div class="breadcumb-area bg-img-1 black-opacity ptb-100">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark">List of Pending Trucks</h2>
+                        <h2 class="text-dark mb-4 mt-0">Pending Trades</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><span class="text-dark">List of Pending Trucks</span></li>
+                            <li><a href="seller_products.php">Trucker List</a></li>
                         </ul>
                     </div>
                 </div>
@@ -93,10 +94,8 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><a href="trucker_pending_trades.php">Pending Trades</a></li>
                             <li><a href="add_trucker_listing.php">Add Listings</a></li>
-                            <li><a href="previous_transactions.php">Past Transactions</a></li>
-                            <li><a href="request.php">Requests Page</a></li>
+                            <li><a href="trucker_previous_transactions.php">Past Transactions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -109,6 +108,8 @@
         <div class="container">
             
             <div class="row">
+
+                <!-- Removed because it might not be needed lole
                 <div class="col-sm-9 col-lg-10">
                     <div class="product-menu">
                         <ul class="nav">
@@ -130,7 +131,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3 col-lg-2">
+                -->
+                <div class="col-md-auto col-lg-12">
                     <div class="filter-menu text-right">
                         <a href="javascript:void(0);">Filter</a>
                     </div>
@@ -242,17 +244,8 @@
                 </div>
             </form>
             <div class="tab-content">
-            <div class="tab-pane active" id="all">
-                <table class="table">
-                  <thead>
-                    <tr>
-                        <th scope="col">Trucker ID</th>
-                        <th scope="col">Operator</th>
-                        <th scope="col">Truck Origin</th>
-                        <th scope="col">Date Added</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <div class="tab-pane active" id="all">
+                    <ul class="row">
                     <?php
                         if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                             $page_no = $_GET['page_no'];
@@ -260,17 +253,17 @@
                                 $page_no = 1;
                                 }
 
-                            $total_records_per_page = 25;
+                            $total_records_per_page = 16;
                             $offset = ($page_no-1) * $total_records_per_page;
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
                             $adjacents = "2"; 
                             
                             if (isset($_GET['search'])){
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `truckers` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
                             }
                             else {
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `truckers`");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `products`");
                             }
                             
 
@@ -280,7 +273,7 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `truckers`";
+                            $sql = "SELECT * FROM `products` WHERE product_owner = '". $_SESSION['active']."'";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
@@ -308,17 +301,38 @@
                             $sql .= " LIMIT $offset, $total_records_per_page";
                             $result_1 = mysqli_query($con,$sql);
                         while($row = mysqli_fetch_array($result_1)){
-                            echo "<tr>";
-                            echo "<th scope='row'>" . $row['truck_id'] . "</th>";
-                            echo "<td>" . $row['truck_operator'] . "</td>";
-                            echo "<td>" . $row['truck_origin'] . "</td>";
-                            echo "<td>" . $row['date_created'] . "</td>";
-                            echo "</tr>";
+                            echo "<li class='col-lg-3 col-sm-6 col-12'>";
+                            echo "<div class='product-wrap'>";
+                            echo "<div class='product-img'>";
+                            echo "<img src='assets/images/product/1.jpg' alt=''>";
+                            echo "<ul class='icon'>";
+                            echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-eye'></i></a>";
+                            echo "<span>Quick View</span>";
+                            echo "</li>";
+                            echo "<li><a href='wishlist.html'><i class='fa fa-heart'></i></a>";
+                            echo "<span>Add to Wishlist</span>";
+                            echo "</li>";
+                            echo "<li><a  href='edit_product.php?id=" . $row['product_id'] . "'><i class='fa fa-pencil'></i></a>";
+                            echo "<span>Edit Details</span>";
+                            echo "</li>";
+                            echo "</ul>";
+                            echo "</div>";
+                            echo "<div class='product-content fix'>";
+                            echo "<h3><a data-target='#myModal' data-toggle='modal' href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
+                            echo "<span class='pull-left'> $" . $row['product_price'] . "</span>";
+                            echo "<ul class='pull-right'>";
+                            for($i=0; $i < $row['product_popularity']/20; $i++){
+                                echo "<li><i class='fa fa-star'></i></li>";
+                            }
+                            echo "</ul>";
+                            echo "</div>";
+                            echo "</div>";
+                            echo "</li>";
 
                         }
                             mysqli_close($con);
                     ?>
-                </table>
+                    </ul>
                     <ul>
                         <nav aria-label="Page navigation example">
                             <div class='text-center' style='padding: 10px 20px 0px; border-top: dotted 1px #CCC;'>
@@ -527,80 +541,8 @@
             </div>
         </div>
     </div>
-
-    <!-- product-area end -->
-    <footer class="footer-area">
-        <div class="footer-top bg-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-logo">
-                            <img src="assets/images/logo2.png" alt="">
-                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from</p>
-                            <ul class="socil-icon d-flex">
-                                <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-menu">
-                            <h2>Spacial Menu</h2>
-                            <ul>
-                                <li><a href="account.html">My Account</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="javascript:void(0)">Help</a></li>
-                                <li><a href="javascript:void(0)">Support</a></li>
-                                <li><a href="javascript:void(0)">FAQ</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-contact">
-                            <h2>Contact us</h2>
-                            <ul>
-                                <li><i class="fa fa-map-marker"></i>House No. 09 , Road No.25 Dhaka,Bangladesh </li>
-                                <li><i class="fa fa-phone"></i>+1(888)234-56789 <span>+1(888)234-56789</span> </li>
-                                <li><i class="fa fa-envelope-o"></i>youremail@gmail.com</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-contact">
-                            <h2>Join to Newsletter</h2>
-                            <p>Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from</p>
-                            <form class="sform">
-                                <div class="form_msg">
-                                    <label class="mt10"></label>
-                                </div>
-                                <input type="email" name="email" placeholder="Enter Your Email" required>
-                                <button type="submit" name="submit" id="subscribe-btn"><i class="fa fa-long-arrow-right"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-buttom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <p>&copy;2018 Your Website Name All Right Reserved</p>
-                    </div>
-                    <div class="col-md-6 col-12">
-                        <ul class="d-flex">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include("footer.php") ?>
+    
     <!-- Modal area start -->
     <div class="modal fade" id="itemModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
