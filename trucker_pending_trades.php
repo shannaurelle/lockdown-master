@@ -73,10 +73,6 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <h2 class="text-dark mb-4 mt-0">Pending Trades</h2>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="seller_products.php">Trucker List</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -89,16 +85,6 @@
                       </div>
                     </div>
                 </form>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcumb-wrap text-center">
-                        <ul>
-                            <li><a href="add_trucker_listing.php">Add Listings</a></li>
-                            <li><a href="trucker_previous_transactions.php">Past Transactions</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
