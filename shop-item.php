@@ -2,7 +2,7 @@
     
     $product_id = filter_var($_POST['item_id'],FILTER_SANITIZE_NUMBER_INT);
 
-    $buyer_id = 0;
+    
 
     $response = '';
 
@@ -18,6 +18,8 @@
 
         session_start();
 
+        $account_id = filter_var($_SESSION['account_id'],FILTER_SANITIZE_NUMBER_INT) ?? 0; 
+
         mysqli_select_db($con, 'lockdown-storage');
 
         if(isset($product_id)){
@@ -30,7 +32,7 @@
 
             $response .= '<input type="text" name="product_id" value="'.$product_id.'" hidden/>';
 
-            $response .= '<input type="text" name="account_id" value="'.$buyer_id.'" hidden/>';
+            $response .= '<input type="text" name="account_id" value="'.$account_id.'" hidden/>';
 
             $response .= '<div class="product-single-img col-3">';
 
