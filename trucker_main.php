@@ -119,43 +119,37 @@
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="new" checked>
                                           <label class="form-check-label">
-                                            Newness
+                                            Operator
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="popular">
                                           <label class="form-check-label">
-                                            Popularity
+                                            Truck Model
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="rating">
                                           <label class="form-check-label">
-                                            Average rating
+                                            Plate Number
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="pricelow">
                                           <label class="form-check-label">
-                                            Price: Low to High
-                                          </label>
-                                        </li>
-                                        <li class="form-check">
-                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="pricehigh">
-                                          <label class="form-check-label">
-                                            Price: High to Low
+                                            Origin
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="volumelow">
                                           <label class="form-check-label">
-                                            Volume: Low to High
+                                            Capacity: Low to High
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="volumehigh">
                                           <label class="form-check-label">
-                                            Volume: High to Low
+                                            Capacity: High to Low
                                           </label>
                                         </li>
                                     </ul>
@@ -175,29 +169,20 @@
                             -->
                             <!-- Product Filter -->
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
-                                <h3 class="filter-title">product tags</h3>
+                                <h3 class="filter-title">Type of Service</h3>
                                 <ul class="product-tags">
-                                    <li><a href="#">New</a></li>
-                                    <li><a href="#">brand</a></li>
-                                    <li><a href="#">black</a></li>
-                                    <li><a href="#">white</a></li>
-                                    <li><a href="#">chire</a></li>
-                                    <li><a href="#">table</a></li>
-                                    <li><a href="#">Lorem</a></li>
-                                    <li><a href="#">ipsum</a></li>
-                                    <li><a href="#">dolor</a></li>
-                                    <li><a href="#">sit</a></li>
-                                    <li><a href="#">amet</a></li>
+                                    <li><a href="#">Normal</a></li>
+                                    <li><a href="#">Refrigerated</a></li>
                                 </ul>
                             </div>
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
-                                <h3 class="filter-title">Filter by Price</h3>
+                                <h3 class="filter-title">Filter by Capacity</h3>
                                 <div class="filter-price">
                                     <form action="#">
                                         <div id="slider-range"></div>
                                         <div class="row">
                                             <div class="col-7">
-                                                <p>Price :
+                                                <p>Capacity :
                                                     <input type="text" id="amount">
                                                 </p>
                                             </div>

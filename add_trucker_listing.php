@@ -101,7 +101,7 @@
                 <input type="radio" name="truck_service_type" value="Refrigerated">
 
                 <label for="Normal">No refrigeration</label>
-                <input type="radio" name="truck_service_type" value="Normal">
+                <input type="radio" name="truck_service_type" value="Unrefrigerated">
 
             </div>
 
