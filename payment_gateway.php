@@ -125,7 +125,7 @@ $jsonData = array(
 
     // Redirect Details
 
-    'redirectUrl' => array(
+    'redirectURL' => array(
 		'success' => 'http://localhost/lockdown-master/shop.php?checkout=success',
 		'failure' => 'http://localhost/lockdown-master/failure/',
 		'cancel' => 'http://localhost/lockdown-master/cancel/'
