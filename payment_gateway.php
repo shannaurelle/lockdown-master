@@ -1,194 +1,214 @@
 <?php
+	$con=mysqli_connect("localhost", "root", "");
+    if (mysqli_connect_errno()){
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    else{
+        
+        session_start();
 
-//API Url
-$url = 'https://pg-sandbox.paymaya.com/checkout/v1/checkouts';
 
-//$json_file = 'transaction.json';
+        mysqli_select_db($con, 'lockdown-storage');
 
-//Initiate cURL.
-$ch = curl_init($url);
+		//API Url
+		$url = 'https://pg-sandbox.paymaya.com/checkout/v1/checkouts';
 
-//$jsonDataEncoded = file_get_contents($json_file);
+		//$json_file = 'transaction.json';
 
-//The JSON data.=
-$jsonData = array(
+		//Initiate cURL.
+		$ch = curl_init($url);
 
-	// Total Amount Details
-    'totalAmount' => array(
-    	'value' => 100,
-    	'currency' => 'PHP',
-    	'details' => array(
-    		'discount' => 0,
-	        'serviceCharge' => 0,
-	        'shippingFee' => 0,
-	        'tax' => 0,
-	        'subtotal' => 100
-    	)
-    ),
+		//$jsonDataEncoded = file_get_contents($json_file);
 
-    // Buyer Details
-    'buyer' => array(
-		'firstName' => 'Shann Aurelle',
-		'middleName' => 'Graniten',
-		'lastName' => 'Ripalda',
-		'birthday' => '2001-02-03',
-		'customerSince' => '2010-10-25',
-		'sex' => 'M',
-		'contact' => array(
-			'phone' => '+639181008888',
-			'email' => 'merchant@merchantsite.com'
-		),
-		'shippingAddress' => array(
-			'firstName' => 'Shann Aurelle',
-	        'middleName' => 'Graniten',
-	        'lastName' => 'Ripalda',
-	        'phone' => '+639181008888',
-	        'email' => 'merchant@merchantsite.com',
-	        'line1' => '6F Launchpad',
-	        'line2' => 'Reliance Street',
-	        'city' => 'Mandaluyong City',
-	        'state' => 'Metro Manila',
-	        'zipCode' => '1552',
-	        'countryCode' => 'PH',
-	        'shippingType' => 'ST'
-		),
-		'billingAddress' => array(
-			'line1' => '6F Launchpad',
-	        'line2' => 'Reliance Street',
-	        'city' => 'Mandaluyong City',
-	        'state' => 'Metro Manila',
-	        'zipCode' => '1552',
-	        'countryCode' => 'PH'
-		)
-    ),
+		//The JSON data.=
+		$jsonData = array(
 
-    // Item Details (Real Looping Hours)
-    'items' => array(
-    	array(
-    		'name' => '100kg fresh tomatoes',
-	        'quantity' => 1,
-	        'code' => 'CVG-096732',
-	        'description' => 'Fruits and Vegetables',
-
-	        'amount' => array(
-	        	'value' => 100,
-	        	'details' => array(
-	        		'discount' => 0,
-		            'serviceCharge' => 0,
-		            'shippingFee' => 0,
-		            'tax' => 0,
-		            'subtotal' => 100
-	        	)
-	        ),
-
-	        'totalAmount' => array(
-	        	'value' => 200,
-	        	'details' => array(
-	        		'discount' => 0,
-		            'serviceCharge' => 0,
-		            'shippingFee' => 0,
-		            'tax' => 0,
-		            'subtotal' => 200
-	        	)
-	        )
-    	),
-    	array(
-    		'name' => '100kg fresh tomatoes',
-	        'quantity' => 1,
-	        'code' => 'CVG-096732',
-	        'description' => 'Fruits and Vegetables',
-
-	        'amount' => array(
-	        	'value' => 100,
-	        	'details' => array(
-	        		'discount' => 0,
-		            'serviceCharge' => 0,
-		            'shippingFee' => 0,
-		            'tax' => 0,
-		            'subtotal' => 100
-	        	)
-	        ),
-
-	        'totalAmount' => array(
-	        	'value' => 200,
-	        	'details' => array(
-	        		'discount' => 0,
-		            'serviceCharge' => 0,
-		            'shippingFee' => 0,
-		            'tax' => 0,
-		            'subtotal' => 200
+		    // Buyer Details
+		    'buyer' => array(
+				'firstName' => 'Shann Aurelle',
+				'middleName' => 'Graniten',
+				'lastName' => 'Ripalda',
+				'birthday' => '2001-02-03',
+				'customerSince' => '2010-10-25',
+				'sex' => 'M',
+				'contact' => array(
+					'phone' => '+639181008888',
+					'email' => 'merchant@merchantsite.com'
+				),
+				'shippingAddress' => array(
+					'firstName' => 'Shann Aurelle',
+			        'middleName' => 'Graniten',
+			        'lastName' => 'Ripalda',
+			        'phone' => '+639181008888',
+			        'email' => 'merchant@merchantsite.com',
+			        'line1' => '6F Launchpad',
+			        'line2' => 'Reliance Street',
+			        'city' => 'Mandaluyong City',
+			        'state' => 'Metro Manila',
+			        'zipCode' => '1552',
+			        'countryCode' => 'PH',
+			        'shippingType' => 'ST'
+				),
+				'billingAddress' => array(
+					'line1' => '6F Launchpad',
+			        'line2' => 'Reliance Street',
+			        'city' => 'Mandaluyong City',
+			        'state' => 'Metro Manila',
+			        'zipCode' => '1552',
+			        'countryCode' => 'PH'
 				)
-			)
-		)
-    ),
+		    ),
 
-    // Redirect Details
-    'redirectURL' => array(
-		'success' => 'http://localhost/lockdown-master/shop.php?checkout=success',
-		'failure' => 'http://localhost/lockdown-master/failure/',
-		'cancel' => 'http://localhost/lockdown-master/cancel/'
-    ),
+		    // Redirect Details
+		    'redirectURL' => array(
+				'success' => 'http://localhost/lockdown-master/shop.php?checkout=success',
+				'failure' => 'http://localhost/lockdown-master/failure/',
+				'cancel' => 'http://localhost/lockdown-master/cancel/'
+		    ),
 
-    'requestReferenceNumber' => '1551191039',
-    'metadata' => array(
-    	'subMerchantRequestReferenceNumber' => 'SUBMER-12345',
-		'pf' => array(
-			'smi' => 'SUB034221',
-			'smn' => 'Maya Merchant',
-			'mci' => 'MANILA',
-			'mpc' => '608',
-			'mco' => 'PHL',
-			'mcc' => '3415',
-			'postalCode' => '1001',
-			'contactNo' => '+6329112345',
-			'state' => 'Metro Manila',
-			'addressLine1' => 'Quezon Boulevard, Quiapo'
-		)
-    )
-);
+		    'requestReferenceNumber' => '1551191039',
+		    'metadata' => array(
+		    	'subMerchantRequestReferenceNumber' => 'SUBMER-12345',
+				'pf' => array(
+					'smi' => 'SUB034221',
+					'smn' => 'Maya Merchant',
+					'mci' => 'MANILA',
+					'mpc' => '608',
+					'mco' => 'PHL',
+					'mcc' => '3415',
+					'postalCode' => '1001',
+					'contactNo' => '+6329112345',
+					'state' => 'Metro Manila',
+					'addressLine1' => 'Quezon Boulevard, Quiapo'
+				)
+		    )
+		);
 
-//Encode the array into JSON.
+		// Items, the REAL Looping hours
+		// Needed variables for tracking
+		$shippingFee = 0;
+		$subTotalAmount = 0;
+		$totalAmount = 0;
+		$items = array();
+		$subItems = array();
+		$dataItems = array();
 
-$jsonDataEncoded = json_encode($jsonData);
-var_dump($jsonDataEncoded)."<br><br><br>";
+		// Adds if there's a delivery option
+		if ($_POST['delivery_option'] == 'Trucker') {
+			$shippingFee = 100;
+		}
 
-// Paymaya Sandbox 5 Keys
-$public_key = "pk-NCLk7JeDbX1m22ZRMDYO9bEPowNWT5J4aNIKIbcTy2a:";
-$secret_key = "sk-8MqXdZYWV9UJB92Mc0i149CtzTWT7BYBQeiarM27iAi";
-
-//encode public key in base64 encoding
-$public_key = base64_encode($public_key);
-
-$header = array();
-$header[] = 'Content-type: application/json';
-$header[] = 'Authorization: Basic '.$public_key;
-
-//Tell cURL that we want to send a POST request.
-curl_setopt($ch, CURLOPT_POST, 1);
-
-//Attach our encoded JSON string to the POST fields.
-curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-
-//Set the content type to application/json
-curl_setopt($ch, CURLOPT_HTTPHEADER, $header); 
+		$account_id = filter_var($_SESSION['account_id'],FILTER_SANITIZE_NUMBER_INT); 
 
 
-//Set the return type of the curl_exec function to a string instead of a boolean
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		//WHAT ARE THESE WHAT ARE THOSE
+        $stmt = mysqli_stmt_init($con);
+        $sql = "SELECT * FROM products AS p INNER JOIN cart AS c ON p.product_id = c.product_id WHERE c.cart_id = ?";
+        if(mysqli_stmt_prepare($stmt,$sql)){
+            if(!mysqli_stmt_bind_param($stmt,'i',$account_id)){ echo "<script> alert('preparation failed!'); </script>"; }
+            if(!mysqli_stmt_execute($stmt)){ echo "<script> alert('execution failed!'); </script>"; }
+            $result = mysqli_stmt_get_result($stmt) ?? 0;
+        }
+        else{
+            echo "<script> alert('preparation failed!'); </script>";
+        }
 
-//Execute the request
-$result = curl_exec($ch);
+		while($data = mysqli_fetch_array($result)){
+			$subTotalAmount += round($data['product_volume']*$data['product_price'],2);
+			$dataItems = array(
+	        	'name' => $data['product_name'],
+		        'quantity' => $data['product_volume'],
+		        'code' => 'CVG-096732',
+		        'description' => $data['product_description'],
+
+		        'amount' => array(
+		        	'value' => $data['product_price'],
+		        	'details' => array(
+		        		'discount' => 0,
+			            'serviceCharge' => 0,
+			            'shippingFee' => 0,
+			            'tax' => 0,
+			            'subtotal' => $data['product_price']
+		        	)
+		        ),
+
+		        'totalAmount' => array(
+		        	'value' => round($data['product_volume']*$data['product_price'],2),
+		        	'details' => array(
+		        		'discount' => 0,
+			            'serviceCharge' => 0,
+			            'shippingFee' => 0,
+			            'tax' => 0,
+			            'subtotal' => round($data['product_volume']*$data['product_price'],2)
+		        	)
+		        )
+	        );
+	        $subItems[] = $dataItems;
+		}
+		
+		$items = array('items' => $subItems);
+		$jsonData = array_merge($jsonData, $items);
+
+		$jsonData = array_merge($jsonData,array(
+			// Total Amount Details
+			'totalAmount' => array(
+				'value' => $subTotalAmount + $shippingFee,
+				'currency' => 'PHP',
+				'details' => array(
+					'discount' => 0,
+			        'serviceCharge' => 0,
+			        'shippingFee' => $shippingFee,
+			        'tax' => 0,
+			        'subtotal' => $subTotalAmount
+				)
+			),
+		));
+
+
+		//Encode the array into JSON.
+
+		$jsonDataEncoded = json_encode($jsonData);
+		var_dump($jsonDataEncoded)."<br><br><br>";
+
+		// Paymaya Sandbox 5 Keys
+		$public_key = "pk-NCLk7JeDbX1m22ZRMDYO9bEPowNWT5J4aNIKIbcTy2a:";
+		$secret_key = "sk-8MqXdZYWV9UJB92Mc0i149CtzTWT7BYBQeiarM27iAi";
+
+		//encode public key in base64 encoding
+		$public_key = base64_encode($public_key);
+
+		$header = array();
+		$header[] = 'Content-type: application/json';
+		$header[] = 'Authorization: Basic '.$public_key;
+
+		//Tell cURL that we want to send a POST request.
+		curl_setopt($ch, CURLOPT_POST, 1);
+
+		//Attach our encoded JSON string to the POST fields.
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+		//Set the content type to application/json
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header); 
+
+
+		//Set the return type of the curl_exec function to a string instead of a boolean
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		//Execute the request
+		$result = curl_exec($ch);
 
 
 
-//close the curl session
-curl_close($ch);
+		//close the curl session
+		curl_close($ch);
 
-var_dump($result);
+		var_dump($result);
 
-// decode the contents
-$jsonDataDecoded = json_decode($result, TRUE);
-$redirectUrl = $jsonDataDecoded['redirectUrl'];
+		// decode the contents
+		$jsonDataDecoded = json_decode($result, TRUE);
+		$redirectUrl = $jsonDataDecoded['redirectUrl'];
 
-// redirect user to the checkout page 
-header("Location: $redirectUrl");
+		// redirect user to the checkout page 
+		header("Location: $redirectUrl");
+    }
+?>
