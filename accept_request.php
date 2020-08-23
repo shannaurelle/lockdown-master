@@ -7,13 +7,11 @@ session_start();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-    $transaction_id = filter_var($_POST['transaction_id'],FILTER_SANITIZE_NUMBER_INT);
+    $transaction_id = filter_var($_POST['transaction_id'],FILTER_SANITIZE_NUMBER_INT) ?? 0;
     $stmt = mysqli_stmt_init($connection);
     $stmt2 = mysqli_stmt_init($connection);
 
-    $sql = "INSERT INTO trades (transaction_id, buyer_id, trucker_id, product_id, money, notes, pending) ";
-    $sql .= "SELECT (transaction_id, buyer_id, owner_id, product_id, product_volume, money, notes, pending) FROM request";
-    $sql .= "WHERE transaction_id = ? ";
+    $sql = "INSERT INTO trades (transaction_id, buyer_id, product_id, product_volume, location, money, notes, pending) SELECT transaction_id, buyer_id, product_id, product_volume, location, money, notes, pending FROM request WHERE transaction_id = ? ";
 
     $sql2 = "UPDATE request SET pending=0 WHERE transaction_id = ?";
 
@@ -21,6 +19,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         mysqli_stmt_bind_param($stmt,"i",$transaction_id); 
         mysqli_stmt_execute($stmt);  
         mysqli_stmt_close($stmt);
+    }else{
+        echo "preparation failed!";
+        header('error-pages/404.html');
     }
     if(mysqli_stmt_prepare($stmt2,$sql2)){
         mysqli_stmt_bind_param($stmt2,"i",$transaction_id);
