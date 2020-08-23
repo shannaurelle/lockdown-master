@@ -34,6 +34,8 @@
 
             $response .= '<input type="text" name="account_id" value="'.$account_id.'" hidden/>';
 
+            $response .= '<input type="text" name="product_price" value="'.$data['product_price'].'" hidden/>';
+
             $response .= '<div class="product-single-img col-3">';
 
             $response .= '<img src="assets/images/dummy_images/1.png" alt=""></div>';
