@@ -15,7 +15,7 @@ $stmt = mysqli_stmt_init($connection);
 $sql = "INSERT INTO cart (cart_id, product_id, product_volume, product_price) VALUES (?,?,?,?)";
 
 if(mysqli_stmt_prepare($stmt,$sql)){
-    mysqli_stmt_bind_param($stmt,'iis',$account_id, $product_id, $product_volume);
+    mysqli_stmt_bind_param($stmt,'iisi',$account_id, $product_id, $product_volume);
     mysqli_stmt_execute($stmt);
     header("Location: cart.php");
 }
