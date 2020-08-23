@@ -219,7 +219,15 @@
             <div class="row mt-4">
                 <form class="mx-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="input-group mb-3">
-                      <input name="search" type="text" class="form-control mr-4" aria-describedby="basic-addon2">
+                      <input name="search" type="text" list="products" class="form-control mr-4" aria-describedby="basic-addon2">
+                      
+                      <?php $query = mysqli_query($con,"SELECT DISTINCT product_name FROM products"); ?>
+                      
+                      <datalist id="products">
+                        <?php while($data = mysqli_fetch_assoc($query)): ?>
+                          <option value=<?php echo $data['product_name']; ?> ></option>
+                        <?php endwhile; ?>    
+                      </datalist>
                       <div class="input-group-append">
                         <button class="btn btn-light">Search</button>
                       </div>
@@ -434,7 +442,7 @@
                             echo "</div>";
                             echo "<div class='product-content fix'>";
                             echo "<h3><a data-target='#myModal' data-toggle='modal' href='product.php?id=" . $row['product_id'] . "'>" . $row['product_name'] . "</a></h3>";
-                            echo "<span class='pull-left'> $" . $row['product_price'] . "</span>";
+                            echo "<span class='pull-left'> Php " . $row['product_price'] . "</span>";
                             echo "<ul class='pull-right'>";
                             for($i=0; $i < $row['product_popularity']/20; $i++){
                                 echo "<li><i class='fa fa-star'></i></li>";
