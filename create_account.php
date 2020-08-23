@@ -11,12 +11,21 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 $first_name = filter_var($_POST['first_name'],FILTER_SANITIZE_STRING) ?? '';
 $middle_name = filter_var($_POST['middle_name'],FILTER_SANITIZE_STRING) ?? '';
 $last_name = filter_var($_POST['last_name'],FILTER_SANITIZE_STRING) ?? '';
+
+$month = filter_var($_POST['month'],FILTER_SANITIZE_NUMBER_INT) ?? '';
+$day = filter_var($_POST['day'],FILTER_SANITIZE_NUMBER_INT) ?? '';
+$year = filter_var($_POST['year'],FILTER_SANITIZE_NUMBER_INT) ?? '';
+
 $email = filter_var($_POST['email'],FILTER_VALIDATE_EMAIL) ?? '';
 $phone_number = filter_var($_POST['phone_number'],FILTER_SANITIZE_STRING) ?? '';
+$sex = 
+
 $address = filter_var($_POST['address'],FILTER_SANITIZE_STRING) ?? '';
 $province = filter_var($_POST['province'],FILTER_SANITIZE_STRING) ?? '';
 $city = filter_var($_POST['city'],FILTER_SANITIZE_STRING) ?? '';
 $country = 'PH';
+$zip_code = filter_var($_POST['zip_code'],FILTER_SANITIZE_NUMBER_INT) ?? '';
+
 $field_of_interest = filter_var($_POST['field_of_interest'],FILTER_SANITIZE_STRING) ?? '';
 $paymaya_account_number = filter_var($_POST['paymaya_account_number'],FILTER_SANITIZE_STRING) ?? '';
 $TIN_number = filter_var($_POST['TIN_number'],FILTER_SANITIZE_STRING) ?? '';
@@ -118,13 +127,15 @@ $query_stmt = mysqli_stmt_init($connection);
 
 $query_stmt_2 = mysqli_stmt_init($connection);
 
-$sql = 'INSERT INTO account_info (field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
-
+$sql = 'INSERT INTO account_info'; 
+$sql .= '(field1, field2, field3, field4, field5, field6, field7, field8,';
+$sql .= 'field9, field10, field11, field12, field13, field14, field15, field16, field17, field18)';
+$sql .= 'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
 $sql2 = 'INSERT INTO accounts (username, password, access, date_created) VALUES (?,?,?,?)';
 
 if(mysqli_stmt_prepare($query_stmt, $sql) && mysqli_stmt_prepare($query_stmt_2, $sql2)){
     
-    if(!mysqli_stmt_bind_param($query_stmt,'sssssssssssss',$first_name,$middle_name,$last_name,$email,$phone_number,$address,$province, $city, $country, $field_of_interest,$paymaya_account_number,$TIN_number, $username)){
+    if(!mysqli_stmt_bind_param($query_stmt,'sssssssssssssiiisi',$first_name,$middle_name,$last_name,$email,$phone_number,$address,$province, $city, $country, $field_of_interest,$paymaya_account_number,$TIN_number, $username, $year, $month, $day, $sex, $zip_code)){
         echo "Binding parameters failed: ".mysqli_stmt_error($query_stmt); exit;
     }
 
