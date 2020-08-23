@@ -242,7 +242,7 @@
 
                             endif;
                         ?>
-    <form method="post" action="">
+    <form method="post" action="payment_gateway.php">
         <table class="table-responsive cart-wrap">
 
             <?php if(isset($result)): ?>
@@ -335,7 +335,7 @@
                         </li>
                         <?php endwhile; ?>
                     </ul>
-                    <a id='checkout_button' href="payment_gateway.php">Proceed to Checkout</a>
+                    <button id='checkout_button'>Proceed to Checkout</button>
         </div>
         </div>
         </div>
