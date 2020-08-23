@@ -20,31 +20,47 @@
 
 		//$jsonDataEncoded = file_get_contents($json_file);
 
+		// For other parts
+		$stmt = mysqli_stmt_init($con);
+		$account_id = filter_var($_SESSION['account_id'],FILTER_SANITIZE_NUMBER_INT);
+        $sqli = "SELECT * FROM accounts AS p INNER JOIN account_info AS c ON p.account_id = c.info_id WHERE c.info_id = ?";
+        if(mysqli_stmt_prepare($stmt,$sqli)){
+            if(!mysqli_stmt_bind_param($stmt,'i',$account_id)){ echo "<script> alert('preparation failed!'); </script>"; }
+            if(!mysqli_stmt_execute($stmt)){ echo "<script> alert('execution failed!'); </script>"; }
+            $resulti = mysqli_stmt_get_result($stmt) ?? 0;
+        }
+        else{
+            echo "<script> alert('preparation failed!'); </script>";
+        }
+
+        $userInfo = mysqli_fetch_assoc($resulti);
+        $userInfo['date_created'] = substr($userInfo['date_created'], 0, 10);
+
 		//The JSON data.=
 		$jsonData = array(
 
 		    // Buyer Details
 		    'buyer' => array(
-				'firstName' => 'Shann Aurelle',
-				'middleName' => 'Graniten',
-				'lastName' => 'Ripalda',
+				'firstName' => $userInfo['field1'],
+				'middleName' => $userInfo['field2'],
+				'lastName' => $userInfo['field3'],
 				'birthday' => '2001-02-03',
-				'customerSince' => '2010-10-25',
+				'customerSince' => $userInfo['date_created'],
 				'sex' => 'M',
 				'contact' => array(
-					'phone' => '+639181008888',
-					'email' => 'merchant@merchantsite.com'
+					'phone' => $userInfo['field5'],
+					'email' => $userInfo['field4']
 				),
 				'shippingAddress' => array(
-					'firstName' => 'Shann Aurelle',
-			        'middleName' => 'Graniten',
-			        'lastName' => 'Ripalda',
-			        'phone' => '+639181008888',
-			        'email' => 'merchant@merchantsite.com',
+					'firstName' => $userInfo['field1'],
+					'middleName' => $userInfo['field2'],
+					'lastName' => $userInfo['field3'],
+			        'phone' => $userInfo['field5'],
+					'email' => $userInfo['field4'],
 			        'line1' => '6F Launchpad',
 			        'line2' => 'Reliance Street',
-			        'city' => 'Mandaluyong City',
-			        'state' => 'Metro Manila',
+			        'city' => $userInfo['field8'],
+			        'state' => $userInfo['field9'],
 			        'zipCode' => '1552',
 			        'countryCode' => 'PH',
 			        'shippingType' => 'ST'
@@ -52,8 +68,8 @@
 				'billingAddress' => array(
 					'line1' => '6F Launchpad',
 			        'line2' => 'Reliance Street',
-			        'city' => 'Mandaluyong City',
-			        'state' => 'Metro Manila',
+			        'city' => $userInfo['field8'],
+			        'state' => $userInfo['field9'],
 			        'zipCode' => '1552',
 			        'countryCode' => 'PH'
 				)
@@ -102,7 +118,6 @@
 
 
 		//WHAT ARE THESE WHAT ARE THOSE
-        $stmt = mysqli_stmt_init($con);
         $sql = "SELECT * FROM products AS p INNER JOIN cart AS c ON p.product_id = c.product_id WHERE c.cart_id = ?";
         if(mysqli_stmt_prepare($stmt,$sql)){
             if(!mysqli_stmt_bind_param($stmt,'i',$account_id)){ echo "<script> alert('preparation failed!'); </script>"; }
