@@ -42,70 +42,52 @@
     <div class="preloader-wrap">
         <div class="spinner"></div>
     </div>
-    <!-- header-area start -->
-    <header class="header-area mx-0" id="sticky-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-12 mt-3">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img class="d-inline" src="assets/images/TOM_120x60.png" alt="TOM">
-                        </a>
-                        <h1 class="brand-title text-white"></h1>
-                    </div>
-                </div>
-                <div class="col-lg-6 offset-lg-4 col-md-12 d-none d-lg-block ">
-                        <form class="mainmenu container d-inline mt-3" method="post" action="auth.php">
-                            <div class="row justify-content-end">
-                                <div class="col-4 p-0">
-                                    <label class="text-white" for="Username">Username</label>
-                                </div>
-                                <div class="text-white col-4 p-0">
-                                    <label class="text-white" for="Password">Password</label>
-                                </div>
-                            </div>
-                            <div class="row justify-content-end">
-                                <div class="login-text col-4 p-0"><input type="text" name="username"></div>
-                                <div class="login-text col-4 p-0"><input type="password" name="password"></div>
-                                <div class="col-2 ml-2">
-                                    <button class="btn btn-success login-text py-1 px-2" type="submit">Login</button>
-                                </div> 
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 offset-lg-6 text-dark">
-                                    <a class="text-center text-hint" href="#">Forgot your password?</a>
-                                </div>
-                            </div>
-                        </form>  
-                </div>
-            </div>
-        </div>
-            
-        </div> 
-    </header>
-    <!-- header-area end -->
     <!-- .breadcumb-area start -->
-    <div class="w-50"></div>
-    <!-- .breadcumb-area end -->
-    <!-- checkout-area start -->
-    <div class="account-area ptb-100">
+    <div class="breadcumb-area bg-img-1 black-opacity ptb-100">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 offset-lg-6 col-md-8 offset-md-2 col-12">
-                    <div class="account-form form-style">
-                        <h1 class="text-dark">Create an account</h1>
-                        <h4 class="text-dark">It's quick and easy. </h4>
-                        <a href="register.html"><button class="mt-4">SIGN IN</button></a>
-                        <div class="d-block d-lg-none mt-2">
-                            <h4 class="text-dark"> Already have one?</h4>
-                            <a href="login.php"><button>LOG-IN</button></a>
-                        </div>
+                <div class="col-12">
+                    <div class="breadcumb-wrap text-center">
+                        <h2 class="text-dark">Account</h2>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><span class="text-dark">Login</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- checkout-area end -->
+    <!-- .breadcumb-area end -->
+    <!-- checkout-area start -->
+    <div class="account-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+                    <form class="account-form form-style" method="post" action="auth.php">
+                        <p>User Name or Email Address *</p>
+                        <input type="text" name="username">
+                        <p>Password *</p>
+                        <input type="Password" name="password">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input id="password" type="checkbox">
+                                <label for="password">Save Password</label>
+                            </div>
+                            <div class="col-lg-6 text-right ">
+                                <a href="#" class="text-dark">Forget Your Password?</a>
+                            </div>
+                        </div>
+                        <button>LOG IN</button>
+                        <div class="text-center">
+                            <a href="register.php" class="text-dark">Or Create an Account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap js -->
