@@ -76,9 +76,18 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <form class="mx-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form method="get" class="mx-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="input-group mb-3">
-                      <input name="search" type="text" class="form-control mr-4" aria-describedby="basic-addon2">
+                      <input name="search" type="text" list="truckers" class="form-control mr-4" aria-describedby="basic-addon2">
+
+                      <?php $query = mysqli_query($con,"SELECT DISTINCT truck_operator FROM truckers"); ?>
+
+                      <datalist id="truckers">
+                        <?php while($data = mysqli_fetch_assoc($query)): ?>
+                          <option value=<?php echo $data['truck_operator']; ?> ></option>
+                        <?php endwhile; ?>    
+                      </datalist>
+                      
                       <div class="input-group-append">
                         <button class="btn btn-light">Search</button>
                       </div>
@@ -117,39 +126,51 @@
                                 <h3 class="filter-title">Sort by</h3>
                                     <ul class="sort-by">
                                         <li class="form-check">
-                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="new" checked>
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="operator" checked>
                                           <label class="form-check-label">
                                             Operator
                                           </label>
                                         </li>
                                         <li class="form-check">
-                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="popular">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="model">
                                           <label class="form-check-label">
                                             Truck Model
                                           </label>
                                         </li>
                                         <li class="form-check">
-                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="rating">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="plate_number">
                                           <label class="form-check-label">
                                             Plate Number
                                           </label>
                                         </li>
                                         <li class="form-check">
-                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="pricelow">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="origin">
                                           <label class="form-check-label">
                                             Origin
                                           </label>
                                         </li>
                                         <li class="form-check">
-                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="volumelow">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="lowhigh">
                                           <label class="form-check-label">
                                             Capacity: Low to High
                                           </label>
                                         </li>
                                         <li class="form-check">
-                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="volumehigh">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="highlow">
                                           <label class="form-check-label">
                                             Capacity: High to Low
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="ref">
+                                          <label class="form-check-label">
+                                            Service: Refrigerated Only
+                                          </label>
+                                        </li>
+                                        <li class="form-check">
+                                          <input class="form-check-input" type="radio" name="sortbyfilter" value="unref">
+                                          <label class="form-check-label">
+                                            Service: Unrefrigerated Only
                                           </label>
                                         </li>
                                     </ul>
@@ -169,11 +190,6 @@
                             -->
                             <!-- Product Filter -->
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
-                                <h3 class="filter-title">Type of Service</h3>
-                                <ul class="product-tags">
-                                    <li><a href="#">Normal</a></li>
-                                    <li><a href="#">Refrigerated</a></li>
-                                </ul>
                             </div>
                             <div class="product-filter col-lg-3 col-sm-6 col-12">
                                 <h3 class="filter-title">Filter by Capacity</h3>
@@ -225,47 +241,57 @@
                             $adjacents = "2"; 
                             
                             if (isset($_GET['search'])){
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `truckers` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
+                                $search = $_GET['search'];
+                                $id = $_SESSION['active'];
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) AS total_records FROM `truckers` WHERE MATCH(`truck_operator`) AGAINST( '$search' IN NATURAL LANGUAGE MODE) AND owner_id = '$id' ORDER BY `date_created` DESC");
                             }
                             else {
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `truckers`");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) AS total_records FROM `truckers`");
                             }
                             
-
-                            $total_records = mysqli_fetch_array($result_count);
+                            $total_records = mysqli_fetch_assoc($result_count);
                             $total_records = $total_records['total_records'];
                             $total_no_of_pages = ceil($total_records / $total_records_per_page);
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
                             $sql = "SELECT * FROM `truckers`";
+
                             if (isset($_GET['search'])){
-                                $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
+                                $search = $_GET['search'];
+                                $sql .= " WHERE MATCH( truck_operator ) AGAINST('$search' IN NATURAL LANGUAGE MODE) ORDER BY date_created DESC";
                             }
 
                             if (isset($_GET['sortbyfilter'])) {
-                                if ($_GET['sortbyfilter'] == "new") {
-                                    $sql .= " ORDER BY product_date DESC";
+                                if ($_GET['sortbyfilter'] == "operator") {
+                                    $sql .= " ORDER BY truck_operator DESC";
                                 }
-                                elseif ($_GET['sortbyfilter'] == "pricehigh") {
-                                    $sql .= " ORDER BY product_price DESC";
+                                elseif ($_GET['sortbyfilter'] == "model") {
+                                    $sql .= " ORDER BY truck_model DESC";
                                 }
-                                elseif ($_GET['sortbyfilter'] == "pricelow") {
-                                    $sql .= " ORDER BY product_price ASC";
+                                elseif ($_GET['sortbyfilter'] == "plate_number") {
+                                    $sql .= " ORDER BY truck_plate_number ASC";
                                 }
-                                elseif ($_GET['sortbyfilter'] == "volumehigh") {
-                                    $sql .= " ORDER BY product_volume DESC";
+                                elseif ($_GET['sortbyfilter'] == "origin") {
+                                    $sql .= " ORDER BY truck_route DESC";
                                 }
-                                elseif ($_GET['sortbyfilter'] == "volumelow") {
-                                    $sql .= " ORDER BY product_volume ASC";
+                                elseif ($_GET['sortbyfilter'] == "lowhigh") {
+                                    $sql .= " ORDER BY truck_capacity ASC";
                                 }
-                                elseif ($_GET['sortbyfilter'] == "popular") {
-                                    $sql .= " ORDER BY product_popularity DESC";
+                                elseif ($_GET['sortbyfilter'] == "highlow") {
+                                    $sql .= " ORDER BY truck_capacity DESC";
+                                }
+                                elseif ($_GET['sortbyfilter'] == "ref") {
+                                    $sql .= " ORDER BY truck_service_type DESC";
+                                }
+                                elseif ($_GET['sortbyfilter'] == "unref") {
+                                    $sql .= " ORDER BY truck_service_type ASC";
                                 }
                             }
+
                             $sql .= " LIMIT $offset, $total_records_per_page";
                             $result_1 = mysqli_query($con,$sql);
-                        while($row = mysqli_fetch_array($result_1)){
+                        while($row = mysqli_fetch_assoc($result_1)){
                             echo "<tr>";
                             echo "<th scope='row'>" . $row['truck_operator'] . "</th>";
                             echo "<td>" . $row['truck_model'] . "</td>";

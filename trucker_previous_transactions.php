@@ -135,37 +135,37 @@
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="new" checked>
                                           <label class="form-check-label">
-                                            Newness
+                                            Pickup Time 
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="rating">
                                           <label class="form-check-label">
-                                            Average rating
+                                            Product
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="pricelow">
                                           <label class="form-check-label">
-                                            Price: Low to High
+                                          Price : Low to High
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="pricehigh">
                                           <label class="form-check-label">
-                                            Price: High to Low
+                                          Price : High to Low
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="volumelow">
                                           <label class="form-check-label">
-                                            Volume: Low to High
+                                          Product Volume : Low to High
                                           </label>
                                         </li>
                                         <li class="form-check">
                                           <input class="form-check-input" type="radio" name="sortbyfilter" value="volumehigh">
                                           <label class="form-check-label">
-                                            Volume: High to Low
+                                          Product Volume : High to Low
                                           </label>
                                         </li>
                                     </ul>
@@ -300,7 +300,7 @@
                             echo "<td>" . $row['product_volume'] . "</td>";
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";
-                            echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>View transaction details</button>";
+                            echo "<button class='btn btn-white' id='iteminfo' data-id='".$row['transaction_id']."'>View transaction details</button>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -517,6 +517,19 @@
         </div>
     </div>
     <?php include("footer.php") ?>
+    <!-- Modal area start -->
+    <div class="modal fade" id="itemModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body d-flex">
+                    <div class="modal-wrapper"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal area end -->
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
@@ -547,7 +560,7 @@
 
   $(document).ready(function(){
 
-  $('.iteminfo').click(function(){
+  $('#iteminfo').click(function(){
   
   var item_id = $(this).data('id');
 
