@@ -91,7 +91,7 @@
     
 </head>
 
-<body>
+<body onload="loadDates()">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -146,6 +146,42 @@
             <div class="col mr-4"><input class="form-control" type="text" name="phone_number" oninput="this.className = 'form-control'"></div>
             <div class="col mr-4"><input class="form-control" type="email" name="email" oninput="this.className = 'form-control'"></div>
           </div>
+          <div class="form-row mt-2">
+            <div class="col mr-4"><label for="Birthday" class="form-label">Birthday</label></div>
+            <div class="col mr-4"><label for="Sex" class="form-label">Sex</label></div>
+          </div>
+          <div class="form-row mt-2">
+            <div class="col-6 mr-3 row">
+              <div class="col">
+                <select id="year" name="year" class="form-control" oninput="this.className = 'form-control'"></select>
+              </div>
+              <div class="col-5">
+                <select id="month" name="month" class="form-control" oninput="this.className = 'form-control'">
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+              </div>
+              <div class="col">
+                <select id="day" name="day" class="form-control" oninput="this.className = 'form-control'"></select>
+              </div>
+            </div>
+            <div class="col mr-4">
+              <select id="sex" name="sex" class="form-control" oninput="this.className = 'form-control'">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="tab">
@@ -173,11 +209,13 @@
             </div>
           </div>
           <div class="form-row mt-2">
-            <div class="col mr-4"><label for="Field of Interest">Field of Interest</label></div>
-            <div class="col mr-4"><label for="Paymaya Cellphone Number">Paymaya Cellphone Number</label></div>
-            <div class="col mr-4"><label for="TIN Number">TIN No.</label></div>
+            <div class="col mr-4"><label for="Zip Code" class="form-label">Zip Code</label></div>    
+            <div class="col mr-4"><label for="Field of Interest" class="form-label">Field of Interest</label></div>
+            <div class="col mr-4"><label for="Paymaya Cellphone Number" class="form-label">Paymaya Cellphone Number</label></div>
+            <div class="col mr-4"><label for="TIN Number" class="form-label">TIN No.</label></div>
           </div>
           <div class="form-row">
+            <div class="col mr-4"><input class="form-control" type="text" name="zip_code" oninput="this.className = 'form-control'"></div>
             <div class="col mr-4">
               <input type="text" class="form-control" placeholder="e.g. Hardware, Agriculture" name="field_of_interest" oninput="this.className = 'form-control'" list='foi'>
               <datalist id='foi'>
@@ -268,6 +306,17 @@
     <script type="text/javascript">
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
+
+        function loadDates(){
+          var day = document.querySelector('#day');
+          var year = document.querySelector('#year');
+          for(let x = 1; x < 32; x++){
+            day.innerHTML += "<option value='" + x + "'> " + x + "</select>";
+          }
+          for(let x = 1900; x < 2031; x++){
+            year.innerHTML += "<option value='" + x + "'> " + x + "</select>";
+          }
+        }
 
         function showTab(n) {
           // This function will display the specified tab of the form ...
