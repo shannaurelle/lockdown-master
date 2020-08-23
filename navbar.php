@@ -1,7 +1,7 @@
 <?php 
     if(isset($_SESSION['active'])){
         if($_SESSION['access'] == 'Buyer'){
-            include('shop_navbar.html');
+            include('shop_navbar.php');
         }
         else if ($_SESSION['access'] == 'Seller'){
             include('seller_navbar.html');
