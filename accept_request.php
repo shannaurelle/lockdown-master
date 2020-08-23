@@ -14,7 +14,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(mysqli_stmt_prepare($stmt,$sql)){
         mysqli_stmt_bind_param($stmt,"i",$transaction_id);
         mysqli_stmt_execute($stmt);
-        header('Location: trucker_requests.php');
     }
 }
 
