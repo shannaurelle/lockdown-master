@@ -44,9 +44,9 @@
 				'firstName' => $userInfo['field1'],
 				'middleName' => $userInfo['field2'],
 				'lastName' => $userInfo['field3'],
-				'birthday' => '2001-02-03',
+				'birthday' => $userInfo['field7'],
 				'customerSince' => $userInfo['date_created'],
-				'sex' => 'M',
+				'sex' => $userInfo['field6'],
 				'contact' => array(
 					'phone' => $userInfo['field5'],
 					'email' => $userInfo['field4']
@@ -57,21 +57,21 @@
 					'lastName' => $userInfo['field3'],
 			        'phone' => $userInfo['field5'],
 					'email' => $userInfo['field4'],
-			        'line1' => '6F Launchpad',
-			        'line2' => 'Reliance Street',
-			        'city' => $userInfo['field8'],
-			        'state' => $userInfo['field9'],
-			        'zipCode' => '1552',
-			        'countryCode' => 'PH',
+			        'line1' => $userInfo['field8'],
+			        'line2' => $userInfo['field9'],
+			        'city' => $userInfo['field11'],
+			        'state' => $userInfo['field12'],
+			        'zipCode' => $userInfo['field18'],
+			        'countryCode' => $userInfo['field17']
 			        'shippingType' => 'ST'
 				),
 				'billingAddress' => array(
-					'line1' => '6F Launchpad',
-			        'line2' => 'Reliance Street',
+					'line1' => $userInfo['field8'],
+			        'line2' => $userInfo['field9'],
 			        'city' => $userInfo['field8'],
 			        'state' => $userInfo['field9'],
-			        'zipCode' => '1552',
-			        'countryCode' => 'PH'
+			        'zipCode' => $userInfo['field18'],
+			        'countryCode' => $userInfo['field17']
 				)
 		    ),
 
