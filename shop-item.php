@@ -76,9 +76,9 @@
             
             $response .= '<li><label class="form-label" for="are you sure?"> Are you sure to add this to cart? </li>';
 
-            $response .= '<li><input type="submit" class="submit-btn" value="Yes"></li>';
+            $response .= '<li><input type="submit" class="btn btn-success ml-4" value="Yes"></li>';
 
-            $response .= '<li><a type="submit" data-dismiss="modal" aria-label="Close">No</a></li>';
+            $response .= '<li><a data-dismiss="modal" aria-label="Close">No</a></li>';
             
             $response .= '</ul></div></form>';
 

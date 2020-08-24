@@ -61,10 +61,10 @@
     <div class="row">
     <div class="col-12">
     <div class="breadcumb-wrap text-center">
-    <h2>Shopping Cart</h2>
+    <h2 class="text-dark">Shopping Cart</h2>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><span>Cart</span></li>
+            <li><span class="text-dark">Cart</span></li>
         </ul>
     </div>
     </div>
@@ -77,7 +77,6 @@
     <div class="container">
     <div class="row">
     <div class="col-12">
-
                         <?php
                             if(isset($_SESSION['account_id'])):
 
@@ -114,7 +113,7 @@
                     <th class="ptice">Price</th>
                     <th class="quantity">Quantity</th>
                     <th class="total">Total</th>
-                    <th class="remove">Remove</th>
+                    <th class="remove">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,11 +123,62 @@
                     $trucking_fee = 100.00;
                     echo "<span id='trucking_fee' hidden>$trucking_fee</span>";
                     $index = 0;
-                    while($data = mysqli_fetch_assoc($result)):   ?>
+                    while($data = mysqli_fetch_assoc($result)):   
+                        $stmt2 = mysqli_stmt_init($con);
+
+                        $sql2 = "SELECT COUNT(*) AS cnt FROM truckers AS t INNER JOIN products AS p ON t.truck_origin = p.product_location WHERE p.product_id = ?";
+                        
+                        $cnt = 0;
+                        
+                        if(mysqli_stmt_prepare($stmt2,$sql2)){
+
+                            if(!mysqli_stmt_bind_param($stmt2,'i',$data['product_id'])){ echo "<script> alert('preparation failed! 3'); </script>"; }
+                            
+                            if(!mysqli_stmt_execute($stmt2)){ echo "<script> alert('execution failed!'); </script>"; }
+                            
+                            $result2 = mysqli_stmt_get_result($stmt2) ?? 0;
+
+                            $data2 = mysqli_fetch_assoc($result2);
+
+                            $cnt = $cnt + $data2['cnt'];
+
+                        }
+                        else{
+                            echo "<script> alert('preparation failed! 2'); </script>";
+                        }
+
+                        $stmt3 = mysqli_stmt_init($con);
+
+                        $sql3 = "SELECT COUNT(*) AS cnt FROM cart WHERE product_id = ? AND cart_id = ? AND cart_request= ?";
+                        
+                        $cnt2 = 0;
+
+                        $cart_request_true = 1;
+                        
+                        if(mysqli_stmt_prepare($stmt3,$sql3)){
+
+                            if(!mysqli_stmt_bind_param($stmt3,'iii',$data['product_id'],$account_id, $cart_request_true)){ echo "<script> alert('preparation failed! 3'); </script>"; }
+                            
+                            if(!mysqli_stmt_execute($stmt3)){ echo "<script> alert('execution failed!'); </script>"; }
+                            
+                            $result3 = mysqli_stmt_get_result($stmt3) ?? 0;
+
+                            $data3 = mysqli_fetch_assoc($result3);
+
+                            $cnt2 = $cnt2 + $data3['cnt'];
+
+                        }
+                        else{
+                            echo "<script> alert('preparation failed! 2'); </script>";
+                        }
+                ?>
                 <tr>
                     <input type='number' name='account_id' value=<?php echo $_SESSION['account_id'] ?> hidden/>
                     <input type="number" name="index" value=<?php echo $index ?> hidden/>
                     <input type="number" name="product[]" value=<?php echo $data['product_id'] ?> hidden/>
+                    <input type="number" name="product_name[]" value=<?php echo $data['product_name'] ?> hidden/>
+                    <input type="number" name="location[]" value=<?php echo $data['product_location'] ?> hidden/>
+                    <input type="number" name="price[]" value=<?php echo $data['product_price'] ?> hidden/>
                     <td class="images"><img src=<?php echo '"'.$data['product_img_path'].'"' ?> alt=""  width="200" height="200"></td>
                     <td class="product"><?php echo $data['product_name']; ?></td>
                     <td class="ptice"><?php echo 'Php '.$data['product_price']; ?></td>
@@ -142,7 +192,21 @@
                             $subtotal = $subtotal + round($data['product_volume']*$data['product_price'],2);
                         ?>
                     </td>
-                    <td class="remove"><button class="btn btn-danger" type="submit" formaction="remove_cart.php"><i class="fa fa-times"></i></button></td>
+                    <td class="remove">
+                        <button class="btn btn-danger" type="submit" formaction="remove_cart.php"><i class="fa fa-times"></i></button>
+                        <?php if($cnt == 0 and $cnt2 == 0): ?>
+                            <button id="request" class="btn btn-link mt-4" type="submit" formaction="add_request.php">Request a Trucker</button>
+                        <?php 
+                            $subtotal = $subtotal - round($data['product_volume']*$data['product_price'],2);
+                            endif; 
+                            ?>
+                        <?php if($cnt == 0 and $cnt2 > 0): ?>
+                            <button id="request" class="btn btn-link mt-4" disabled>Trucker Request Sent!</button>
+                        <?php 
+                            $subtotal = $subtotal - round($data['product_volume']*$data['product_price'],2);
+                            endif; 
+                            ?>
+                    </td>
                     </form>
                 </tr>
 
@@ -164,6 +228,7 @@
                         </li>
                         <li><a href="shop.php">Continue Shopping</a></li>
                     </ul>
+                    <div style="visibility:hidden">
                     <h3 class="d-inline">Delivery Option</h3>
                     <p>Recommended trucker is based on your address and volume available (Cost: Php 100)<br>
                         Personal pick-up is also available (Cost: Php 0)
@@ -183,6 +248,7 @@
                         <label>No trucker option available?</label>
                         <button>Find truckers</button>
                     </div>
+                </div>
                 </div>
             </div>
             <div class="col-xl-3 offset-xl-5 col-lg-4 offset-lg-3 col-md-6">
@@ -211,78 +277,7 @@
     </div>
     </div>
     <!-- cart-area end -->
-    <footer class="footer-area">
-        <div class="footer-top bg-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-logo">
-                            <img src="assets/images/logo2.png" alt="">
-                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from</p>
-                            <ul class="socil-icon d-flex">
-                                <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-menu">
-                            <h2>Spacial Menu</h2>
-                            <ul>
-                                <li><a href="account.html">My Account</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="javascript:void(0)">Help</a></li>
-                                <li><a href="javascript:void(0)">Support</a></li>
-                                <li><a href="javascript:void(0)">FAQ</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-contact">
-                            <h2>Contact us</h2>
-                            <ul>
-                                <li><i class="fa fa-map-marker"></i>House No. 09 , Road No.25 Dhaka,Bangladesh </li>
-                                <li><i class="fa fa-phone"></i>+1(888)234-56789 <span>+1(888)234-56789</span> </li>
-                                <li><i class="fa fa-envelope-o"></i>youremail@gmail.com</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-widget footer-contact">
-                            <h2>Join to Newsletter</h2>
-                            <p>Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from</p>
-                            <form class="sform">
-                                <div class="form_msg">
-                                    <label class="mt10"></label>
-                                </div>
-                                <input type="email" name="email" placeholder="Enter Your Email" required>
-                                <button type="submit" name="submit" id="subscribe-btn"><i class="fa fa-long-arrow-right"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-buttom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <p>&copy;2018 Your Website Name All Right Reserved</p>
-                    </div>
-                    <div class="col-md-6 col-12">
-                        <ul class="d-flex">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include('footer.php') ?>
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap js -->
@@ -309,7 +304,14 @@
     <script src="assets/js/scripts.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
-        $('#checkout_button').hide();
+
+        var el = document.getElementById('request');
+
+        el.addEventListener('submit', function(){
+            return confirm('Are you sure? This will send a trucker request to nearby trucker an you will have to wait for one to respond');
+            el.style.visibility = 'hidden';
+        }, false);
+
         $('#trucker').change(function(){
         if (this.checked) {
             let subtotal = parseFloat(document.getElementById('subtotal').innerHTML);
