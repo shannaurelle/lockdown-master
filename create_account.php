@@ -140,7 +140,7 @@ if(mysqli_stmt_prepare($query_stmt, $sql) && mysqli_stmt_prepare($query_stmt_2, 
     }
 
     if(!mysqli_stmt_execute($query_stmt)){
-        echo "Statment execution failed: ".mysqli_stmt_error($query_stmt); exit;
+        echo "Statment execution failed 1: ".mysqli_stmt_error($query_stmt); exit;
     }
 
     if(!mysqli_stmt_bind_param($query_stmt_2,'ssss',$username,$password,$access, $date_created)){
@@ -148,7 +148,7 @@ if(mysqli_stmt_prepare($query_stmt, $sql) && mysqli_stmt_prepare($query_stmt_2, 
     }
 
     if(!mysqli_stmt_execute($query_stmt_2)){
-        echo "Statment execution failed: ".mysqli_stmt_error($query_stmt); exit;
+        echo "Statment execution failed 2: ".mysqli_stmt_error($query_stmt); exit;
     }
     
     echo "<script type='text/javascript'> 

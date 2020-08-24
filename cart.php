@@ -54,147 +54,7 @@
     <div class="preloader-wrap">
         <div class="spinner"></div>
     </div>
-    <!-- header-area start -->
-    <header class="header-area" id="sticky-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/images/TOM_120x60.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-7 d-none d-lg-block">
-                    <div class="mainmenu">
-                        <ul id="navigation" class="d-flex">
-                            <li><a href="javascript:void(0);">Home <i class="fa fa-angle-down"></i></a>
-                                <ul class="submenu">
-                                    <li><a href="index.html">Main Home</a></li>
-                                    <li><a href="index2.html">Home 2</a></li>
-                                    <li><a href="index3.html">Home 3</a></li>
-                                    <li><a href="index4.html">Home 4</a></li>
-                                </ul>
-                            </li>
-                            <li class="active"><a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
-                                <ul class="megamenu row">
-                                    <li class="col-xl-3 col-lg-2 col-12">
-                                        <strong>Shop Pages</strong>
-                                        <ul>
-                                            <li><a href="shop.html">Standard Shop</a></li>
-                                            <li><a href="shop.html">Small Products</a></li>
-                                            <li><a href="shop.html">Large Products</a></li>
-                                            <li><a href="shop.html">Shop Infinity</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-3 col-12 col-x-3">
-                                        <strong>Products Pages</strong>
-                                        <ul>
-                                            <li><a href="single-product.html">Product Page V1</a></li>
-                                            <li><a href="single-product.html">Product Page V2</a></li>
-                                            <li><a href="single-product.html">Product Page V3</a></li>
-                                            <li><a href="single-product.html">Simple Product</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-3 col-xl-2 col-12">
-                                        <strong>Other Shop Pages</strong>
-                                        <ul>
-                                            <li><a href="cart.html">Shopping Cart</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
-                                            <li><a href="account.html">My Account</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-4 text-right d-none d-lg-block">
-                                        <img src="assets/images/mega.png" alt="">
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="javascript:void(0);">Blog <i class="fa fa-angle-down"></i></a>
-                                <ul class="submenu">
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
-                                <ul class="submenu">
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="shop-sidebar.html">Shop sidebar</a></li>
-                                    <li><a href="single-product.html">Shop Single</a></li>
-                                    <li><a href="cart.html">Shopping Cart</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="checkout.html">checkout</a></li>
-                                    <li><a href="account.html">Account</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-5 col-4">
-                    <div class="search-wrapper">
-                        <ul class="d-flex">
-                            <li><a href="javascript:void(0);"><i class="fa fa-search"></i></a>
-                                <ul class="search">
-                                    <li>
-                                        <form action="#">
-                                            <input type="text" placeholder="Search...">
-                                            <button><i class="fa fa-search"></i></button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="javascript:void(0);"><i class="fa fa-shopping-bag"></i></a>
-                                <ul class="cart-wrap">
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="assets/images/cart/1.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Beautiful Chair</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li class="cart-items mb-0">
-                                        <div class="cart-img">
-                                            <img src="assets/images/cart/1.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Beautiful Chair</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li>Subtotal: <span class="pull-right">$70.00</span></li>
-                                    <li>
-                                        <button>Check Out</button>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="javascript:void(0);"><i class="fa fa-user"></i></a>
-                                <ul class="account-wrap">
-                                    <li><a href="account.html">Account</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="wishlist.html">wishlist</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="d-block d-lg-none col-sm-1 clear col-2">
-                    <div class="responsive-menu-wrap floatright"></div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- header-area end -->
+    <?php include('navbar.php') ?>
     <!-- .breadcumb-area start -->
     <div class="breadcumb-area bg-img-1 black-opacity ptb-100">
     <div class="container">
@@ -262,25 +122,26 @@
                 <?php 
                     $subtotal = 0; 
                     $trucking_fee = 100.00;
-                    echo "<span id='trucking_fee'>$trucking_fee</span>";
+                    echo "<span id='trucking_fee' hidden>$trucking_fee</span>";
                     while($data = mysqli_fetch_assoc($result)):   ?>
                 <tr>
-                    
-                    <input type="text" name="product_id[]" value=<?php echo '"'.$data['product_id'].'"' ?> hidden/>
+                    <input type='number' name='account_id' value=<?php echo $_SESSION['account_id'] ?> hidden/>
+                    <input type="number" name="product_id" value=<?php echo $data['product_id'] ?> hidden/>
                     <td class="images"><img src=<?php echo '"'.$data['product_img_path'].'"' ?> alt=""  width="200" height="200"></td>
                     <td class="product"><a href="single-product.html"><?php echo $data['product_name']; ?></a></td>
                     <td class="ptice"><?php echo 'Php '.$data['product_price']; ?></td>
                     <td class="quantity cart-plus-minus">
-                        <input type="text" name="quantity[]" value=<?php echo '"'.$data['product_volume'].'"' ?> />
+                        <input type="text" name="quantity" value=<?php echo '"'.$data['product_volume'].'"' ?> />
                     </td>
                     <td>
-                        <input type="text" name="total[]" value=<?php echo '"Php '.round($data['product_volume']*$data['product_price'],2).'"' ?> hidden/>
+                        <input type="text" name="total" value=<?php echo '"Php '.round($data['product_volume']*$data['product_price'],2).'"' ?> hidden/>
                         <?php echo '₱ '.round($data['product_volume']*$data['product_price'],2) ?>     
                         <?php 
                             $subtotal = $subtotal + round($data['product_volume']*$data['product_price'],2);
                         ?>
                     </td>
-                    <td class="remove"><i class="fa fa-times"></i></td>
+                    <td class="remove"><button class="btn btn-danger" type="submit" formaction="remove_cart.php"><i class="fa fa-times"></i></button></td>
+                    </form>
                 </tr>
 
                 <?php endwhile; ?>
@@ -335,7 +196,7 @@
                         </li>
                         <?php endwhile; ?>
                     </ul>
-                    <button id='checkout_button'>Proceed to Checkout</button>
+                    <button class='btn btn-success' id='checkout_button'>Proceed to Checkout</button>
         </div>
         </div>
         </div>

@@ -4,7 +4,7 @@
             include('shop_navbar.php');
         }
         else if ($_SESSION['access'] == 'Seller'){
-            include('seller_navbar.html');
+            include('seller_navbar.php');
         }
         else if ($_SESSION['access'] == 'Trucker'){
             include('trucker_navbar.html');
