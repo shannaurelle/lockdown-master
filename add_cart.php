@@ -7,9 +7,7 @@ if(mysqli_connect_errno()){
 session_start();
 $account_id = filter_var($_POST['account_id'],FILTER_SANITIZE_NUMBER_INT);
 $product_id = filter_var($_POST['product_id'],FILTER_SANITIZE_NUMBER_INT);
-$product_volume = filter_var($_POST['product_volume'],FILTER_SANITIZE_NUMBER_INT);
-
-$stmt = mysqli_stmt_init($connection);
+$product_volume = ($_POST['product_volume'] <= 0) ? filter_var($_POST['product_volume'],FILTER_SANITIZE_NUMBER_INT) : 1;
 
 $cnt_query = mysqli_query($connection,"SELECT COUNT(*) AS cart_present FROM cart_costs WHERE cart_id =$account_id");
 $result = mysqli_fetch_assoc($cnt_query);
@@ -23,15 +21,40 @@ $subtotal_query = mysqli_query($connection,"SELECT cart_subtotal FROM cart_costs
 $result = mysqli_fetch_assoc($cnt_query);
 $cart_subtotal = $result['cart_subtotal'] + ($product_price * $product_volume) ?? 0;
 
-$sql = "INSERT INTO cart (cart_id, product_id, product_volume) VALUES (?,?,?)";
+$cart_query = mysqli_query($connection,"SELECT COUNT(*) AS item_check FROM cart WHERE cart_id =$account_id AND product_id=$product_id");
+$result = mysqli_fetch_assoc($cart_query);
+$item_check = $result['item_check'];
 
-if(mysqli_stmt_prepare($stmt,$sql)){
-    mysqli_stmt_bind_param($stmt,'iii',$account_id, $product_id, $product_volume);
-    mysqli_stmt_execute($stmt);
-    header("Location: cart.php");
+$stmt = mysqli_stmt_init($connection);
+
+if($item_check == 0){
+    $sql = "INSERT INTO cart (cart_id, product_id, product_volume) VALUES (?,?,?)";
+
+    if(mysqli_stmt_prepare($stmt,$sql)){
+        mysqli_stmt_bind_param($stmt,'iii',$account_id, $product_id, $product_volume);
+        mysqli_stmt_execute($stmt);
+        header("Location: cart.php");
+    }
+    else{
+        echo "Preparation failed: ",mysqli_stmt_error($stmt);
+    }
 }
 else{
-    echo "Preparation failed: ",mysqli_stmt_error($stmt);
+    $cart_query = mysqli_query($connection,"SELECT * FROM cart WHERE cart_id ='$account_id' AND product_id='$product_id'");
+    $result = mysqli_fetch_assoc($cart_query);
+    $past_volume = $result['product_volume'];
+    $cart_quantity = $past_volume + $product_volume;
+
+    $sql = "UPDATE cart SET product_volume = ? WHERE cart_id = ? AND product_id = ?";
+
+    if(mysqli_stmt_prepare($stmt,$sql)){
+        mysqli_stmt_bind_param($stmt,'iii',$cart_quantity, $account_id, $product_id);
+        mysqli_stmt_execute($stmt);
+        header("Location: cart.php");
+    }
+    else{
+        echo "Preparation failed: ",mysqli_stmt_error($stmt);
+    }
 }
 
 $stmt2 = mysqli_stmt_init($connection);
