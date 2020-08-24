@@ -62,7 +62,7 @@
 			        'city' => $userInfo['field11'],
 			        'state' => $userInfo['field12'],
 			        'zipCode' => $userInfo['field18'],
-			        'countryCode' => $userInfo['field17']
+			        'countryCode' => $userInfo['field17'],
 			        'shippingType' => 'ST'
 				),
 				'billingAddress' => array(
