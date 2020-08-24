@@ -48,6 +48,7 @@ You can also download apache distributions like WAMPP, XAMPP, MAMP, and LAMP
 For now, tests involving the system include the checkout page of the site.
 The system uses a sandbox url of the Paymaya API for online entrprises.
 The mock credit/debit cards are given [here](https://mock-processor-sandbox.paymaya.com/cards)
+For a dummy buyer login account, use shannaurelle as username and Shann4756 as password.
 
 
 To test this using localhost, type the link: localhost/lockdown-master/payment-gateway.php
@@ -84,10 +85,6 @@ Internet connection is needed to support Favicons.
 ## Contributing
 
 Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
