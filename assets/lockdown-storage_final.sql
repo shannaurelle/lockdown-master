@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2020 at 03:54 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Aug 24, 2020 at 05:31 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -41,8 +40,10 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `username`, `password`, `access`, `date_created`) VALUES
-(0, 'dummyacc', '$2y$10$2.Jquga0hMZ6Tgqgn.aeSOVksVZR7bIpEEtUuja2ule1mkwcwFHTu', 'Buyer', '2020-08-19 11:10:23'),
-(2, 'shannaurelle', '$2y$10$B596l7Ri8Tjg2OgYHk7kYe1mhh2FmQWe2H.a6pnA57BfiUQho9jxG', 'Buyer', '2020-08-20 03:40:34');
+(1, 'shanndummy', '$2y$10$dh1Zjlbtzzn7lAAoGOS.6uAjMqRiNDj5cC4MX4UqmsnLkCAcTH7E2', 'Buyer', '2020-08-24 16:02:33'),
+(2, 'shannaurelle', '$2y$10$B596l7Ri8Tjg2OgYHk7kYe1mhh2FmQWe2H.a6pnA57BfiUQho9jxG', 'Buyer', '2020-08-20 03:40:34'),
+(3, 'dummyseller', '$2y$10$cLrAUSA18biUrpO1EBbrOeLfKTz4DmO0uJJE9uXqP6HYFgZVL8q02', 'Seller', '2020-08-24 16:10:26'),
+(4, 'shannbuyer', '$2y$10$kr/Efr4sJpE.TjH90WKR2OCCXVzjC2nMtfvH28.WnNVA3h8a8wSra', 'Buyer', '2020-08-24 16:26:22');
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,10 @@ CREATE TABLE `account_info` (
 --
 
 INSERT INTO `account_info` (`info_id`, `field1`, `field2`, `field3`, `field4`, `field5`, `field6`, `field7`, `field8`, `field9`, `field10`, `field11`, `field12`, `field13`, `field14`, `field15`, `field16`, `field17`, `field18`) VALUES
-(2, 'Michael Sean Brian', 'Billate', 'Omisol', 'michael_omisol@gmail.com', '+639182348706', 'Male', '2001-02-14', 'Rama Extension, Brgy. East Awang', 'Calbayog City, Samar', 'Samar', 'Calbayog ', 'Philippines', 'Agriculture', '', '', 'Vaccaria', '', '6710');
+(1, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '0996-567-8975', '123-456-789-000', 'shanndummy', '1990', '2', '3', 'M', '6500'),
+(2, 'Michael Sean Brian', 'Billate', 'Omisol', 'michael_omisol@gmail.com', '+639182348706', 'M', '2001-02-14', 'Rama Extension, Brgy. East Awang', 'Calbayog City, Samar', 'Samar', 'Calbayog ', 'Philippines', 'Agriculture', '', '', 'Vaccaria', 'PH', '6710'),
+(3, 'sdas', 'dsadsad', 'sadassd', 'dasdsadsa@gmail.com', 'assadsad', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '54456457667', '123456789000', 'dummyseller', '1900', '10', '1', 'M', '6500'),
+(4, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '09566809833', '123456789000', 'shannbuyer', '1900', '1', '1', 'F', '6500');
 
 -- --------------------------------------------------------
 
@@ -102,7 +106,12 @@ INSERT INTO `cart` (`cart_id`, `product_id`, `product_volume`, `cart_owner`) VAL
 (2, 8208860, 100, ''),
 (2, 1, 1, ''),
 (2, 3, 3, ''),
-(2, 4, 6, '');
+(2, 4, 6, ''),
+(4, 1, 1, ''),
+(4, 2, 1, ''),
+(4, 3, 1, ''),
+(4, 4, 1, ''),
+(2, 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -122,7 +131,8 @@ CREATE TABLE `cart_costs` (
 --
 
 INSERT INTO `cart_costs` (`cart_id`, `cart_subtotal`, `cart_item_count`, `cart_trucking_fee`) VALUES
-(2, 0, 0, 120.5);
+(2, 0, 0, 120.5),
+(4, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -389,7 +399,8 @@ CREATE TABLE `wishlist` (
 -- Indexes for table `accounts`
 --
 ALTER TABLE `accounts`
-  ADD UNIQUE KEY `account_id` (`account_id`);
+  ADD UNIQUE KEY `account_id` (`account_id`),
+  ADD KEY `account_id_2` (`account_id`);
 
 --
 -- Indexes for table `account_info`
@@ -419,6 +430,18 @@ ALTER TABLE `wishlist`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `accounts`
+--
+ALTER TABLE `accounts`
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `account_info`
+--
+ALTER TABLE `account_info`
+  MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `table_template`
