@@ -7,8 +7,9 @@ else {
 	session_start();
 
 	if($_SERVER['REQUEST_METHOD'] == 'POST'){
+		$index = filter_var($_POST['index'],FILTER_SANITIZE_NUMBER_INT);
 		$account_id = filter_var($_SESSION['account_id'],FILTER_SANITIZE_NUMBER_INT);
-		$product_id = filter_var($_POST['product_id'],FILTER_SANITIZE_NUMBER_INT);
+		$product_id = filter_var($_POST['product'][$index],FILTER_SANITIZE_NUMBER_INT);
 
 		$stmt = mysqli_stmt_init($connection);
 
