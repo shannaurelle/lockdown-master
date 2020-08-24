@@ -7,48 +7,56 @@ if(mysqli_connect_errno()){
 
 session_start();
 
-define('SHOP_LIST_COUNT',count($_POST['product_id']));
-$account_id = filter_var($_POST['account_id'],FILTER_SANITIZE_NUMBER_INT);
-$total_product_volume = 0;
-$total_cart_cost = 0;
 
-for( $i=0 ; $i < SHOP_LIST_COUNT ; $i++ ) {
+if(isset($_POST['quantity'])){
 
-    $stmt = mysqli_stmt_init($connection);
-    $product_id = filter_var($_POST['product_id'][$i],FILTER_SANITIZE_NUMBER_INT);
-    $product_volume = filter_var($_POST['quantity'][$i],FILTER_SANITIZE_NUMBER_INT) ?? 0;
-    $total_product_volume = $total_product_volume + $product_volume;
-    $cart_subtotal = filter_var($_POST['total'][$i],FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION) ?? 0;
-    $total_cart_cost = $total_cart_cost + $cart_subtotal;
+    define('SHOP_LIST_COUNT',count($_POST['quantity']));
+    $account_id = filter_var($_POST['account_id'],FILTER_SANITIZE_NUMBER_INT);
+    $total_product_volume = 0;
+    $total_cart_cost = 0;
 
-    $sql = "UPDATE cart SET product_volume = ? WHERE product_id = ? AND cart_id = ?";
+    for( $i=0 ; $i < SHOP_LIST_COUNT ; $i++ ) {
+
+        $stmt = mysqli_stmt_init($connection);
+        $product_id = filter_var($_POST['product'][$i],FILTER_SANITIZE_NUMBER_INT);
+        $product_volume = filter_var($_POST['quantity'][$i],FILTER_SANITIZE_NUMBER_INT) ?? 0;
+        $total_product_volume = $total_product_volume + $product_volume;
+        $cart_subtotal = filter_var($_POST['total'][$i],FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION) ?? 0;
+        $total_cart_cost = $total_cart_cost + $cart_subtotal;
     
-    if(mysqli_stmt_prepare($stmt,$sql)){
-        mysqli_stmt_bind_param($stmt,'iii',$product_volume, $product_id, $account_id);
-        mysqli_stmt_execute($stmt);
+        $sql = "UPDATE cart SET product_volume = ? WHERE product_id = ? AND cart_id = ?";
+        
+        if(mysqli_stmt_prepare($stmt,$sql)){
+            mysqli_stmt_bind_param($stmt,'iii',$product_volume, $product_id, $account_id);
+            mysqli_stmt_execute($stmt);
+        }
+        else{ echo "<script> alert('Preparation failed!'); </script>"; }
+    
+        mysqli_stmt_close($stmt);
+        
     }
-    else{ echo "<script> alert('Preparation failed!'); </script>"; }
-
-    mysqli_stmt_close($stmt);
     
-}
-
-$stmt2 = mysqli_stmt_init($connection);
-
-if(isset($_SESSION['account_id'])){
-    $sql2 = "UPDATE cart_costs SET cart_subtotal = ?, cart_item_count = ? WHERE cart_id = ?";
+    $stmt2 = mysqli_stmt_init($connection);
+    
+    if(isset($_SESSION['account_id'])){
+        $sql2 = "UPDATE cart_costs SET cart_subtotal = ?, cart_item_count = ? WHERE cart_id = ?";
+    }
+    else{
+        $sql2 = "INSERT cart_costs (cart_subtotal, cart_item_count, cart_id) VALUES (?,?,?)";
+    } 
+    
+    if(mysqli_stmt_prepare($stmt2,$sql2)){
+        mysqli_stmt_bind_param($stmt2,'dii',$total_cart_cost, $total_product_volume, $account_id);
+        mysqli_stmt_execute($stmt2);
+    }
+    echo "<script> window.location.href = 'cart.php'; </script>";
+    mysqli_stmt_close($stmt2);
 }
 else{
-    $sql2 = "INSERT cart_costs (cart_subtotal, cart_item_count, cart_id) VALUES (?,?,?)";
-} 
-
-if(mysqli_stmt_prepare($stmt2,$sql2)){
-    mysqli_stmt_bind_param($stmt2,'dii',$total_cart_cost, $total_product_volume, $account_id);
-    mysqli_stmt_execute($stmt2);
-    echo "<script> window.location.href = 'cart.php'; </script>";
+    echo "<script> alert('Please shop for an item before updating it.'); 
+    window.location.href = 'cart.php';
+    </script>";
 }
-
-mysqli_stmt_close($stmt2);
 
 mysqli_close($connection);
 exit();

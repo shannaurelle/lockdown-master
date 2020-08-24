@@ -16,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sajuguju - Shop</title>
+    <title>TOM - Cart</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.png">
@@ -123,18 +123,20 @@
                     $subtotal = 0; 
                     $trucking_fee = 100.00;
                     echo "<span id='trucking_fee' hidden>$trucking_fee</span>";
+                    $index = 0;
                     while($data = mysqli_fetch_assoc($result)):   ?>
                 <tr>
                     <input type='number' name='account_id' value=<?php echo $_SESSION['account_id'] ?> hidden/>
-                    <input type="number" name="product_id" value=<?php echo $data['product_id'] ?> hidden/>
+                    <input type="number" name="index" value=<?php echo $index ?> hidden/>
+                    <input type="number" name="product[]" value=<?php echo $data['product_id'] ?> hidden/>
                     <td class="images"><img src=<?php echo '"'.$data['product_img_path'].'"' ?> alt=""  width="200" height="200"></td>
-                    <td class="product"><a href="single-product.html"><?php echo $data['product_name']; ?></a></td>
+                    <td class="product"><?php echo $data['product_name']; ?></td>
                     <td class="ptice"><?php echo 'Php '.$data['product_price']; ?></td>
                     <td class="quantity cart-plus-minus">
-                        <input type="text" name="quantity" value=<?php echo '"'.$data['product_volume'].'"' ?> />
+                        <input type="text" name="quantity[]" value=<?php echo '"'.$data['product_volume'].'"' ?> />
                     </td>
                     <td>
-                        <input type="text" name="total" value=<?php echo '"Php '.round($data['product_volume']*$data['product_price'],2).'"' ?> hidden/>
+                        <input type="text" name="total[]" value=<?php echo '"Php '.round($data['product_volume']*$data['product_price'],2).'"' ?> hidden/>
                         <?php echo '₱ '.round($data['product_volume']*$data['product_price'],2) ?>     
                         <?php 
                             $subtotal = $subtotal + round($data['product_volume']*$data['product_price'],2);
@@ -144,7 +146,10 @@
                     </form>
                 </tr>
 
-                <?php endwhile; ?>
+                <?php 
+                    $index++;
+                    endwhile; 
+                ?>
 
                 <?php endif; ?>
 
