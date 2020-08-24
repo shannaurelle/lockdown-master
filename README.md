@@ -48,8 +48,12 @@ You can also download apache distributions like WAMPP, XAMPP, MAMP, and LAMP
 For now, tests involving the system include the checkout page of the site.
 The system uses a sandbox url of the Paymaya API for online entrprises.
 The mock credit/debit cards are given [here](https://mock-processor-sandbox.paymaya.com/cards)
+
+
 For a dummy buyer login account, use shannaurelle as username and Shann4756 as password.
 For the database, import lockdown_storage_final.sql
+
+
 Credentials include localhost as host, root as username, and password is none
 Database name must be lockdown-storage
 
