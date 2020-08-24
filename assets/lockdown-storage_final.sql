@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2020 at 05:31 PM
+-- Generation Time: Aug 24, 2020 at 10:18 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -79,7 +79,7 @@ CREATE TABLE `account_info` (
 
 INSERT INTO `account_info` (`info_id`, `field1`, `field2`, `field3`, `field4`, `field5`, `field6`, `field7`, `field8`, `field9`, `field10`, `field11`, `field12`, `field13`, `field14`, `field15`, `field16`, `field17`, `field18`) VALUES
 (1, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '0996-567-8975', '123-456-789-000', 'shanndummy', '1990', '2', '3', 'M', '6500'),
-(2, 'Michael Sean Brian', 'Billate', 'Omisol', 'michael_omisol@gmail.com', '+639182348706', 'M', '2001-02-14', 'Rama Extension, Brgy. East Awang', 'Calbayog City, Samar', 'Samar', 'Calbayog ', 'Philippines', 'Agriculture', '', '', 'Vaccaria', 'PH', '6710'),
+(2, 'Michael Sean Brian', 'Billate', 'Omisol', 'michael_omisol@gmail.com', '+639182348706', 'M', '2001-02-14', 'Rama Extension, Brgy. East Awang', 'Calbayog City, Samar', 'Samar', 'Tacloban', 'Philippines', 'Agriculture', '', '', 'Vaccaria', 'PH', '6710'),
 (3, 'sdas', 'dsadsad', 'sadassd', 'dasdsadsa@gmail.com', 'assadsad', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '54456457667', '123456789000', 'dummyseller', '1900', '10', '1', 'M', '6500'),
 (4, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '09566809833', '123456789000', 'shannbuyer', '1900', '1', '1', 'F', '6500');
 
@@ -93,25 +93,24 @@ CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_volume` int(11) NOT NULL,
-  `cart_owner` text NOT NULL
+  `cart_request` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`cart_id`, `product_id`, `product_volume`, `cart_owner`) VALUES
-(123456, 0, 234, ''),
-(123456, 2, 2345, ''),
-(2, 8208860, 100, ''),
-(2, 1, 1, ''),
-(2, 3, 3, ''),
-(2, 4, 6, ''),
-(4, 1, 1, ''),
-(4, 2, 1, ''),
-(4, 3, 1, ''),
-(4, 4, 1, ''),
-(2, 1, 1, '');
+INSERT INTO `cart` (`cart_id`, `product_id`, `product_volume`, `cart_request`) VALUES
+(123456, 0, 234, 0),
+(123456, 2, 2345, 0),
+(2, 8208860, 100, 0),
+(4, 1, 1, 0),
+(4, 2, 1, 0),
+(4, 3, 1, 0),
+(4, 4, 1, 0),
+(2, 2, 1, 0),
+(2, 7, 10, 1),
+(2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -131,7 +130,7 @@ CREATE TABLE `cart_costs` (
 --
 
 INSERT INTO `cart_costs` (`cart_id`, `cart_subtotal`, `cart_item_count`, `cart_trucking_fee`) VALUES
-(2, 0, 0, 120.5),
+(2, 0, 11, 120.5),
 (4, 0, 0, 0);
 
 -- --------------------------------------------------------
@@ -154,55 +153,84 @@ CREATE TABLE `products` (
   `product_img_path` longtext NOT NULL,
   `product_packaging` varchar(128) NOT NULL,
   `product_qty_per_package` int(11) NOT NULL,
-  `product_unit_measurement` varchar(16) NOT NULL
+  `product_unit_measurement` varchar(16) NOT NULL,
+  `product_location` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `product_name`, `product_owner`, `product_description`, `product_price`, `product_date`, `product_tag`, `product_volume`, `product_popularity`, `product_rating`, `product_img_path`, `product_packaging`, `product_qty_per_package`, `product_unit_measurement`) VALUES
-(1, 'Apple', 'Hans', 'Fuji', 15, '0000-00-00 00:00:00', 'Agriculture', 200, 67, 84, 'assets/images/dummy_images/1_x.png', 'Box', 5, 'kg'),
-(2, 'Apple', 'Hans', 'Pacific Rose', 30, '0000-00-00 00:00:00', 'Agriculture', 150, 67, 91, 'assets/images/dummy_images/2_x.png', 'Box', 5, 'kg'),
-(3, 'Orange', 'Hans', 'Jaffa', 12, '0000-00-00 00:00:00', 'Agriculture', 120, 76, 78, 'assets/images/dummy_images/3_x.png', 'Box', 7, 'kg'),
-(4, 'Orange', 'Hans', 'Valencia', 23, '0000-00-00 00:00:00', 'Agriculture', 430, 6, 89, 'assets/images/dummy_images/4_x.png', 'Box', 8, 'kg'),
-(5, 'Banana', 'Hans', 'Lady Finger', 11, '0000-00-00 00:00:00', 'Agriculture', 90, 80, 46, 'assets/images/dummy_images/5_x.png', 'Box', 3, 'kg'),
-(6, 'Banana', 'Hans', 'Gold Finger', 7, '0000-00-00 00:00:00', 'Agriculture', 210, 40, 25, 'assets/images/dummy_images/6_x.png', 'Box', 7, 'kg'),
-(7, 'Papaya', 'Hans', 'Guinea Gold', 9, '0000-00-00 00:00:00', 'Agriculture', 100, 14, 26, 'assets/images/dummy_images/1_x.png', 'Box', 6, 'kg'),
-(8, 'Papaya', 'Hans', 'Maradol', 8, '0000-00-00 00:00:00', 'Agriculture', 80, 94, 76, 'assets/images/dummy_images/2_x.png', 'Box', 9, 'kg'),
-(9, 'Lettuce', 'Hans', 'Butterhead', 9, '0000-00-00 00:00:00', 'Agriculture', 60, 93, 21, 'assets/images/dummy_images/3_x.png', 'Box', 8, 'kg'),
-(10, 'Lettuce', 'Hans', 'Betavia', 14, '0000-00-00 00:00:00', 'Agriculture', 170, 40, 48, 'assets/images/dummy_images/4_x.png', 'Box', 3, 'kg'),
-(11, 'Mango', 'Hans', 'Ataulfo', 12, '0000-00-00 00:00:00', 'Agriculture', 50, 39, 54, 'assets/images/dummy_images/5_x.png', 'Box', 7, 'kg'),
-(12, 'Mango', 'Hans', 'Alphonso', 10, '0000-00-00 00:00:00', 'Agriculture', 240, 90, 4, 'assets/images/dummy_images/6_x.png', 'Box', 6, 'kg'),
-(13, 'Pineapple', 'Hans', 'Queen', 8, '0000-00-00 00:00:00', 'Agriculture', 160, 12, 98, 'assets/images/dummy_images/1_x.png', 'Box', 4, 'kg'),
-(14, 'Pineapple', 'Hans', 'Hawaiian', 60, '0000-00-00 00:00:00', 'Agriculture', 240, 93, 98, 'assets/images/dummy_images/2_x.png', 'Box', 9, 'kg'),
-(15, 'Coconut', 'Hans', 'Malayan Yellow Dwarf', 35, '0000-00-00 00:00:00', 'Agriculture', 600, 35, 51, 'assets/images/dummy_images/3_x.png', 'Sack', 7, 'kg'),
-(16, 'Crankset', 'Hans', 'FC-MT511-1', 889, '0000-00-00 00:00:00', 'Hardware', 250, 61, 7, 'assets/images/dummy_images/4_x.png', 'Box', 2, 'pcs'),
-(17, 'Bottom Racket', 'Hans', 'SM-BB52', 705, '0000-00-00 00:00:00', 'Hardware', 450, 95, 62, 'assets/images/dummy_images/5_x.png', 'Box', 4, 'pcs'),
-(18, 'Rear Derailleur', 'Hans', 'RD-M6100-SGS', 468, '0000-00-00 00:00:00', 'Hardware', 350, 70, 75, 'assets/images/dummy_images/6_x.png', 'Box', 3, 'pcs'),
-(19, 'Cassette Sprocket', 'Hans', 'CS-M6100-12', 514, '0000-00-00 00:00:00', 'Hardware', 230, 22, 72, 'assets/images/dummy_images/1_x.png', 'Box', 1, 'pcs'),
-(20, 'Disc Brake Rotor', 'Hans', 'SM-RT64', 902, '0000-00-00 00:00:00', 'Hardware', 130, 24, 81, 'assets/images/dummy_images/2_x.png', 'Box', 1, 'pcs'),
-(21, 'Brake', 'Hans', 'BR-M6120', 760, '0000-00-00 00:00:00', 'Hardware', 120, 87, 18, 'assets/images/dummy_images/3_x.png', 'Box', 2, 'pcs'),
-(22, 'Brake Lever', 'Hans', 'BL-M6100', 348, '0000-00-00 00:00:00', 'Hardware', 60, 86, 15, 'assets/images/dummy_images/4_x.png', 'Box', 4, 'pcs'),
-(23, 'Quick Link', 'Hans', 'SM-CN910-12', 124, '0000-00-00 00:00:00', 'Hardware', 270, 45, 58, 'assets/images/dummy_images/5_x.png', 'Box', 1, 'pcs'),
-(24, 'Chain', 'Hans', 'CN-M6100', 116, '0000-00-00 00:00:00', 'Hardware', 170, 65, 33, 'assets/images/dummy_images/6_x.png', 'Box', 3, 'pcs'),
-(25, 'Disc Brake Hose', 'Hans', 'SM-BH90-SS', 241, '0000-00-00 00:00:00', 'Hardware', 140, 50, 94, 'assets/images/dummy_images/1_x.png', 'Box', 1, 'pcs'),
-(26, 'Front Hub', 'Hans', 'HB-MT410-B', 202, '0000-00-00 00:00:00', 'Hardware', 70, 31, 10, 'assets/images/dummy_images/2_x.png', 'Box', 2, 'pcs'),
-(27, 'Freehub', 'Hans', 'FH-MT410-B', 121, '0000-00-00 00:00:00', 'Hardware', 190, 38, 54, 'assets/images/dummy_images/3_x.png', 'Box', 2, 'pcs'),
-(28, 'Wheel', 'Hans', 'WH-MT601-TL-R12-B-29', 698, '0000-00-00 00:00:00', 'Hardware', 60, 94, 90, 'assets/images/dummy_images/4_x.png', 'Box', 1, 'pcs'),
-(29, 'Outer Casing', 'Hans', 'OT-SP41', 983, '0000-00-00 00:00:00', 'Hardware', 80, 11, 80, 'assets/images/dummy_images/5_x.png', 'Box', 1, 'pcs'),
-(30, 'Pedal (SPD)', 'Hans', 'PD-ME700', 101, '0000-00-00 00:00:00', 'Hardware', 40, 100, 39, 'assets/images/dummy_images/6_x.png', 'Box', 2, 'pcs'),
-(31, 'Pedal (Flat)', 'Hans', 'PD-GR500', 185, '0000-00-00 00:00:00', 'Hardware', 160, 40, 68, 'assets/images/dummy_images/1_x.png', 'Box', 2, 'pcs'),
-(32, 'Shifting Lever', 'Hans', 'SL-M6100-R', 678, '0000-00-00 00:00:00', 'Hardware', 200, 34, 87, 'assets/images/dummy_images/2_x.png', 'Box', 1, 'pcs'),
-(33, 'Seat Post Lever', 'Hans', 'SL-MT500-L', 597, '0000-00-00 00:00:00', 'Hardware', 50, 9, 65, 'assets/images/dummy_images/3_x.png', 'Box', 1, 'pcs'),
-(34, 'Front Derailleur', 'Hans', 'FD-TY710-TS6', 294, '0000-00-00 00:00:00', 'Hardware', 30, 24, 34, 'assets/images/dummy_images/4_x.png', 'Box', 1, 'pcs'),
-(35, 'Multiple Freewheel', 'Hans', 'MF-TZ510-7', 792, '0000-00-00 00:00:00', 'Hardware', 80, 37, 18, 'assets/images/dummy_images/5_x.png', 'Box', 1, 'pcs'),
-(36, 'Roller Brake', 'Hans', 'RH-IM10', 379, '0000-00-00 00:00:00', 'Hardware', 40, 41, 12, 'assets/images/dummy_images/6_x.png', 'Box', 2, 'pcs'),
-(37, 'CI Deck', 'Hans', 'SM-TX36', 771, '0000-00-00 00:00:00', 'Hardware', 240, 60, 56, 'assets/images/dummy_images/1_x.png', 'Box', 1, 'pcs'),
-(38, 'E-THRU Axle', 'Hans', 'AX-MT700-142x12', 398, '0000-00-00 00:00:00', 'Hardware', 150, 28, 10, 'assets/images/dummy_images/2_x.png', 'Box', 2, 'pcs'),
-(39, 'Integration Unit for Shifting Lever', 'Hans', 'SM-SL82-B', 567, '0000-00-00 00:00:00', 'Hardware', 140, 88, 10, 'assets/images/dummy_images/3_x.png', 'Box', 2, 'pcs'),
-(40, 'Chainring', 'Hans', 'SM-CR82', 354, '0000-00-00 00:00:00', 'Hardware', 170, 90, 47, 'assets/images/dummy_images/4_x.png', 'Box', 3, 'pcs'),
-(41, 'Chain Device', 'Hans', 'SM-CD50', 301, '0000-00-00 00:00:00', 'Hardware', 160, 61, 50, 'assets/images/dummy_images/5_x.png', 'Box', 3, 'pcs');
+INSERT INTO `products` (`product_id`, `product_name`, `product_owner`, `product_description`, `product_price`, `product_date`, `product_tag`, `product_volume`, `product_popularity`, `product_rating`, `product_img_path`, `product_packaging`, `product_qty_per_package`, `product_unit_measurement`, `product_location`) VALUES
+(1, 'Apple', 'Hans', 'Fuji', 15, '2020-08-24 19:09:08', 'Agriculture', 200, 67, 84, 'assets/images/dummy_images/1_x.png', 'Box', 5, 'kg', 'Tacloban'),
+(2, 'Apple', 'Hans', 'Pacific Rose', 30, '2020-08-24 19:08:28', 'Agriculture', 150, 67, 91, 'assets/images/dummy_images/2_x.png', 'Box', 5, 'kg', 'Calbayog'),
+(3, 'Orange', 'Hans', 'Jaffa', 12, '2020-08-24 19:08:28', 'Agriculture', 120, 76, 78, 'assets/images/dummy_images/3_x.png', 'Box', 7, 'kg', 'Calbayog'),
+(4, 'Orange', 'Hans', 'Valencia', 23, '2020-08-24 19:08:28', 'Agriculture', 430, 6, 89, 'assets/images/dummy_images/4_x.png', 'Box', 8, 'kg', 'Calbayog'),
+(5, 'Banana', 'Hans', 'Lady Finger', 11, '2020-08-24 19:08:28', 'Agriculture', 90, 80, 46, 'assets/images/dummy_images/5_x.png', 'Box', 3, 'kg', 'Calbayog'),
+(6, 'Banana', 'Hans', 'Gold Finger', 7, '2020-08-24 19:08:28', 'Agriculture', 210, 40, 25, 'assets/images/dummy_images/6_x.png', 'Box', 7, 'kg', 'Calbayog'),
+(7, 'Papaya', 'Hans', 'Guinea Gold', 9, '2020-08-24 19:08:28', 'Agriculture', 100, 14, 26, 'assets/images/dummy_images/1_x.png', 'Box', 6, 'kg', 'Calbayog'),
+(8, 'Papaya', 'Hans', 'Maradol', 8, '2020-08-24 19:08:28', 'Agriculture', 80, 94, 76, 'assets/images/dummy_images/2_x.png', 'Box', 9, 'kg', 'Calbayog'),
+(9, 'Lettuce', 'Hans', 'Butterhead', 9, '2020-08-24 19:08:28', 'Agriculture', 60, 93, 21, 'assets/images/dummy_images/3_x.png', 'Box', 8, 'kg', 'Calbayog'),
+(10, 'Lettuce', 'Hans', 'Betavia', 14, '2020-08-24 19:08:28', 'Agriculture', 170, 40, 48, 'assets/images/dummy_images/4_x.png', 'Box', 3, 'kg', 'Calbayog'),
+(11, 'Mango', 'Hans', 'Ataulfo', 12, '2020-08-24 19:08:28', 'Agriculture', 50, 39, 54, 'assets/images/dummy_images/5_x.png', 'Box', 7, 'kg', 'Calbayog'),
+(12, 'Mango', 'Hans', 'Alphonso', 10, '2020-08-24 19:08:28', 'Agriculture', 240, 90, 4, 'assets/images/dummy_images/6_x.png', 'Box', 6, 'kg', 'Calbayog'),
+(13, 'Pineapple', 'Hans', 'Queen', 8, '2020-08-24 19:08:28', 'Agriculture', 160, 12, 98, 'assets/images/dummy_images/1_x.png', 'Box', 4, 'kg', 'Calbayog'),
+(14, 'Pineapple', 'Hans', 'Hawaiian', 60, '2020-08-24 19:08:28', 'Agriculture', 240, 93, 98, 'assets/images/dummy_images/2_x.png', 'Box', 9, 'kg', 'Calbayog'),
+(15, 'Coconut', 'Hans', 'Malayan Yellow Dwarf', 35, '2020-08-24 19:08:28', 'Agriculture', 600, 35, 51, 'assets/images/dummy_images/3_x.png', 'Sack', 7, 'kg', 'Calbayog'),
+(16, 'Crankset', 'Hans', 'FC-MT511-1', 889, '2020-08-24 19:08:28', 'Hardware', 250, 61, 7, 'assets/images/dummy_images/4_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(17, 'Bottom Racket', 'Hans', 'SM-BB52', 705, '2020-08-24 19:08:28', 'Hardware', 450, 95, 62, 'assets/images/dummy_images/5_x.png', 'Box', 4, 'pcs', 'Calbayog'),
+(18, 'Rear Derailleur', 'Hans', 'RD-M6100-SGS', 468, '2020-08-24 19:08:28', 'Hardware', 350, 70, 75, 'assets/images/dummy_images/6_x.png', 'Box', 3, 'pcs', 'Calbayog'),
+(19, 'Cassette Sprocket', 'Hans', 'CS-M6100-12', 514, '2020-08-24 19:08:28', 'Hardware', 230, 22, 72, 'assets/images/dummy_images/1_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(20, 'Disc Brake Rotor', 'Hans', 'SM-RT64', 902, '2020-08-24 19:08:28', 'Hardware', 130, 24, 81, 'assets/images/dummy_images/2_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(21, 'Brake', 'Hans', 'BR-M6120', 760, '2020-08-24 19:08:28', 'Hardware', 120, 87, 18, 'assets/images/dummy_images/3_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(22, 'Brake Lever', 'Hans', 'BL-M6100', 348, '2020-08-24 19:08:28', 'Hardware', 60, 86, 15, 'assets/images/dummy_images/4_x.png', 'Box', 4, 'pcs', 'Calbayog'),
+(23, 'Quick Link', 'Hans', 'SM-CN910-12', 124, '2020-08-24 19:08:28', 'Hardware', 270, 45, 58, 'assets/images/dummy_images/5_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(24, 'Chain', 'Hans', 'CN-M6100', 116, '2020-08-24 19:08:28', 'Hardware', 170, 65, 33, 'assets/images/dummy_images/6_x.png', 'Box', 3, 'pcs', 'Calbayog'),
+(25, 'Disc Brake Hose', 'Hans', 'SM-BH90-SS', 241, '2020-08-24 19:08:28', 'Hardware', 140, 50, 94, 'assets/images/dummy_images/1_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(26, 'Front Hub', 'Hans', 'HB-MT410-B', 202, '2020-08-24 19:08:28', 'Hardware', 70, 31, 10, 'assets/images/dummy_images/2_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(27, 'Freehub', 'Hans', 'FH-MT410-B', 121, '2020-08-24 19:08:28', 'Hardware', 190, 38, 54, 'assets/images/dummy_images/3_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(28, 'Wheel', 'Hans', 'WH-MT601-TL-R12-B-29', 698, '2020-08-24 19:08:28', 'Hardware', 60, 94, 90, 'assets/images/dummy_images/4_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(29, 'Outer Casing', 'Hans', 'OT-SP41', 983, '2020-08-24 19:08:28', 'Hardware', 80, 11, 80, 'assets/images/dummy_images/5_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(30, 'Pedal (SPD)', 'Hans', 'PD-ME700', 101, '2020-08-24 19:08:28', 'Hardware', 40, 100, 39, 'assets/images/dummy_images/6_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(31, 'Pedal (Flat)', 'Hans', 'PD-GR500', 185, '2020-08-24 19:08:28', 'Hardware', 160, 40, 68, 'assets/images/dummy_images/1_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(32, 'Shifting Lever', 'Hans', 'SL-M6100-R', 678, '2020-08-24 19:08:28', 'Hardware', 200, 34, 87, 'assets/images/dummy_images/2_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(33, 'Seat Post Lever', 'Hans', 'SL-MT500-L', 597, '2020-08-24 19:08:28', 'Hardware', 50, 9, 65, 'assets/images/dummy_images/3_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(34, 'Front Derailleur', 'Hans', 'FD-TY710-TS6', 294, '2020-08-24 19:08:28', 'Hardware', 30, 24, 34, 'assets/images/dummy_images/4_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(35, 'Multiple Freewheel', 'Hans', 'MF-TZ510-7', 792, '2020-08-24 19:08:28', 'Hardware', 80, 37, 18, 'assets/images/dummy_images/5_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(36, 'Roller Brake', 'Hans', 'RH-IM10', 379, '2020-08-24 19:08:28', 'Hardware', 40, 41, 12, 'assets/images/dummy_images/6_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(37, 'CI Deck', 'Hans', 'SM-TX36', 771, '2020-08-24 19:08:28', 'Hardware', 240, 60, 56, 'assets/images/dummy_images/1_x.png', 'Box', 1, 'pcs', 'Calbayog'),
+(38, 'E-THRU Axle', 'Hans', 'AX-MT700-142x12', 398, '2020-08-24 19:08:28', 'Hardware', 150, 28, 10, 'assets/images/dummy_images/2_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(39, 'Integration Unit for Shifting Lever', 'Hans', 'SM-SL82-B', 567, '2020-08-24 19:08:28', 'Hardware', 140, 88, 10, 'assets/images/dummy_images/3_x.png', 'Box', 2, 'pcs', 'Calbayog'),
+(40, 'Chainring', 'Hans', 'SM-CR82', 354, '2020-08-24 19:08:28', 'Hardware', 170, 90, 47, 'assets/images/dummy_images/4_x.png', 'Box', 3, 'pcs', 'Calbayog'),
+(41, 'Chain Device', 'Hans', 'SM-CD50', 301, '2020-08-24 19:08:28', 'Hardware', 160, 61, 50, 'assets/images/dummy_images/5_x.png', 'Box', 3, 'pcs', 'Calbayog');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `request`
+--
+
+CREATE TABLE `request` (
+  `transaction_id` int(11) NOT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `buyer_name` varchar(512) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(256) NOT NULL,
+  `product_volume` int(11) NOT NULL,
+  `location` varchar(512) NOT NULL,
+  `money` double NOT NULL,
+  `notes` text NOT NULL,
+  `pending` int(11) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `request`
+--
+
+INSERT INTO `request` (`transaction_id`, `buyer_id`, `buyer_name`, `product_id`, `product_name`, `product_volume`, `location`, `money`, `notes`, `pending`, `date_created`) VALUES
+(1, 2, 'shannaurelleg', 1, 'Apple', 500, 'Villa Rita Subdivision Manlurip San Jose Tacloban City', 50000, 'Refrigeration', 0, '2020-08-24 01:43:22'),
+(4, 2, '', 7, '', 10, '', 90, '', 1, '2020-08-25 04:12:49');
 
 -- --------------------------------------------------------
 
@@ -373,10 +401,26 @@ INSERT INTO `trades` (`transaction_id`, `seller_id`, `buyer_id`, `trucker_id`, `
 
 CREATE TABLE `truckers` (
   `truck_id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
   `truck_operator` varchar(512) NOT NULL,
   `truck_origin` varchar(512) NOT NULL,
+  `truck_model` varchar(512) NOT NULL,
+  `truck_plate_number` varchar(256) NOT NULL,
+  `truck_capacity` double NOT NULL,
+  `truck_service_type` varchar(256) NOT NULL,
+  `truck_delivery_fee` double NOT NULL,
+  `truck_driver_license_imgpath` varchar(256) NOT NULL,
+  `truck_picture_path` varchar(256) NOT NULL,
   `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `truckers`
+--
+
+INSERT INTO `truckers` (`truck_id`, `owner_id`, `truck_operator`, `truck_origin`, `truck_model`, `truck_plate_number`, `truck_capacity`, `truck_service_type`, `truck_delivery_fee`, `truck_driver_license_imgpath`, `truck_picture_path`, `date_created`) VALUES
+(1, 0, 'Oliver Driver', 'Calbayog', 'Mitsubishi Strada', 'AGA 1625', 100, 'Normal', 100, '', '', '0000-00-00 00:00:00'),
+(2, 0, 'Arman Driver', 'Calbayog', 'Ford Ranger', 'AXA 1617', 567, 'Refrigerated', 100, '', '', '2020-08-21 02:34:30');
 
 -- --------------------------------------------------------
 
@@ -414,10 +458,23 @@ ALTER TABLE `account_info`
 ALTER TABLE `products` ADD FULLTEXT KEY `product_name` (`product_name`);
 
 --
+-- Indexes for table `request`
+--
+ALTER TABLE `request`
+  ADD PRIMARY KEY (`transaction_id`);
+
+--
 -- Indexes for table `table_template`
 --
 ALTER TABLE `table_template`
   ADD PRIMARY KEY (`table_id`);
+
+--
+-- Indexes for table `truckers`
+--
+ALTER TABLE `truckers`
+  ADD PRIMARY KEY (`truck_id`);
+ALTER TABLE `truckers` ADD FULLTEXT KEY `truck_operator` (`truck_operator`);
 
 --
 -- Indexes for table `wishlist`
@@ -444,10 +501,22 @@ ALTER TABLE `account_info`
   MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `request`
+--
+ALTER TABLE `request`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `table_template`
 --
 ALTER TABLE `table_template`
   MODIFY `table_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `truckers`
+--
+ALTER TABLE `truckers`
+  MODIFY `truck_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
