@@ -5,7 +5,7 @@ if(mysqli_connect_errno()){
 }
 session_start();
 
-if($_SERVER['REQUEST_METHOD'] == POST){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 $account_id = filter_var($_SESSION['account_id'],FILTER_SANITIZE_NUMBER_INT);
 $product_id = filter_var($_POST['product_id'],FILTER_SANITIZE_NUMBER_INT);
