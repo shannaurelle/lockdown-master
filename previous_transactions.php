@@ -312,7 +312,9 @@
                             $buyer_name = mysqli_fetch_assoc($buyer_query);
                             echo $buyer_name['username'];
                             echo "</td>";
-                            echo "<td>" . $row['product_id'] . "</td>";
+                            $buyer_query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $row['product_id'] ."'"); 
+                            $product = mysqli_fetch_assoc($buyer_query);
+                            echo "<td>" . $product['product_name'] . "</td>";
                             echo "<td>" . $row['product_volume'] . "</td>";
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";

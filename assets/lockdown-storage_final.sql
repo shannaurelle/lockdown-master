@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2020 at 10:18 PM
+-- Generation Time: Aug 25, 2020 at 05:36 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -43,7 +43,8 @@ INSERT INTO `accounts` (`account_id`, `username`, `password`, `access`, `date_cr
 (1, 'shanndummy', '$2y$10$dh1Zjlbtzzn7lAAoGOS.6uAjMqRiNDj5cC4MX4UqmsnLkCAcTH7E2', 'Buyer', '2020-08-24 16:02:33'),
 (2, 'shannaurelle', '$2y$10$B596l7Ri8Tjg2OgYHk7kYe1mhh2FmQWe2H.a6pnA57BfiUQho9jxG', 'Buyer', '2020-08-20 03:40:34'),
 (3, 'dummyseller', '$2y$10$cLrAUSA18biUrpO1EBbrOeLfKTz4DmO0uJJE9uXqP6HYFgZVL8q02', 'Seller', '2020-08-24 16:10:26'),
-(4, 'shannbuyer', '$2y$10$kr/Efr4sJpE.TjH90WKR2OCCXVzjC2nMtfvH28.WnNVA3h8a8wSra', 'Buyer', '2020-08-24 16:26:22');
+(4, 'shannbuyer', '$2y$10$B596l7Ri8Tjg2OgYHk7kYe1mhh2FmQWe2H.a6pnA57BfiUQho9jxG', 'Trucker', '2020-08-24 16:26:22'),
+(5, 'user', '$2y$10$6fuYJYlRWwkURmpbZ9KRoeoBTLMIqTW4C7doB/IvZ1RxzwvLjj/CK', 'Buyer', '2020-08-25 07:47:37');
 
 -- --------------------------------------------------------
 
@@ -79,9 +80,11 @@ CREATE TABLE `account_info` (
 
 INSERT INTO `account_info` (`info_id`, `field1`, `field2`, `field3`, `field4`, `field5`, `field6`, `field7`, `field8`, `field9`, `field10`, `field11`, `field12`, `field13`, `field14`, `field15`, `field16`, `field17`, `field18`) VALUES
 (1, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '0996-567-8975', '123-456-789-000', 'shanndummy', '1990', '2', '3', 'M', '6500'),
-(2, 'Michael Sean Brian', 'Billate', 'Omisol', 'michael_omisol@gmail.com', '+639182348706', 'M', '2001-02-14', 'Rama Extension, Brgy. East Awang', 'Calbayog City, Samar', 'Samar', 'Tacloban', 'Philippines', 'Agriculture', '', '', 'Vaccaria', 'PH', '6710'),
+(2, 'Michael Sean Brian', 'Billate', 'Omisol', 'michael_omisol@gmail.com', '+639566809833', 'M', '2001-02-14', 'Rama Extension, Brgy. East Awang', 'Calbayog City, Samar', 'Samar', 'Tacloban', 'Philippines', 'Agriculture', '', '', 'Vaccaria', 'PH', '6710'),
 (3, 'sdas', 'dsadsad', 'sadassd', 'dasdsadsa@gmail.com', 'assadsad', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '54456457667', '123456789000', 'dummyseller', '1900', '10', '1', 'M', '6500'),
-(4, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '09566809833', '123456789000', 'shannbuyer', '1900', '1', '1', 'F', '6500');
+(4, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '09566809833', '123456789000', 'shannbuyer', '1900', '1', '1', 'F', '6500'),
+(5, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '09995677979', '123456789000', 'user', '1900', '1', '1', 'LINO GONZAGA AVE, DOWNTOWN', '6500'),
+(6, 'Shann Aurelle', 'Graniten', 'Ripalda', 'shannaurelleg@gmail.com', '0999-999-9999', 'LINO GONZAGA AVE, DOWNTOWN', 'LEYTE', 'TACLOBAN CITY', 'PH', 'Agriculture', '09679995678', '123456789000', 'shannaurelle', '1900', '1', '1', 'LINO GONZAGA AVE, DOWNTOWN', '6500');
 
 -- --------------------------------------------------------
 
@@ -108,9 +111,9 @@ INSERT INTO `cart` (`cart_id`, `product_id`, `product_volume`, `cart_request`) V
 (4, 2, 1, 0),
 (4, 3, 1, 0),
 (4, 4, 1, 0),
-(2, 2, 1, 0),
-(2, 7, 10, 1),
-(2, 1, 1, 1);
+(2, 2, 2, 0),
+(2, 4, 1, 0),
+(2, 6, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -130,7 +133,7 @@ CREATE TABLE `cart_costs` (
 --
 
 INSERT INTO `cart_costs` (`cart_id`, `cart_subtotal`, `cart_item_count`, `cart_trucking_fee`) VALUES
-(2, 0, 11, 120.5),
+(2, 0, 7, 120.5),
 (4, 0, 0, 0);
 
 -- --------------------------------------------------------
@@ -391,7 +394,8 @@ INSERT INTO `trades` (`transaction_id`, `seller_id`, `buyer_id`, `trucker_id`, `
 (51777, 35361, 93743, 2, 96535, 5, '007 Augustine Valley Apt. 966\nAurelioville, ID 87149', '2007-03-11 08:54:17', 25705, 'Quasi quam voluptatum maxime doloribus consequuntur expedita. Impedit quia hic accusamus rerum.', 0),
 (835, 870768, 31408540, 69413437, 568605949, 292650827, '745 Streich Roads Apt. 659\nPort Kiannaburgh, DC 96502', '1992-02-16 20:50:06', 0, 'Asperiores perspiciatis sunt voluptatem consequuntur accusamus commodi. Repellat ut et voluptatem nihil. Beatae molestiae quia voluptas amet at dignissimos.', 1),
 (14, 4360907, 0, 0, 8, 7034443, '7765 Frami Heights Suite 171\nSouth Ricardo, NM 82826', '2002-02-01 05:29:39', 25, 'Recusandae illo voluptatem sed impedit inventore. Et ipsum voluptatem perspiciatis beatae ut ipsam. Commodi similique molestiae sunt laudantium eligendi non doloremque. Numquam error neque molestiae. Quos sint impedit ut omnis consequatur in beatae in.', 1),
-(308586, 98198, 7, 19224198, 26, 83, '903 Ferry Manor\nEast Keshaun, KS 75769', '2018-03-01 23:04:38', 5, 'Quibusdam qui non iste ratione debitis necessitatibus. Harum asperiores eos eum aut. Eos neque provident quibusdam officia beatae.', 0);
+(308586, 98198, 7, 19224198, 26, 83, '903 Ferry Manor\nEast Keshaun, KS 75769', '2018-03-01 23:04:38', 5, 'Quibusdam qui non iste ratione debitis necessitatibus. Harum asperiores eos eum aut. Eos neque provident quibusdam officia beatae.', 0),
+(1, 3, 2, 1, 2, 2, 'Rama Extension, Brgy. East Awang Calbayog, Samar', '2020-08-25 02:05:24', 60, 'None', 0);
 
 -- --------------------------------------------------------
 
@@ -419,8 +423,8 @@ CREATE TABLE `truckers` (
 --
 
 INSERT INTO `truckers` (`truck_id`, `owner_id`, `truck_operator`, `truck_origin`, `truck_model`, `truck_plate_number`, `truck_capacity`, `truck_service_type`, `truck_delivery_fee`, `truck_driver_license_imgpath`, `truck_picture_path`, `date_created`) VALUES
-(1, 0, 'Oliver Driver', 'Calbayog', 'Mitsubishi Strada', 'AGA 1625', 100, 'Normal', 100, '', '', '0000-00-00 00:00:00'),
-(2, 0, 'Arman Driver', 'Calbayog', 'Ford Ranger', 'AXA 1617', 567, 'Refrigerated', 100, '', '', '2020-08-21 02:34:30');
+(1, 3, 'Oliver Driver', 'Calbayog', 'Mitsubishi Strada', 'AGA 1625', 100, 'Normal', 100, '', '', '0000-00-00 00:00:00'),
+(2, 3, 'Arman Driver', 'Calbayog', 'Ford Ranger', 'AXA 1617', 567, 'Refrigerated', 100, '', '', '2020-08-21 02:34:30');
 
 -- --------------------------------------------------------
 
@@ -492,13 +496,13 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `account_info`
 --
 ALTER TABLE `account_info`
-  MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `request`

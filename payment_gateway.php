@@ -157,13 +157,14 @@
 		        )
 	        );
 			$subItems[] = $dataItems;
-			$totalVolume += $data['product_volume'];
+			$volume = $data['product_volume'];
+			array_push($totalVolume, $volume);
 		}
 		
 		for($i = 0; $i < $index; $i++){
 			// Adds if there's a delivery option
 			if ($_POST['delivery_option'][$i] == 'Trucker') {
-			$shippingFee += 10;
+			$shippingFee += 10*$totalVolume[$i];
 			}
 		}
 		

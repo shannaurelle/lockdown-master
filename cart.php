@@ -281,7 +281,7 @@
                         ?>
                         <?php while($data_total = mysqli_fetch_assoc($cart_cost_query)):   ?>
                         <li><span class="pull-left mr-4"> Subtotal </span>Php <span id="subtotal"> <?php echo $subtotal; ?></span></li>
-                        <li><span class="pull-left mr-4"> Additional fee </span>Php <span id="additional_fee"><?php echo $additional_fees; ?></li>
+                        <li><span class="pull-left mr-4"> Trucking fee </span>Php <span id="additional_fee"><?php echo $additional_fees; ?></li>
                         <li><span class="pull-left mr-4"> Total </span>
                             Php <span id="total"><?php echo ($subtotal+$additional_fees); ?></span>
                         </li>
