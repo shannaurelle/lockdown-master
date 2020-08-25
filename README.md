@@ -87,6 +87,7 @@ Please read [CONTRIBUTING.md]() for details on our code of conduct, and the proc
 
 * **Shann Aurelle Ripalda** - *Initial work* - [Shann Aurelle Ripalda](https://github.com/shannaurelle)
 * **Michael Sean Brian Omisol** - *Initial work* - [FlamingHerb](https://github.com/FlamingHerb)
+* **Hans C. Gonzaga** - *Concept and Planning*
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -97,4 +98,6 @@ All rights and content are reserved to the authors.
 
 ## Acknowledgments
 
-* Hat tip to Hans Gonzaga 
+* Hat tip to the authors for the effort and contribution
+* Thanks for our Accenture Hackathon mentors Sir Castee, Sir Nino, and Sir Tristan for the inputs provided 
+
