@@ -10,6 +10,11 @@
         mysqli_select_db($con, 'lockdown-storage');
     }
 
+    $account_id = $_SESSION['access_id'];
+    if(!isset($account_id)){
+        header('Location: error-pages/404.html');
+    }
+
 ?>
 <html class="no-js" lang="">
 
@@ -113,6 +118,7 @@
                     <th class="ptice">Price</th>
                     <th class="quantity">Quantity</th>
                     <th class="total">Total</th>
+                    <th class="total">Delivery Option</th>
                     <th class="remove">Action</th>
                 </tr>
             </thead>
@@ -192,6 +198,16 @@
                             $subtotal = $subtotal + round($data['product_volume']*$data['product_price'],2);
                         ?>
                     </td>
+                    <td>
+                            <div class="row">
+                            <div class="col"> <label> Trucker </label> </div>
+                            <div class="col"> <input id='trucker' type="radio" name=<?php echo "delivery_option[$index]"?> value='Trucker' checked="checked"> </div>
+                            </div>
+                            <div class="row">
+                            <div class="col"> <label> Pickup </label> </div>
+                            <div class="col"> <input id='pickup' type="radio" name=<?php echo "delivery_option[$index]"?> value='Pickup'> </div>
+                            </div>
+                    </td>
                     <td class="remove">
                         <button class="btn btn-danger" type="submit" formaction="remove_cart.php"><i class="fa fa-times"></i></button>
                         <?php if($cnt == 0 and $cnt2 == 0): ?>
@@ -206,6 +222,8 @@
                             $subtotal = $subtotal - round($data['product_volume']*$data['product_price'],2);
                             endif; 
                             ?>
+                           
+                            
                     </td>
                     </form>
                 </tr>
@@ -229,18 +247,12 @@
                         <li><a href="shop.php">Continue Shopping</a></li>
                     </ul>
                     <div style="visibility:hidden">
-                    <h3 class="d-inline">Delivery Option</h3>
-                    <p>Recommended trucker is based on your address and volume available (Cost: Php 100)<br>
-                        Personal pick-up is also available (Cost: Php 0)
-                    </p>
+                    <h3 class="d-inline">Delivery Fees</h3>
                     <div class="cupon-wrap">
-                        <div class="row">
-                            <div class="col"> <label> Trucker </label> </div>
-                            <div class="col">  <input id='trucker' type="radio" name="delivery_option" value='Trucker'> </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col"> <label> Pickup </label> </div>
-                            <div class="col"> <input id='pickup' type="radio" name="delivery_option" value='Pickup'> </div>
+                            
                         </div>
                     </div>
                     <div class="w-100"></div>

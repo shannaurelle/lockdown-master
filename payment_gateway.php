@@ -105,17 +105,14 @@
 		$shippingFee = 0;
 		$subTotalAmount = 0;
 		$totalAmount = 0;
+		$totalVolume  = array();
 		$items = array();
 		$subItems = array();
 		$dataItems = array();
-
-		// Adds if there's a delivery option
-		if ($_POST['delivery_option'] == 'Trucker') {
-			$shippingFee = 100;
-		}
-
+		$delivery_options = $_POST['delivery_option'];
+		
 		$account_id = filter_var($_SESSION['account_id'],FILTER_SANITIZE_NUMBER_INT); 
-
+		$index = 0;
 
 		//WHAT ARE THESE WHAT ARE THOSE
         $sql = "SELECT * FROM products AS p INNER JOIN cart AS c ON p.product_id = c.product_id WHERE c.cart_id = ?";
@@ -129,6 +126,7 @@
         }
 
 		while($data = mysqli_fetch_array($result)){
+			$index++;
 			$subTotalAmount += round($data['product_volume']*$data['product_price'],2);
 			$dataItems = array(
 	        	'name' => $data['product_name'],
@@ -158,9 +156,18 @@
 		        	)
 		        )
 	        );
-	        $subItems[] = $dataItems;
+			$subItems[] = $dataItems;
+			$totalVolume += $data['product_volume'];
 		}
 		
+		for($i = 0; $i < $index; $i++){
+			// Adds if there's a delivery option
+			if ($_POST['delivery_option'][$i] == 'Trucker') {
+			$shippingFee += 10;
+			}
+		}
+		
+
 		$items = array('items' => $subItems);
 		$jsonData = array_merge($jsonData, $items);
 
