@@ -18,8 +18,9 @@ else{
         $result = mysqli_stmt_get_result($stmt);
 
         $data = mysqli_fetch_assoc($result);
+        $hash = $data['password'];
 
-        if(password_verify($password,$data['password'])){
+        if(password_verify($password,$hash)){
 
             session_start();
             
