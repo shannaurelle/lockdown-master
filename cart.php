@@ -10,7 +10,7 @@
         mysqli_select_db($con, 'lockdown-storage');
     }
 
-    $account_id = $_SESSION['access_id'];
+    $account_id = $_SESSION['access'];
     if(!isset($account_id)){
         header('Location: error-pages/404.html');
     }
@@ -127,6 +127,9 @@
                 <?php 
                     $subtotal = 0; 
                     $trucking_fee = 100.00;
+                    $additional_fees = 0;
+                    $trucking_fees = array();
+                    $items = array();
                     echo "<span id='trucking_fee' hidden>$trucking_fee</span>";
                     $index = 0;
                     while($data = mysqli_fetch_assoc($result)):   
@@ -177,6 +180,11 @@
                         else{
                             echo "<script> alert('preparation failed! 2'); </script>";
                         }
+                        $fee = 10 * $data['product_volume'];
+                        $additional_fees += $fee;
+                        array_push($trucking_fees, $fee);
+                        $item = $data['product_name'];
+                        array_push($items, $item);
                 ?>
                 <tr>
                     <input type='number' name='account_id' value=<?php echo $_SESSION['account_id'] ?> hidden/>
@@ -246,17 +254,17 @@
                         </li>
                         <li><a href="shop.php">Continue Shopping</a></li>
                     </ul>
-                    <div style="visibility:hidden">
+                    <div >
                     <h3 class="d-inline">Delivery Fees</h3>
                     <div class="cupon-wrap">
-                        
-                        <div class="row">
-                            <div class="col"> <label> Pickup </label> </div>
-                            
-                        </div>
+                        <table>
+                        <?php for($i = 0; $i < $index; $i++): ?>
+                        <tr><td>Trucking fee for <?php echo $items[$i].": Php ".$trucking_fees[$i];?></tr></td>
+                        <?php endfor; ?> 
+                        </table>
                     </div>
                     <div class="w-100"></div>
-                    <div class="cupon-wrap">
+                    <div class="cupon-wrap" style="visibility:hidden">
                         <label>No trucker option available?</label>
                         <button>Find truckers</button>
                     </div>
@@ -273,9 +281,9 @@
                         ?>
                         <?php while($data_total = mysqli_fetch_assoc($cart_cost_query)):   ?>
                         <li><span class="pull-left mr-4"> Subtotal </span>Php <span id="subtotal"> <?php echo $subtotal; ?></span></li>
-                        <li><span class="pull-left mr-4"> Additional fee </span><span id="additional_fee">0</li>
+                        <li><span class="pull-left mr-4"> Additional fee </span>Php <span id="additional_fee"><?php echo $additional_fees; ?></li>
                         <li><span class="pull-left mr-4"> Total </span>
-                            Php <span id="total"><?php echo ($subtotal); ?></span>
+                            Php <span id="total"><?php echo ($subtotal+$additional_fees); ?></span>
                         </li>
                         <?php endwhile; ?>
                     </ul>
