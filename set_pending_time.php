@@ -91,55 +91,6 @@
                     <div class="col"><input type="text" class="form-control" name="pickup_location"/></div>
                 </div>
                 <div class="form-row mt-4">
-                    <div class="col mr-4"><label for="Delivery Date" class="form-label">Delivery Date</label></div>
-                </div>
-                <div class="form-row mt-2">
-                        <div class="col-4">
-                            <select id="year" name="delivery_year" class="form-control" oninput="this.className = 'form-control'">
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <select id="month" name="delivery_month" class="form-control" oninput="this.className = 'form-control'">
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <select id="day" name="delivery_day" class="form-control" oninput="this.className = 'form-control'">
-                            <?php for($i = 26; $i < 30; $i++): ?>
-                                <option value=<?php echo $i; ?>><?php echo $i; ?></option>
-                            <?php endfor; ?>
-                            </select>
-                        </div>
-                </div>
-                <div class="form-row mt-4">
-                    <div class="col-5"><label for="Time" class="form-label">Time</label></div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="delivery_time" placeholder=""/>
-                    </div>
-                    <div class="col">
-                        <select type="text" class="form-control" name="delivery_AP">
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row mt-4">
                     <div class="col"><input type='submit' class="btn btn-success" value='Submit Schedule'></div>
                 </div>
             </form>

@@ -18,7 +18,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Lockdown - Add Listing</title>
+    <title>TOM</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
@@ -86,18 +86,7 @@
                     <div class="breadcumb-wrap text-center">
                         <ul>
                             <li><a href="pending_trades.php">Pending Transactions</a>
-                            <?php 
-                                   if(isset($_SESSION['account_id'])){
-                                    $seller_id = $_SESSION['account_id'];
-                                    $query = mysqli_query($con,"SELECT COUNT(*) AS cnt FROM trades WHERE pickup_pending = 1 AND seller_id = $seller_id");
-                                    $data = mysqli_fetch_assoc($query); 
-                                    $cnt = $data['cnt'];
-                                   }
-                                   
-                                ?>
-                                <?php if(isset($cnt)): if($cnt > 0): ?>
-                                    <h6 class="badge badge-pill badge-danger"> <?php echo $cnt; ?> </h6>
-                                <?php endif; endif;?>
+                            
                             </li>
                             <li><a href="previous_transactions.php">Past Transactions</a></li>
                         </ul>
