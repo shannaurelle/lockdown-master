@@ -87,14 +87,17 @@
                         <ul>
                             <li><a href="pending_trades.php">Pending Trades</a>
                             <?php 
-                                   $seller_id = $_SESSION['account_id'];
-                                   $query = mysqli_query($con,"SELECT COUNT(*) AS cnt FROM trades WHERE pickup_pending = 1 AND seller_id = $seller_id");
-                                   $data = mysqli_fetch_array($query); 
-                                   $cnt = $data['cnt'];
+                                   if(isset($_SESSION['account_id'])){
+                                    $seller_id = $_SESSION['account_id'];
+                                    $query = mysqli_query($con,"SELECT COUNT(*) AS cnt FROM trades WHERE pickup_pending = 1 AND seller_id = $seller_id");
+                                    $data = mysqli_fetch_assoc($query); 
+                                    $cnt = $data['cnt'];
+                                   }
+                                   
                                 ?>
-                                <?php if(isset($cnt) && $cnt > 0): ?>
+                                <?php if(isset($cnt)): if($cnt > 0): ?>
                                     <h6 class="badge badge-pill badge-danger"> <?php echo $cnt; ?> </h6>
-                                <?php endif; ?>
+                                <?php endif; endif;?>
                             </li>
                             <li><a href="previous_transactions.php">Past Transactions</a></li>
                         </ul>
@@ -114,16 +117,20 @@
                         <span>* - required</span>
                         <hr>
                         <p>Product Image*</p>
-                        
+                        <input type="file" class="form-control" aria-describedby="basic-addon1">
                         <p>Product Name*</p>
                         <input type="text">
-                        <p>Product Owner*</p>
+                        <p>Product Description*</p>
+                        <input type="text">
+                        <p>Product Packaging*</p>
                         <input type="text">
                         <p>Product Price (in Philippine Pesos)*</p>
                         <div class="input-group mb-3">
                           <input type="number" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon1">
                         </div>
                         <p>Product Volume*</p>
+                        <input type="number">
+                        <p>Product Volume per Packaging*</p>
                         <input type="number">
                         <!--<div class="row">
                             <div class="col-lg-6">
@@ -134,7 +141,7 @@
                                 <a href="#">Forget Your Password?</a>
                             </div>
                         </div>-->
-                        <button>SIGN IN</button>
+                        <button>SUBMIT</button>
                       </form>
                     </div>
                 </div>

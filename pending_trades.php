@@ -280,7 +280,7 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `trades` WHERE pending = '0' AND seller_id = '". $_SESSION['account_id']."'";
+                            $sql = "SELECT * FROM `trades` WHERE pending = '1' AND seller_id = '". $_SESSION['account_id']."'";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
@@ -310,7 +310,7 @@
                             echo "<td>";
                             $buyer_query = mysqli_query($con,"SELECT * FROM accounts WHERE account_id = '". $row['buyer_id'] ."'"); 
                             $buyer_name = mysqli_fetch_assoc($buyer_query);
-                            echo $buyer_name['username'];
+                            echo "shannaurelle";
                             echo "</td>";
                             $buyer_query = mysqli_query($con,"SELECT * FROM products WHERE product_id = '". $row['product_id'] ."'"); 
                             $product = mysqli_fetch_assoc($buyer_query);
@@ -318,7 +318,12 @@
                             echo "<td>" . $row['product_volume'] . "</td>";
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";
-                            echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>Set time</button>";
+                            if($row['pickup_pending'] == 1){
+                                echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>Set time</button>";
+                            }
+                            else{
+                                echo "<button class='btn btn-white deliveryinfo' data-id='".$row['transaction_id']."'>Confirm Pickup</button>";
+                            }
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -599,7 +604,24 @@
    }
     });
     });
+
+    $('.deliveryinfo').click(function(){
+  
+  var item_id = $(this).data('id');
+
+  // AJAX request
+  $.ajax({
+   url: 'confirm_delivery.php',
+   type: 'post',
+   data: {transaction_id: item_id},
+   success: function(response){ 
+     
+   }
     });
+    });
+    });
+
+    
 
     </script>
 
