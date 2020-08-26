@@ -36,7 +36,7 @@
                 <!-- Buyer -->
                 <h4>Buyer:
                     <?php
-                        $buyer_query = mysqli_query($con,"SELECT * FROM accounts WHERE id = '". $data['buyer_id'] ."' AND access='Buyer'"); 
+                        $buyer_query = mysqli_query($con,"SELECT * FROM accounts WHERE account_id = '". $data['buyer_id'] ."' AND access='Buyer'"); 
                         $buyer_name = mysqli_fetch_array($buyer_query);
                         echo $buyer_name['username'];
                     ?>
