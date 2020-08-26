@@ -96,7 +96,7 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><a href="pending_trades.php">Pending Trades</span></li>
+                            <li><a href="pending_trades.php">Pending Transactions</span></li>
                             <li><a href="add_listing.php">Add Listings</a></li>
                         </ul>
                     </div>

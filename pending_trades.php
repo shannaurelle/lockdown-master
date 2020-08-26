@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark mb-4 mt-0">Pending Trades</h2>
+                        <h2 class="text-dark mb-4 mt-0">Pending Transactions</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="seller_products.php">Seller's List</a></li>
@@ -319,7 +319,7 @@
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";
                             if($row['pickup_pending'] == 1){
-                                echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>Set time</button>";
+                                echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>Set time and location for pickup</button>";
                             }
                             else{
                                 echo "<button class='btn btn-white deliveryinfo' data-id='".$row['transaction_id']."'>Confirm Pickup</button>";

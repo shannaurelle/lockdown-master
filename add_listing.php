@@ -85,7 +85,7 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><a href="pending_trades.php">Pending Trades</a>
+                            <li><a href="pending_trades.php">Pending Transactions</a>
                             <?php 
                                    if(isset($_SESSION['account_id'])){
                                     $seller_id = $_SESSION['account_id'];

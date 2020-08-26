@@ -94,7 +94,7 @@
                     <div class="breadcumb-wrap text-center">
                         <ul>
                             <li>
-                                <a href="pending_trades.php">Pending Trades</a>
+                                <a href="pending_trades.php">Pending Transactions</a>
                                 <?php 
                                    $seller_id = $_SESSION['account_id'];
                                    $query = mysqli_query($con,"SELECT COUNT(*) AS cnt FROM trades WHERE pickup_pending = 1 AND seller_id = $seller_id");
