@@ -85,7 +85,17 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><a href="pending_trades.php">Pending Trades</a></li>
+                            <li><a href="pending_trades.php">Pending Trades</a>
+                            <?php 
+                                   $seller_id = $_SESSION['account_id'];
+                                   $query = mysqli_query($con,"SELECT COUNT(*) AS cnt FROM trades WHERE pickup_pending = 1 AND seller_id = $seller_id");
+                                   $data = mysqli_fetch_array($query); 
+                                   $cnt = $data['cnt'];
+                                ?>
+                                <?php if(isset($cnt) && $cnt > 0): ?>
+                                    <h6 class="badge badge-pill badge-danger"> <?php echo $cnt; ?> </h6>
+                                <?php endif; ?>
+                            </li>
                             <li><a href="previous_transactions.php">Past Transactions</a></li>
                         </ul>
                     </div>

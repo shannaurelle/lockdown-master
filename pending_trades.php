@@ -25,7 +25,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>TOM - Past Transactions</title>
+    <title>TOM - Pending Trades</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
-                        <h2 class="text-dark mb-4 mt-0">Past Transactions</h2>
+                        <h2 class="text-dark mb-4 mt-0">Pending Trades</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="seller_products.php">Seller's List</a></li>
@@ -96,7 +96,7 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><a href="pending_trades.php">Pending Trades</span></li>
+                            <li><a href="previous_transactions.php">Past Transactions</span></li>
                             <li><a href="add_listing.php">Add Listings</a></li>
                         </ul>
                     </div>
@@ -270,7 +270,7 @@
                                 $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND pending = '0' AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
                             }
                             else {
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE pending = '0' AND seller_id = '". $_SESSION['account_id']."'");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE pending = '1' AND seller_id = '". $_SESSION['account_id']."'");
                             }
                             
 
