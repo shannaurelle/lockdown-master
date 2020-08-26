@@ -264,7 +264,7 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `trades` WHERE pending = '0'";
+                            $sql = "SELECT * FROM `trades` AS trd INNER JOIN truckers AS trc WHERE pending = 0 AND trucker_id = '". $_SESSION['account_id']."'";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
