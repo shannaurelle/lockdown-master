@@ -87,7 +87,21 @@
     <!-- product-area start -->
     <div class="product-area ptb-100">
         <div class="container">
-            
+            <div class="row">
+                <?php
+                    $truck_count = mysqli_query($con,"SELECT COUNT(*) As current_trucks FROM `truckers` as t inner join `trades` as tr ON t.truck_id = tr.trucker_id WHERE owner_id = " . $_SESSION['account_id'] . " and pickup_pending != 0");
+                    $current_trucks = mysqli_fetch_array($truck_count);
+                    $current_trucks = $current_trucks['current_trucks'];
+
+                    if ($current_trucks == 0) {
+                        echo "<div class='alert alert-danger' role='alert'>You have no trucks available as of the moment!</div>";
+                    }
+                    else {
+                        echo "<div class='alert alert-success' role='alert'>You have " . $current_trucks . " trucks avaialble!</div>";
+                    }
+                    
+                ?>
+            </div>
             <div class="row">
 
                 <!-- Removed because it might not be needed lole
@@ -208,6 +222,7 @@
                 </div>
             </form>
             <div class="tab-content">
+
                 <div class="tab-pane active" id="all">
                     <table class="table">
                       <thead>
@@ -222,6 +237,9 @@
                       </thead>
                       <tbody>
                     <?php
+
+
+
                         if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                             $page_no = $_GET['page_no'];
                             } else {
@@ -284,7 +302,10 @@
                             echo "<td>" . $row['product_volume'] . "</td>";
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";
-                            echo "<button class='btn btn-white' id='acceptrequest' data-id='".$row['transaction_id']."'>Accept Request</button>";
+                            if ($current_trucks != 0) {
+                                echo "<button class='btn btn-white' id='acceptrequest' data-id='".$row['transaction_id']."'>Accept Request</button>";    
+                            }
+                            
                             echo "</td>";
                             echo "</tr>";
                         }
