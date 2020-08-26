@@ -93,7 +93,18 @@
                 <div class="col-12">
                     <div class="breadcumb-wrap text-center">
                         <ul>
-                            <li><a href="pending_trades.php">Pending Trades</a></li>
+                            <li>
+                                <a href="pending_trades.php">Pending Trades</a>
+                                <?php 
+                                   $seller_id = $_SESSION['account_id'];
+                                   $query = mysqli_query($con,"SELECT COUNT(*) AS cnt FROM trades WHERE pickup_pending = 1 AND seller_id = $seller_id");
+                                   $data = mysqli_fetch_array($query); 
+                                   $cnt = $data['cnt'];
+                                ?>
+                                <?php if(isset($cnt) && $cnt > 0): ?>
+                                    <h6 class="badge badge-pill badge-danger"> <?php echo $data['cnt']; ?> </h6>
+                                <?php endif; ?>
+                            </li>
                             <li><a href="add_listing.php">Add Listings</a></li>
                             <li><a href="previous_transactions.php">Past Transactions</a></li>
                         </ul>
@@ -270,7 +281,7 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `products` WHERE product_owner = '". $_SESSION['active']."'";
+                            $sql = "SELECT * FROM `products` WHERE product_owner_id = '". $_SESSION['account_id']."'";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
@@ -301,7 +312,7 @@
                             echo "<li class='col-lg-3 col-sm-6 col-12'>";
                             echo "<div class='product-wrap'>";
                             echo "<div class='product-img'>";
-                            echo "<img src='assets/images/product/1.jpg' alt=''>";
+                            echo "<img src='".$row['product_img_path']."' alt=''>";
                             echo "<ul class='icon'>";
                             echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-eye'></i></a>";
                             echo "<span>Quick View</span>";
