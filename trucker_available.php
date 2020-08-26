@@ -55,7 +55,7 @@
                         echo "<td>" . $data['truck_plate_number'] . "</td>";
                         echo "<td>" . $data['truck_capacity'] . "</td>";
                         echo "<td>" . $data['truck_service_type'] . "</td>";
-                        echo "<td><a href='accept_request.php?truck_id=".$data['truck_id']."&transaction_id=$transaction_id' type='submit' class='badge badge-light'>asdasd</a></td>";
+                        echo "<td><a href='accept_request.php?truck_id=".$data['truck_id']."&transaction_id=$transaction_id' type='submit' class='badge badge-light'>Select this truck</a></td>";
                         echo "</tr>";
                     }
                     ?>
