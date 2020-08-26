@@ -89,7 +89,8 @@
         <div class="container">
             <div class="row">
                 <?php
-                    $truck_count = mysqli_query($con,"SELECT COUNT(*) As current_trucks FROM `truckers` as t inner join `trades` as tr ON t.truck_id = tr.trucker_id WHERE owner_id = " . $_SESSION['account_id'] . " and pickup_pending != 0");
+                    $truck_count = mysqli_query($con,"SELECT COUNT(*) As current_trucks FROM `truckers`");
+                    // as t inner join `trades` as tr ON t.truck_id = tr.trucker_id WHERE owner_id = " . $_SESSION['account_id'] . " and pickup_pending != 0
                     $current_trucks = mysqli_fetch_array($truck_count);
                     $current_trucks = $current_trucks['current_trucks'];
 
@@ -127,8 +128,8 @@
                     </div>
                 </div>
                 -->
-                <!-- success popup start-->
-                <div class="alert alert-success" id="success-alert">Request accepted!</div>
+                <!-- success popup start
+                <div class="alert alert-success" id="success-alert">Request accepted!</div>-->
                 <!-- success popup end-->
                 <div class="col-md-auto col-lg-12">
                     <div class="filter-menu text-right">
@@ -303,7 +304,7 @@
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";
                             if ($current_trucks != 0) {
-                                echo "<button class='btn btn-white' id='acceptrequest' data-id='".$row['transaction_id']."'>Accept Request</button>";    
+                                echo "<button class='btn btn-white' id='iteminfo' data-id='".$row['transaction_id']."'>Accept Request</button>";    
                             }
                             
                             echo "</td>";
@@ -565,44 +566,28 @@
     <script type='text/javascript'>
 
   $(document).ready(function(){
+
+  $('#iteminfo').click(function(){
   
-    var touchMove = function(e){
-        e.preventDefault();
-    };
+  var item_id = $(this).data('id');
 
-    document.addEventListener('touchmove', touchMove, { passive: false });
+  // AJAX request
+  $.ajax({
+   url: 'trucker_available.php',
+   type: 'post',
+   data: {transaction_id: item_id},
+   success: function(response){ 
+     // Add response in Modal body
+     $('.modal-wrapper').html(response);
 
-    document.removeEventListener('touchmove', touchMove);
-
-  $('#success-alert').hide();
-
-  $('#acceptrequest').click(function(event){
-  var item_id = parseInt($(this).data('id'));
-  console.log("Item id: " + typeof(item_id));
-    if (window.confirm("Are you sure?")) {
-        // AJAX request
-        $.ajax({
-        url: 'accept_request.php',
-        type: 'post',
-        data: {transaction_id: item_id},
-        success: function(){ 
-            var fadeDuration = 500;
-            var fadeDelay = 2000;
-
-            var successAlert = $('#success-alert');
-
-            successAlert.show();
-            setTimeout(function() {
-                successAlert.fadeToggle(fadeDuration);
-            }, fadeDelay);
-            }
-        });
-    }
+     // Display Modal
+     $('#itemModal').modal('show'); 
+   }
+    });
     });
     });
 
     </script>
-
 </body>
 
 </html>
