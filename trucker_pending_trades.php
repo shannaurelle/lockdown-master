@@ -251,10 +251,10 @@
                             $adjacents = "2"; 
                             
                             if (isset($_GET['search'])){
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND pending = '0' AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND trucker_pending = '1' AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
                             }
                             else {
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE pending = '0' AND seller_id = '". $_SESSION['account_id']."'");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE trucker_pending > '0' AND truckowner_id = '". $_SESSION['account_id']."'");
                             }
                             
 
@@ -264,8 +264,8 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `trades` WHERE pending = '0' 
-                                    AND seller_id = '". $_SESSION['account_id']."'";
+                            $sql = "SELECT * FROM `trades` WHERE trucker_pending > '0' 
+                                    AND truckowner_id = '". $_SESSION['account_id']."'";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
@@ -303,6 +303,16 @@
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";
                             echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>View transaction details</button>";
+                            $product_state = $row['trucker_pending'];
+                            if($product_state == 3){
+                                echo "<button class='btn btn-white pickupinfo' data-id='".$row['transaction_id']."'>Confirm Pickup</button>";
+                            }
+                            else if($product_state == 2){
+                                echo "<button class='btn btn-primary transitinfo' data-id='".$row['transaction_id']."'>In Transit</button>";
+                            }
+                            else if($product_state == 1){
+                                echo "<button class='btn btn-success transitinfo' data-id='".$row['transaction_id']."'>Confirm Delivery</button>";
+                            }
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -570,9 +580,9 @@
 
   // AJAX request
   $.ajax({
-   url: 'shop-item.php',
+   url: 'transaction-data.php',
    type: 'post',
-   data: {item_id: item_id},
+   data: {transaction_id: item_id},
    success: function(response){ 
      // Add response in Modal body
      $('.modal-wrapper').html(response);
@@ -582,6 +592,51 @@
    }
     });
     });
+
+    $('.pickupinfo').click(function(){
+  
+  var item_id = $(this).data('id');
+
+  // AJAX request
+  $.ajax({
+   url: 'update_pickup.php',
+   type: 'post',
+   data: {transaction_id: item_id},
+   success: function(response){ 
+     window.location.href = 'trucker_pending_trades.php';
+   }
+    });
+    });
+
+    $('.transitinfo').click(function(){
+  
+  var item_id = $(this).data('id');
+
+  // AJAX request
+  $.ajax({
+   url: 'update_transit.php',
+   type: 'post',
+   data: {transaction_id: item_id},
+   success: function(response){ 
+     window.location.href = 'trucker_pending_trades.php';
+   }
+    });
+    });
+    $('.deliveryinfo').click(function(){
+  
+  var item_id = $(this).data('id');
+
+  // AJAX request
+  $.ajax({
+   url: 'update_delivery.php',
+   type: 'post',
+   data: {transaction_id: item_id},
+   success: function(response){ 
+     window.location.href = 'trucker_pending_trades.php';
+   }
+    });
+    });
+
     });
 
     </script>

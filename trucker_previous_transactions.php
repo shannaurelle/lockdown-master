@@ -251,10 +251,10 @@
                             $adjacents = "2"; 
                             
                             if (isset($_GET['search'])){
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND pending = '0' AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) AND trucker_pending = '0' AND product_owner = '". $_SESSION['active']."' ORDER BY product_date DESC");
                             }
                             else {
-                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE pending = '0' AND seller_id = '". $_SESSION['account_id']."'");
+                                $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `trades` WHERE trucker_pending = '0' AND seller_id = '". $_SESSION['account_id']."'");
                             }
                             
 
@@ -264,7 +264,7 @@
                             echo("<script>console.log('PHP: " . $total_records . "');</script>");
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $sql = "SELECT * FROM `trades` AS trd INNER JOIN truckers AS trc WHERE pending = 0 AND trucker_id = '". $_SESSION['account_id']."'";
+                            $sql = "SELECT * FROM `trades` AS trd INNER JOIN truckers AS trc WHERE trd.trucker_pending = '0' AND trucker_id = '". $_SESSION['account_id']."'";
                             if (isset($_GET['search'])){
                                 $sql .= " AND MATCH(`product_name`) AGAINST('" . $_GET['search'] . "' IN NATURAL LANGUAGE MODE) ORDER BY product_date DESC";
                             }
