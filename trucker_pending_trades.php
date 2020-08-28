@@ -25,7 +25,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Pending Trades</title>
+    <title>TOM</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
@@ -303,15 +303,16 @@
                             echo "<td>" . $row['money'] . "</td>";
                             echo "<td>";
                             echo "<button class='btn btn-white iteminfo' data-id='".$row['transaction_id']."'>View transaction details</button>";
+                            echo "<div class='w-100 my-2'></div>";
                             $product_state = $row['trucker_pending'];
                             if($product_state == 3){
                                 echo "<button class='btn btn-white pickupinfo' data-id='".$row['transaction_id']."'>Confirm Pickup</button>";
                             }
                             else if($product_state == 2){
-                                echo "<button class='btn btn-primary transitinfo' data-id='".$row['transaction_id']."'>In Transit</button>";
+                                echo "<button class='btn btn-warning transitinfo' data-id='".$row['transaction_id']."'>Confirm In Transit</button>";
                             }
                             else if($product_state == 1){
-                                echo "<button class='btn btn-success transitinfo' data-id='".$row['transaction_id']."'>Confirm Delivery</button>";
+                                echo "<button class='btn btn-success deliveryinfo' data-id='".$row['transaction_id']."'>Confirm Delivery</button>";
                             }
                             echo "</td>";
                             echo "</tr>";
