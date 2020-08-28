@@ -38,7 +38,7 @@
 
             $response .= '<div class="product-single-img col-3">';
 
-            $response .= '<img src="assets/images/dummy_images/1.png" alt=""></div>';
+            $response .= '<img src="'.$data['product_img_path'].'" alt=""></div>';
 
             $response .= '<div class="product-single-content col-9">';
 
