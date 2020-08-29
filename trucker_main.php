@@ -24,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sajuguju - List of Pending Trucks</title>
+    <title>TOM</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
@@ -222,8 +222,11 @@
                         <th scope="col">Operator</th>
                         <th scope="col">Truck Model</th>
                         <th scope="col">Origin</th>
+                        <th scope="col">Destination</th>
                         <th scope="col">Type of Service</th>
                         <th scope="col">Capacity (in kg)</th>
+                        <th scope="col">Remaining Load (in kg)</th>
+                        <th scope="col">Action(s)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -296,8 +299,11 @@
                             echo "<th scope='row'>" . $row['truck_operator'] . "</th>";
                             echo "<td>" . $row['truck_model'] . "</td>";
                             echo "<td>" . $row['truck_origin'] . "</td>";
+                            echo "<td>" . $row['truck_destination'] . "</td>";
                             echo "<td>" . $row['truck_service_type'] . "</td>";
                             echo "<td>" . $row['truck_capacity'] . "</td>";
+                            echo "<td>" . $row['truck_remaining_load'] . "</td>";
+                            echo "<td>" . "<button class='btn btn-white editinfo' data-id='".$row['truck_id']."'>Edit</button>" . "</td>";
                             echo "</tr>";
 
                         }

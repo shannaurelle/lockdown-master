@@ -287,7 +287,7 @@
                             echo "<li class='col-lg-3 col-sm-6 col-12'>";
                             echo "<div class='product-wrap'>";
                             echo "<div class='product-img'>";
-                            echo "<img src='assets/images/dummy_images/".($count%10+1).".png' alt=''>";
+                            echo "<img src='".$row['product_img_path']."' alt=''>";
                             echo "<ul class='icon'>";
                             echo "<li><a class='iteminfo' data-id='".$row['product_id']."'><i class='fa fa-shopping-cart'></i></a>";
                             echo "<span>Add to cart</span>";

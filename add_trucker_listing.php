@@ -18,7 +18,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Lockdown - Add Listing</title>
+    <title>TOM</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_lockdown_2.ico">
@@ -88,8 +88,11 @@
             <p><strong>Plate Number*</strong></p>
             <input type="text" class="form-control" name="truck_plate_number">
 
-            <p><strong>Route*</strong></p>
+            <p><strong>Origin City/Municipality*</strong></p>
             <input type="text" class="form-control" name="truck_origin">
+
+            <p><strong>Destination City/Municipality*</strong></p>
+            <input type="text" class="form-control" name="truck_destination">
 
             <p><strong>Available volume capacity (in kg)*</strong></p>
             <input type="number" class="form-control" name="truck_capacity">
