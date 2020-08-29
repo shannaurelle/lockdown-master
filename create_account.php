@@ -137,7 +137,7 @@ $sql2 = 'INSERT INTO accounts (username, password, access, date_created) VALUES 
 
 if(mysqli_stmt_prepare($query_stmt, $sql) && mysqli_stmt_prepare($query_stmt_2, $sql2)){
     
-    if(!mysqli_stmt_bind_param($query_stmt,'sssssssssssssiiisi',$first_name,$middle_name,$last_name,$email,$phone_number, $sex, $birthday, $address, $address, $province, $city, $country, $field_of_interest,$paymaya_account_number,$TIN_number, $username, $country, $zip_code)){
+    if(!mysqli_stmt_bind_param($query_stmt,'ssssissssssssiissi',$first_name,$middle_name,$last_name,$email,$phone_number, $sex, $birthday, $address, $address, $province, $city, $country, $field_of_interest,$paymaya_account_number,$TIN_number, $username, $country, $zip_code)){
         echo "Binding parameters failed: ".mysqli_stmt_error($query_stmt); exit;
     }
 
